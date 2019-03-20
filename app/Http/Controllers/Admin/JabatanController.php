@@ -35,6 +35,7 @@ class JabatanController extends Controller
         ]);
 
         Jabatan::create([
+            'kode_jabatan' => $request->kode,
             'nama_jabatan' => $request->jabatan,
             'created_by' => Auth::user()->nama_user,
         ]);
@@ -66,6 +67,7 @@ class JabatanController extends Controller
 
         $jabatan = Jabatan::find($id);
         $jabatan->update([
+            'kode_jabatan' => $request->kode,
             'nama_jabatan' => $request->jabatan,
             'updated_by' => Auth::user()->nama_user,
         ]);

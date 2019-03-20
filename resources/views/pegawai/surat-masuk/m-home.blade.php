@@ -40,8 +40,29 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Daftar Surat Masuk</h4><hr>
-                            <a class="btn btn-primary btn-flat" href="{{route('surm-tambah')}}">
-                                <i class="fa fa-plus"></i>&nbsp;Tambah Surat Masuk</a>
+                            <div class="button-list">
+                                <a class="btn btn-primary btn-flat" href="{{route('surm-tambah')}}">
+                                    <i class="fa fa-plus"></i>&nbsp;Tambah Surat Masuk</a>
+                                <a class="btn btn-primary btn-flat" href="{{route('surk-test')}}">
+                                    <i class="fa fa-print"></i>&nbsp;Print All</a>
+                                <button type="button" data-target="#raw" class="btn btn-primary btn-flat" data-toggle="modal" data-placement="top">
+                                    <i class="fa fa-send"></i> Kirim
+                                </button>
+                            </div>
+                            <div class="card col-md-12 ">
+                                <div class="button-list">
+                                    <div class="row form-group">
+                                        <div class="col-md-10">
+                                            <label for="from_surat">Filter Tanggal Diterima/Dicatat</label>
+                                            <input type="text" name="from_surat" id="from_surat" class="form-control input-sm input-date" placeholder="filter tanggal diterima/dicatat.." readonly/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="refresh" style="height: 70%"></label>
+                                            <button type="button" name="refresh" id="refresh" class="btn btn-warning btn-sm">Refresh</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
                                     <thead>
@@ -140,5 +161,17 @@
             })
         }
 
+        $('.input-date').datepicker({
+            todayBtn: 'linked',
+            format: 'dd MM yyyy',
+            autoclose: true
+        }).on('changeDate', function () {
+            $("#myTable_filter input[type=search]").val($(this).val()).trigger('keyup');
+        });
+
+        $('#refresh').on("click", function (){
+            $('#from_surat').val('');
+            $("#myTable_filter input[type=search]").val('').trigger('keyup');
+        });
     </script>
 @endsection

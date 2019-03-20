@@ -62,6 +62,29 @@
                                 <i class="fa fa-send"></i> Kirim
                                 </button>
                             </div>
+                            <div class="card col-md-12 ">
+                                <div class="button-list">
+                                    <div class="row form-group">
+                                        <div class="col-md-5">
+                                            <label for="jenis_surat">Filter Jenis Surat</label>
+                                            <select class="form-control custom-select form-control-sm" id="jenis_surat" name="jenis_surat" readonly>
+                                                <option readonly selected>filter jenis surat</option>
+                                                @foreach($jenisSurat as $jenis)
+                                                    <option value="{{$jenis->nama_jenis_surat}}" readonly>{{$jenis->nama_jenis_surat}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="from_surat">Filter Tanggal Keluar/Dicatat</label>
+                                            <input type="text" name="from_surat" id="from_surat" class="form-control input-sm input-date" placeholder="filter tanggal keluar/dicatat.." readonly/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="refresh" style="height: 70%"></label>
+                                            <button type="button" name="refresh" id="refresh" class="btn btn-warning btn-sm">Refresh</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
                                     <thead>
@@ -75,11 +98,11 @@
                                         <th></th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody">
                                     @foreach($keluarView as $index => $value)
                                         <tr>
                                             <th>{{ $index +1 }}</th>
-                                            <th>{{ $value->no_surat }}{{$value->kode_surat}} </th>
+                                            <th>{{ $value->no_surat }} </th>
                                             <th>{{ strftime("%d %B %Y", strtotime($value->tgl_keluar)) }}</th>
                                             <th>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</th>
                                             <th>
@@ -93,7 +116,7 @@
                                                 <div class="table-data-feature">
                                                     <form id="form-deleteSuratP-{{$value->id}}" class="form-group pull-left" action="" method="post" hidden>
                                                         {{csrf_field()}} {{method_field('DELETE')}}
-                                                        {{--onclick="return confirm('Hapus data terpilih?')"--}}
+                                                        onclick="return confirm('Hapus data terpilih?')"
                                                     </form>
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-suratMasuk-edit" data-toggle="tooltip"
                                                             data-placement="top" title="Edit">
@@ -115,6 +138,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {{ csrf_field() }}
                             </div>
                         </div>
                     </div>
@@ -127,6 +151,7 @@
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('tinymce/tinymce.min.js')}}"></script>
+    <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
 
     <script>
         var id;
@@ -223,7 +248,24 @@
                 }
             };
             tinymce.init(editor_config);
-        })
+        });
 
+        $('.input-date').datepicker({
+            todayBtn: 'linked',
+            format: 'dd MM yyyy',
+            autoclose: true
+        }).on('changeDate', function () {
+            $("#myTable_filter input[type=search]").val($(this).val()).trigger('keyup');
+        });
+
+        $("#jenis_surat").on("change", function () {
+            $("#myTable_filter input[type=search]").val($(this).val()).trigger('keyup');
+        });
+
+        $('#refresh').on("click", function (){
+            $('#jenis_surat').prop('selectedIndex', 0);
+            $('#from_surat').val('');
+            $("#myTable_filter input[type=search]").val('').trigger('keyup');
+        });
     </script>
 @endsection

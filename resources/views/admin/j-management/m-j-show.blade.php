@@ -11,6 +11,10 @@
                                     <small class="green-text">Nama jabatan :</small><br>
                                     <strong><span>{{$value->nama_jabatan}}</span></strong>
                                 </h5>
+                                <h5 class="h5-responsive">
+                                    <small class="green-text">Nama jabatan :</small><br>
+                                    <strong><span>{{$value->kode_jabatan}}</span></strong>
+                                </h5>
                             </div>
                             <div class="col-md-4">
                                 <h5 class="h5-responsive">

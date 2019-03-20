@@ -28,17 +28,18 @@
                                         {{csrf_field()}}
                                         @if($jenis->template_surat == 'Template 1')
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label>Nomor Surat <span class="text-danger">*</span></label>
                                                         <div class="input-group">
-                                                            <input class="form-control input-sm" id="noSurat" type="Text" name="no_surat" style="width: 20%" value="{{ $no_urut }}" placeholder="nomor urut surat..." required>
-                                                            <input class="form-control input-sm" id="kodeLembaga" type="Text" name="kode_surat" style="width: 40%" value="{{ $jenis->lembaga->kode_lembaga }}" placeholder="kode lembaga.." required>
-                                                            <input class="form-control input-sm" id="kodeSurat" type="Text" name="kode_instansi" style="width: 40%" value="" placeholder="kode instansi..">
+                                                            <input class="form-control input-sm" id="noSurat" type="Text" name="no_surat" style="width: 10%" value="{{ $no_urut }}" placeholder="nomor urut surat..." required>
+                                                            <input class="form-control input-sm" id="kodeSurat" type="Text" name="kode_surat" style="width: 20%" value="{{ $jenis->kode_surat }}" placeholder="kode surat..">
+                                                            <input class="form-control input-sm" id="kodeLembaga" type="Text" name="kode_lembaga" style="width: 20%" value="{{ $jenis->lembaga->kode_lembaga }}" placeholder="kode lembaga/instansi.." required>
+                                                            <input class="form-control input-sm" id="kodeJabatan" type="Text" name="kode_jabatan" style="width: 20%" value="" placeholder="kode jabatan..">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Lampiran </label>
                                                         <input class="form-control input-sm" type="Text" name="lampiran">
@@ -50,7 +51,7 @@
                                                         <input class="form-control input-sm" type="Text" value="Penagihan" name="perihal" required>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label>Tempat <span class="text-danger">*</span></label>
                                                         <input class="form-control input-sm" type="Text" value="Surabaya" name="tempat" required>
@@ -101,17 +102,18 @@
                                             </div>
                                         @elseif($jenis->template_surat == 'Template 2')
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Nomor Surat <span class="text-danger">*</span></label>
                                                         <div class="input-group">
-                                                            <input class="form-control input-sm" id="noSurat" type="Text" name="no_surat" style="width: 30%" value="{{ $no_urut }}" placeholder="nomor urut surat..." required>
-                                                            <input class="form-control input-sm" id="kodeLembaga" type="Text" name="kode_surat" style="width: 35%" value="{{ $jenis->lembaga->kode_lembaga }}" placeholder="kode lembaga.." required>
-                                                            <input class="form-control input-sm" id="kodeSurat" type="Text" name="kode_instansi" style="width: 35%" value="" placeholder="kode instansi..">
+                                                            <input class="form-control input-sm" id="noSurat" type="Text" name="no_surat" style="width: 10%" value="{{ $no_urut }}" placeholder="nomor urut surat..." required>
+                                                            <input class="form-control input-sm" id="kodeSurat" type="Text" name="kode_surat" style="width: 20%" value="{{ $jenis->kode_surat }}" placeholder="kode surat..">
+                                                            <input class="form-control input-sm" id="kodeLembaga" type="Text" name="kode_lembaga" style="width: 20%" value="{{ $jenis->lembaga->kode_lembaga }}" placeholder="kode lembaga/instansi.." required>
+                                                            <input class="form-control input-sm" id="kodeJabatan" type="Text" name="kode_jabatan" style="width: 20%" value="" placeholder="kode jabatan..">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Tanggal Surat Keluar <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
@@ -122,7 +124,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Tanggal Dicatat <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
@@ -169,11 +171,15 @@
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('js/jquery.inputmask.bundle.js')}}"></script>
+    <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script>
+        var  $kode = $("#kodeJabatan");
+
         $('.datepicker').datepicker({
-            format: "mm/dd/yyyy"
+            format: "mm/dd/yyyy",
+            autoclose: true
         });
 
         $('#noSurat').inputmask({
@@ -182,8 +188,18 @@
         });
 
         $('#kodeSurat').inputmask({
+            mask: 'A{2,4}',
+            placeholder: '____'
+        });
+
+        $('#kodeLembaga').inputmask({
             mask: 'AAA',
             placeholder: '___'
+        });
+
+        $kode.inputmask({
+            mask: 'A{2,4}',
+            placeholder: '____'
         });
 
 
@@ -200,5 +216,31 @@
                 "alignjustify | bullist numlist outdent indent | link image media"
         });
 
+        // $(function(){
+        //     $( "#kodeJabatan" ).autocomplete({
+        //         source: "pegawai/surat-keluar/search-kode",
+        //         minLength: 3,
+        //         select: function(event, ui) {
+        //             $('#kodeJabatan').val(ui.item.value);
+        //         }
+        //     });
+        // });
+
+        $kode.autocomplete({
+            source: function (request, response) {
+                $.getJSON('{{route('surk-search', ["Q" => ''])}}/' + $kode.val(), {
+                    name: request.term,
+                }, function (data) {
+                    response(data);
+                });
+            },
+            focus: function (event, ui) {
+                event.preventDefault();
+            },
+            select: function (event, ui) {
+                event.preventDefault();
+                $kode.val(ui.item.kode_jabatan);
+            }
+        });
     </script>
 @endsection

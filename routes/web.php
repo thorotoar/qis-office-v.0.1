@@ -328,6 +328,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surk-raw'
         ]);
 
+        Route::get('/search-kode/{Q}', [
+            'uses' => 'SuratKeluarController@searchJabatan',
+            'as' => 'surk-search'
+        ]);
+
         Route::get('/test-print', [
             'uses' => 'SuratKeluarController@test',
             'as' => 'surk-test'

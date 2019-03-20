@@ -541,13 +541,18 @@
         });
 
         $('.datepicker').datepicker({
-            format: "dd MM yyyy"
+            todayBtn: 'linked',
+            format: "dd MM yyyy",
+            autoclose: true
+
         });
 
         $('.yearpicker').datepicker({
+            todayBtn: 'linked',
             format: "yyyy",
             viewMode: "years",
-            minViewMode: "years"
+            minViewMode: "years",
+            autoclose: true
         });
 
         $(".years").datetimepicker({

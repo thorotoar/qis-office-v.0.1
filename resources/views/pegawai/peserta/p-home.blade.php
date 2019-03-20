@@ -58,6 +58,33 @@
                                 <a class="btn btn-primary btn-flat" href="{{route('p-print-all')}}">
                                     <i class="fa fa-print"></i>&nbsp;Print All</a>
                             </div>
+                            <div class="card col-md-12 ">
+                                <div class="button-list">
+                                    <div class="row form-group">
+                                        <div class="col-md-5">
+                                            <label for="lembaga">Filter Lembaga</label>
+                                            <select class="form-control custom-select form-control-sm" id="lembaga" name="lembaga" readonly>
+                                                <option readonly selected>filter nama lembaga...</option>
+                                                @foreach(\App\Lembaga::where('id', '!=', 1)->get() as $lemb)
+                                                    <option value="{{$lemb->nama_lembaga}}" readonly>{{$lemb->nama_lembaga}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="kelamin">Filter Jenis Kelamin</label>
+                                            <select class="form-control custom-select form-control-sm" id="kelamin" name="kelamin" readonly>
+                                                <option readonly selected>filter jenis kelamin..</option>
+                                                <option value="Laki-laki" readonly>Laki-laki</option>
+                                                <option value="Perempuan" readonly>Perempuan</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="refresh" style="height: 70%"></label>
+                                            <button type="button" name="refresh" id="refresh" class="btn btn-warning btn-sm">Refresh</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped">
                                     <thead>
@@ -163,6 +190,20 @@
                 $("#form-deletePeserta-" + id).attr("action", "{{route('p-hapus', ["id" => ""])}}/" + id).submit()
             })
         }
+
+        $("#kelamin").on("change", function () {
+            $("#myTable_filter input[type=search]").val($(this).val()).trigger('keyup');
+        });
+
+        $("#lembaga").on("change", function () {
+            $("#myTable_filter input[type=search]").val($(this).val()).trigger('keyup');
+        });
+
+        $('#refresh').on("click", function (){
+            $('#kelamin').prop('selectedIndex', 0);
+            $('#lembaga').prop('selectedIndex', 0);
+            $("#myTable_filter input[type=search]").val('').trigger('keyup');
+        });
 
     </script>
 @endsection

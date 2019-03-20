@@ -25,12 +25,15 @@ class JenisSuratController extends Controller
 
     public function store(Request $request){
         $request->validate([
+            'kode' => "nullable|unique:jenis_surats,kode_surat",
             'jenis_surat' => "required|unique:jenis_surats,nama_jenis_surat",
         ],[
             'jenis_surat.unique' => 'Jenis surat yang anda tambahkan sudah tersedia, masukan Jenis surat lain!.',
+            'kode.unique' => 'Kode surat yang anda tambahkan sudah tersedia, masukan kode surat lain!.',
         ]);
 
-        JenisSurat::create([
+        $js = JenisSurat::create([
+            'kode_surat' => $request->kode,
             'nama_jenis_surat' => $request->jenis_surat,
             'template_surat' => $request->template,
             'lembaga_id' => $request->lembaga,
@@ -38,7 +41,7 @@ class JenisSuratController extends Controller
             'created_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('jsm-home')->with('sukses','Jenis Surat berhasil ditambahkan.');
+        return redirect()->route('jsm-home')->with('sukses',$js->nama_jenis_surat .' berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -49,27 +52,31 @@ class JenisSuratController extends Controller
 
     public function update(Request $request, $id){
         $request->validate([
+            'kode' => "nullable|unique:jenis_surats,kode_surat,$id",
             'jenis_surat' => "required|unique:jenis_surats,nama_jenis_surat,$id",
         ],[
             'jenis_surat.unique' => 'Jenis surat yang anda tambahkan sudah tersedia, masukan Jenis surat lain!.',
+            'kode.unique' => 'Kode surat yang anda tambahkan sudah tersedia, masukan kode surat lain!.',
         ]);
 
         $jSurat = JenisSurat::find($id);
         $jSurat->update([
+            'kode_surat' => $request->kode,
             'nama_jenis_surat' => $request->jenis_surat,
             'template_surat' => $request->template,
             'lembaga_id' => $request->lembaga,
             'template_konten' => $request->isi,
             'updated_by' => Auth::user()->nama_user,
         ]);
-        return redirect()->route('jsm-home')->with('edit','Jenis Surat berhasil diubah.');
+        return redirect()->route('jsm-home')->with('edit', $jSurat->nama_jenis_surat .' berhasil diubah.');
 
     }
 
     public function destroy($id){
-        JenisSurat::destroy($id);
+        $js = JenisSurat::destroy($id);
+        $name = $js->nama_jenis_surat;
 
-        return redirect()->route('jsm-home')->with('hapus','Jenis Surat berhasil dihapus.');
+        return redirect()->route('jsm-home')->with('hapus', $name . ' berhasil dihapus.');
 
     }
 }

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\File;
 use App\Events\SuratKeluar as EventSK;
 use PDF;
 use Mail;
+use DB;
 
 class SuratKeluarController extends Controller
 {
@@ -53,16 +54,22 @@ class SuratKeluarController extends Controller
     }
 
     public function store(Request $request){
-//        dd($request->all());
-
         $jenisur = JenisSurat::find($request->id);
         $bulanRomawi = array("", "I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
 
-        if ( $request->kode_instansi == null){
-            $nomorSurat = $request->no_surat .'/'. $request->kode_surat . '/' . $bulanRomawi[str_replace('0', '', substr($request->tgl_keluar, 0, 2))] . '/' . substr($request->tgl_keluar,-4);
+        if ( $request->kode_surat == '' && $request->kode_jabatan == ''){
+            $nomorSurat = $request->no_surat .'/'. $request->kode_lembaga . '/' . $bulanRomawi[str_replace('0', '', substr($request->tgl_keluar, 0, 2))] . '/' . substr($request->tgl_keluar,-4);
+        }elseif ( $request->kode_surat == '' && $request->kode_jabatan != ''){
+            $nomorSurat = $request->no_surat .'/'. $request->kode_lembaga . '/' . $request->kode_jabatan . '/' . $bulanRomawi[str_replace('0', '', substr($request->tgl_keluar, 0, 2))] . '/' . substr($request->tgl_keluar, -4);
+        }elseif ($request->kode_surat != '' && $request->kode_jabatan == '' ){
+            $nomorSurat = $request->no_surat .'/'. $request->kode_surat .'/'. $request->kode_lembaga .  '/' . $bulanRomawi[str_replace('0', '', substr($request->tgl_keluar, 0, 2))] . '/' . substr($request->tgl_keluar, -4);
+        }elseif($request->kode_surat != '' && $request->kode_jabatan != ''){
+            $nomorSurat = $request->no_surat .'/'. $request->kode_surat .'/'. $request->kode_lembaga . '/' . $request->kode_jabatan . '/' . $bulanRomawi[str_replace('0', '', substr($request->tgl_keluar, 0, 2))] . '/' . substr($request->tgl_keluar, -4);
         }else{
-            $nomorSurat = _surat .'/'. $request->kode_surat . '/' . $request->kode_instansi . '/' . $bulanRomawi[str_replace('0', '', substr($request->tgl_keluar, 0, 2))] . '/' . substr($request->tgl_keluar, -4);
+            $nomorSurat = '';
         }
+
+        dd($nomorSurat);
 
         $sk = SuratKeluar::create([
             'user_id' => Auth::user()->id,
@@ -105,7 +112,7 @@ class SuratKeluarController extends Controller
             ]);
         }
 
-        return redirect()->route('surk-home')->with('sukses', $jenisur->nama_jenis_surat.'_'.substr($sk->no_surat, 0, 3). ' berhasil ditambahkan.');
+        return redirect()->route('surk-home')->with('sukses', $jenisur->nama_jenis_surat.'_'.substr($sk->no_surat, 0, 3). ' berhasil diubah.');
     }
 
     public function edit(Request $request){
@@ -243,6 +250,14 @@ class SuratKeluarController extends Controller
         $jenis = JenisSurat::where('id', $surK->jenis_id)->firstOrFail();
 
         return redirect()->route('surk-home')->with('hapus', 'Data ' . $jenis['nama_jenis_surat'] . '_' . substr($surK->no_surat, 0, 3) . ' terpilih berhasil dihapus.');
+    }
+
+    public function searchJabatan($Q){
+        $perihals = Jabatan::where('kode_jabatan', 'LIKE', '%' . $Q . '%')->get();
+        foreach ($perihals as $perihal) {
+            $perihal->label = $perihal->kode_jabatan . ' - ' . $perihal->nama_jabatan;
+        }
+        return $perihals;
     }
 
     public function test(){

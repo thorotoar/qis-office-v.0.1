@@ -45,12 +45,14 @@ class jenisSuratSeeder extends Seeder
         ]);
 
         JenisSurat::find(4)->update([
+            'kode_surat' => 'PNG',
             'nama_jenis_surat' => 'Surat Pengajuan Dana',
             'template_surat' => 'Template 1',
             'lembaga_id' => '1',
         ]);
 
         JenisSurat::find(5)->update([
+            'kode_surat' => 'SK',
             'nama_jenis_surat' => 'Surat Pengangkatan',
             'template_surat' => 'Template 2',
             'lembaga_id' => '1',

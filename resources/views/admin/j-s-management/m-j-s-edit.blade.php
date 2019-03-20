@@ -39,13 +39,19 @@
                                 <form id="form-confirm" class="form-valide" action="{{route('jsm-update', $jSurat->id)}}" method="post">
                                     {{csrf_field()}}
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nama Jenis Surat <span class="text-danger">*</span></label>
                                                 <input class="form-control input-sm" type="Text" name="jenis_surat" value="{{$jSurat->nama_jenis_surat}}" placeholder="nama jenis surat..." required>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Kode Jenis Surat <span class="text-danger">*</span></label>
+                                                <input class="form-control input-sm" type="text" name="kode" value="{{$jSurat->kode_surat}}" placeholder="nama kode surat...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Template Surat <span class="text-danger">*</span></label>
                                                 <div>
@@ -62,7 +68,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="lembaga">Lembaga/Yayasan <span class="text-danger">*</span></label>
                                                 <div>

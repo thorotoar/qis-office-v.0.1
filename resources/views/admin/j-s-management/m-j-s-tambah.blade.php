@@ -39,13 +39,19 @@
                                 <form id="form-addSuratKeluar" action="{{route('jsm-tambah-selesai')}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nama Jenis Surat <span class="text-danger">*</span></label>
                                                 <input class="form-control input-sm" type="text" name="jenis_surat" placeholder="nama jenis surat..." required>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Kode Jenis Surat <span class="text-danger">*</span></label>
+                                                <input class="form-control input-sm" type="text" name="kode" placeholder="kode jenis surat...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Template Surat <span class="text-danger">*</span></label>
                                                 <div>
@@ -57,7 +63,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="lembaga">Lembaga/Yayasan <span class="text-danger">*</span></label>
                                                 <div>
@@ -110,46 +116,72 @@
             fForm.submit();
         });
 
+        var editor_config;
+        $(function () {
+            editor_config = {
+                branding: false,
+                path_absolute: '{{url('/')}}',
+                selector: '.isi',
+                height: 600,
+                themes: 'modern',
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor textcolor',
+                    'searchreplace visualblocks code',
+                    'insertdatetime media table contextmenu paste code help wordcount'
+                ],
+                toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                relative_urls: false,
+                file_browser_callback: function (field_name, url, type, win) {
+                    var x = window.innerWidth || document.documentElement.clientWidth ||
+                        document.getElementsByTagName('body')[0].clientWidth,
+                        y = window.innerHeight || document.documentElement.clientHeight ||
+                            document.getElementsByTagName('body')[0].clientHeight,
+                        cmsURL = editor_config.path_absolute + 'filemanager?field_name=' + field_name;
+                    if (type == 'image') {
+                        cmsURL = cmsURL + '&type=Images';
+                    } else {
+                        cmsURL = cmsURL + '&type=Files';
+                    }
+
+                    tinyMCE.activeEditor.windowManager.open({
+                        file: cmsURL,
+                        title: 'File Manager',
+                        width: x * 0.8,
+                        height: y * 0.8,
+                        resizable: 'yes',
+                        close_previous: 'no'
+                    });
+                }
+            };
+            tinymce.init(editor_config);
+        })
+
         // tinymce.init({
         //     selector: '.isi',
-        //     height: "500",
-        //     plugins: [
-        //         "autolink link image charmap print preview hr anchor pagebreak",
-        //         "wordcount visualblocks code fullscreen",
-        //         "insertdatetime media nonbreaking save table contextmenu directionality",
-        //         "template paste textcolor colorpicker textpattern"
+        //     height: 500,
+        //     plugins: 'table wordcount code',
+        //     content_css: [
+        //         '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+        //         '//www.tinymce.com/css/codepen.min.css'],
+        //
+        //     style_formats: [
+        //         { title: 'Bold text', inline: 'strong' },
+        //         { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+        //         { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+        //         { title: 'Badge', inline: 'span', styles: { display: 'inline-block', border: '1px solid #2276d2', 'border-radius': '5px', padding: '2px 5px', margin: '0 2px', color: '#2276d2' } },
+        //         { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
         //     ],
-        //     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft alignceter alignright " +
-        //         "alignjustify | bullist numlist outdent indent | link image media | fontsizeselect",
-        //     fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt'
+        //     formats: {
+        //         alignleft: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'left' },
+        //         aligncenter: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'center' },
+        //         alignright: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'right' },
+        //         alignfull: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'full' },
+        //         bold: { inline: 'span', 'classes': 'bold' },
+        //         italic: { inline: 'span', 'classes': 'italic' },
+        //         underline: { inline: 'span', 'classes': 'underline', exact: true },
+        //         strikethrough: { inline: 'del' },
+        //         customformat: { inline: 'span', styles: { color: '#00ff00', fontSize: '20px' }, attributes: { title: 'My custom format' }, classes: 'example1' },
+        //     }
         // });
-
-        tinymce.init({
-            selector: '.isi',
-            height: 500,
-            plugins: 'table wordcount code',
-            content_css: [
-                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-                '//www.tinymce.com/css/codepen.min.css'],
-
-            style_formats: [
-                { title: 'Bold text', inline: 'strong' },
-                { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
-                { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
-                { title: 'Badge', inline: 'span', styles: { display: 'inline-block', border: '1px solid #2276d2', 'border-radius': '5px', padding: '2px 5px', margin: '0 2px', color: '#2276d2' } },
-                { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
-            ],
-            formats: {
-                alignleft: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'left' },
-                aligncenter: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'center' },
-                alignright: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'right' },
-                alignfull: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'full' },
-                bold: { inline: 'span', 'classes': 'bold' },
-                italic: { inline: 'span', 'classes': 'italic' },
-                underline: { inline: 'span', 'classes': 'underline', exact: true },
-                strikethrough: { inline: 'del' },
-                customformat: { inline: 'span', styles: { color: '#00ff00', fontSize: '20px' }, attributes: { title: 'My custom format' }, classes: 'example1' },
-            }
-        });
     </script>
 @endsection

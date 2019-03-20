@@ -45,6 +45,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label class="col-lg-4 col-form-label" for="kode">Kode Jabatan </label>
+                                        <div class="col-lg-6">
+                                            <input type="text" class="form-control" id="kode" name="kode" placeholder="Masukkan jabatan..">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <div class="col-lg-8 ml-auto">
                                             <button id="add" type="submit" class="btn btn-primary">Submit</button>
                                             <a href="{{route('jm-home')}}" class="btn btn-dark">Cancel</a>
