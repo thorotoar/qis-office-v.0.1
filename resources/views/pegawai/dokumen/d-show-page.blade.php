@@ -39,7 +39,13 @@
                                                 <small>{{substr($value['title'], 2)}}</small><br>
                                                 <button data-id="{{$value['id']}}" type="button" class="btn btn-sm btn-block btn-primary btn-flat download" data-toggle="tooltip" data-placement="top" title="Lihat">
                                                     <i class="fa fa-download"></i> Download
-                                                </button></div>
+                                                </button>
+                                                {{--<a href={{ asset($value['upload_file']) }}" download="{{ substr($value['upload_file'], 13) }}">--}}
+                                                    {{--<button type="button" class="btn btn-sm btn-block btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Lihat">--}}
+                                                        {{--<i class="fa fa-download"></i> Download--}}
+                                                    {{--</button>--}}
+                                                {{--</a>--}}
+                                            </div>
                                         @endforeach
                                     </div>
                                 </div>

@@ -54,7 +54,7 @@
                                 <td align="left" valign="top">
                                     <div style="height: 39px; line-height: 39px; font-size: 37px;">&nbsp;</div>
                                     <a href="#" target="_blank" style="display: block; max-width: 128px;">
-                                        <img src="{{asset('images/logo/qis-logo.png')}}" alt="img" width="128" border="0" style="display: block; width: 128px;" />
+                                        <img src="{{asset('images/kop/kop_qis.jpg')}}" alt="img" width="128" border="0" style="display: block; width: 128px;" />
                                     </a>
                                     <div style="height: 73px; line-height: 73px; font-size: 71px;">&nbsp;</div>
                                 </td>

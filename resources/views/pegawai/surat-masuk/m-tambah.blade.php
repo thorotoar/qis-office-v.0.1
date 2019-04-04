@@ -35,7 +35,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Diterima <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" name="tgl_diterima" value="" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control" name="tgl_diterima" placeholder="bulan/tanggal/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Pengirim <span class="text-danger">*</span></label>
@@ -51,7 +56,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Dicatat <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" name="tgl_dicatat" value="" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Penerima <span class="text-danger">*</span></label>
@@ -89,7 +99,7 @@
     </div>
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
-
+    <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script>
         var fForm = $('#form-addSuratMasuk');
         var fConfirm = $('button#addSuratMasuk');
@@ -109,6 +119,12 @@
                 function(){
                     fForm.submit();
                 });
-        })
+        });
+
+        $('.datepicker').datepicker({
+            format: "mm/dd/yyyy",
+            todayBtn: 'linked',
+            autoclose: true
+        });
     </script>
 @endsection

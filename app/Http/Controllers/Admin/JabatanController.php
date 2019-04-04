@@ -30,16 +30,18 @@ class JabatanController extends Controller
     {
         $request->validate([
             'jabatan' => 'required|unique:jabatans,nama_jabatan',
+            'kode' => 'nullable|unique:jabatans,kode_jabatan',
         ],[
             'jabatan.unique' => 'Jabatan yang anda tambahkan sudah tersedia, masukan jabatan lain!.',
+            'kode.unique' => 'Kode jabatan yang anda tambahkan sudah tersedia, masukan kode jabatan lain!.',
         ]);
 
-        Jabatan::create([
+        $jb = Jabatan::create([
             'kode_jabatan' => $request->kode,
             'nama_jabatan' => $request->jabatan,
             'created_by' => Auth::user()->nama_user,
         ]);
-        return redirect()->route('jm-home')->with('sukses','Jabatan baru berhasil ditambahkan.');
+        return redirect()->route('jm-home')->with('sukses', 'Jabatan ' . $jb->nama_jabatan . ' berhasil ditambahkan.');
     }
 
     public function show($id)
@@ -61,8 +63,10 @@ class JabatanController extends Controller
     {
         $request->validate([
             'jabatan' => "required|unique:jabatans,nama_jabatan,$id",
+            'kode' => "nullable|unique:jabatans,kode_jabatan,$id",
         ],[
             'jabatan.unique' => 'Jabatan yang anda tambahkan sudah tersedia, masukan jabatan lain!.',
+            'kode.unique' => 'Kode jabatan yang anda tambahkan sudah tersedia, masukan kode jabatan lain!.',
         ]);
 
         $jabatan = Jabatan::find($id);
@@ -72,7 +76,7 @@ class JabatanController extends Controller
             'updated_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('jm-home')->with('edit','Jabatan berhasil diubah.');
+        return redirect()->route('jm-home')->with('edit','Jabatan ' . $jabatan->nama_jabatan . ' berhasil diubah.');
     }
 
     public function destroy($id)
@@ -80,6 +84,6 @@ class JabatanController extends Controller
         $jabatan = Jabatan::find($id);
         $jabatan->delete();
 
-        return redirect('/admin/manajemen-jabatan')->with('hapus','Jabatan berhasil dihapus.');
+        return redirect()->route('jm-home')->with('hapus','Jabatan ' . $jabatan->nama_jabatan . ' berhasil dihapus.');
     }
 }

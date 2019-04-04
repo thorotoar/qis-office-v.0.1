@@ -23,11 +23,6 @@
     <link href="{{asset('css/lib/sweetalert/sweetalert.css')}}" rel="stylesheet">
     {{--yearpicker--}}
     <link href="{{asset('css/yearpicker.css')}}" rel="stylesheet">
-{{--data-table--}}
-{{--<link href="{{asset('data-table/datatables.css')}}" rel="stylesheet">--}}
-{{--<link href="{{asset('data-table/datatables.min.css')}}" rel="stylesheet">--}}
-{{--<link href="{{asset('data-table/datatables-bootsrap.css')}}" rel="stylesheet">--}}
-{{--<link href="{{asset('data-table/datatables-bootsrap-min.css')}}" rel="stylesheet">--}}
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
@@ -124,6 +119,8 @@
                             <li><a href="{{route('jsm-home')}}"><i class="fa fa-envelope-square"></i> Jenis Surat</a></li>
                             <li><a href="{{route('jen-home')}}"><i class="fa fa-graduation-cap"></i> Jenjang</a></li>
                             <li><a href="{{route('jur-home')}}"><i class="fa fa-graduation-cap"></i> Jurusan Pendidikan</a></li>
+                            <li><a href="{{route('keb-home')}}"><i class="fa fa-wheelchair"></i> Kebutuhan Khusus</a></li>
+                            <li><a href="{{route('tran-home')}}"><i class="fa fa-bicycle"></i> Transportasi</a></li>
                             {{--<li><a href="{{route('lem-home')}}">Lembaga</a></li>--}}
                         </ul>
                     </li>

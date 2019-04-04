@@ -58,11 +58,11 @@
                                                     <select class="form-control custom-select form-control-sm" id="template_surat" name="template" required>
                                                         <option value="" disabled readonly="" selected>Pilih Template Surat</option>
                                                         @if($jSurat->template_surat == 'Template 1')
-                                                            <option value="Template 1" selected>Template 1</option>
-                                                            <option value="Template 2">Template 2</option>
+                                                            <option value="Template 1" selected>Template 1 -- Header Lengkap</option>
+                                                            <option value="Template 2">Template 2 -- Header Tengah</option>
                                                         @elseif($jSurat->template_surat == 'Template 2')
-                                                            <option value="Template 1">Template 1</option>
-                                                            <option value="Template 2" selected>Template 2</option>
+                                                            <option value="Template 1">Template 1 -- Header Lengkap</option>
+                                                            <option value="Template 2" selected>Template 2 -- Header Tengah</option>
                                                         @endif
                                                     </select>
                                                 </div>

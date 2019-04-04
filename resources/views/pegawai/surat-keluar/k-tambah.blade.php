@@ -179,6 +179,7 @@
 
         $('.datepicker').datepicker({
             format: "mm/dd/yyyy",
+            todayBtn: 'linked',
             autoclose: true
         });
 
@@ -215,16 +216,6 @@
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft alignceter alignright " +
                 "alignjustify | bullist numlist outdent indent | link image media"
         });
-
-        // $(function(){
-        //     $( "#kodeJabatan" ).autocomplete({
-        //         source: "pegawai/surat-keluar/search-kode",
-        //         minLength: 3,
-        //         select: function(event, ui) {
-        //             $('#kodeJabatan').val(ui.item.value);
-        //         }
-        //     });
-        // });
 
         $kode.autocomplete({
             source: function (request, response) {

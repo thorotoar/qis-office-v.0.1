@@ -165,7 +165,9 @@
     <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script>
         $('.datepicker').datepicker({
-            format: "mm/dd/yyyy"
+            format: "mm/dd/yyyy",
+            todayBtn: 'linked',
+            autoclose: true
         });
 
         $('#noSurat').inputmask({

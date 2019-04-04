@@ -23,10 +23,18 @@ class JenisSuratController extends Controller
         return view('admin.j-s-management.m-j-s-tambah');
     }
 
+    public function show(Request $request){
+        $js= JenisSurat::find($request->id);
+
+        return view('admin.j-s-management.m-j-s-show', compact('js'));
+    }
+
     public function store(Request $request){
         $request->validate([
             'kode' => "nullable|unique:jenis_surats,kode_surat",
             'jenis_surat' => "required|unique:jenis_surats,nama_jenis_surat",
+            'lembaga' => "required",
+            'template' => "required",
         ],[
             'jenis_surat.unique' => 'Jenis surat yang anda tambahkan sudah tersedia, masukan Jenis surat lain!.',
             'kode.unique' => 'Kode surat yang anda tambahkan sudah tersedia, masukan kode surat lain!.',
@@ -54,6 +62,8 @@ class JenisSuratController extends Controller
         $request->validate([
             'kode' => "nullable|unique:jenis_surats,kode_surat,$id",
             'jenis_surat' => "required|unique:jenis_surats,nama_jenis_surat,$id",
+            'lembaga' => "required",
+            'template' => "required",
         ],[
             'jenis_surat.unique' => 'Jenis surat yang anda tambahkan sudah tersedia, masukan Jenis surat lain!.',
             'kode.unique' => 'Kode surat yang anda tambahkan sudah tersedia, masukan kode surat lain!.',
@@ -74,9 +84,8 @@ class JenisSuratController extends Controller
 
     public function destroy($id){
         $js = JenisSurat::destroy($id);
-        $name = $js->nama_jenis_surat;
 
-        return redirect()->route('jsm-home')->with('hapus', $name . ' berhasil dihapus.');
+        return redirect()->route('jsm-home')->with('hapus', $js->nama_jenis_surat . ' berhasil dihapus.');
 
     }
 }

@@ -18,8 +18,8 @@ class CreateDokumensTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->string('nama_dokumen');
-            $table->date('tgl_file');
-            $table->date('tgl_dicatat');
+            $table->string('tgl_file');
+            $table->string('tgl_dicatat');
             $table->text('keterangan')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

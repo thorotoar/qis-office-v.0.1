@@ -47,7 +47,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Diterima <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" name="tgl_diterima" value="{{$suratM->tgl_diterima}}" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control"  name="tgl_diterima" value="{{$suratM->tgl_diterima}}" placeholder="bulan/tanggal/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Pengirim <span class="text-danger">*</span></label>
@@ -63,7 +68,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Dicatat <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" name="tgl_dicatat" value="{{$suratM->tgl_dicatat}}" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control" name="tgl_dicatat" value="{{$suratM->tgl_dicatat}}" placeholder="bulan/tanggal/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Penerima <span class="text-danger">*</span></label>
@@ -121,6 +131,12 @@
                 function(){
                     fForm.submit();
                 });
-        })
+        });
+
+        $('.datepicker').datepicker({
+            format: "mm/dd/yyyy",
+            todayBtn: 'linked',
+            autoclose: true
+        });
     </script>
 @endsection

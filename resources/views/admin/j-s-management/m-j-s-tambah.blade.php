@@ -57,8 +57,8 @@
                                                 <div>
                                                     <select class="form-control custom-select form-control-sm" id="template_surat" name="template" required>
                                                         <option value="" disabled readonly="" selected>Pilih Template Surat</option>
-                                                        <option value="Template 1">Template 1</option>
-                                                        <option value="Template 2">Template 2</option>
+                                                        <option value="Template 1">Template 1 -- Header Lengkap</option>
+                                                        <option value="Template 2">Template 2 -- Header Tengah</option>
                                                     </select>
                                                 </div>
                                             </div>

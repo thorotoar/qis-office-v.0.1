@@ -30,12 +30,12 @@ class JurusanController extends Controller
             'jurusan.unique' => 'Jurusan yang anda tambahkan sudah tersedia, masukan jurusan lain!.',
         ]);
 
-        JurusanPendidikan::create([
+        $jp = JurusanPendidikan::create([
             'nama_jurusan_pendidikan' => $request->jurusan,
             'created_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('jur-home')->with('sukses','Jurusan berhasil ditambahkan.');
+        return redirect()->route('jur-home')->with('sukses','Jurusan ' . $jp->nama_jurusan_pendidikan . ' berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -56,14 +56,14 @@ class JurusanController extends Controller
             'nama_jurusan_pendidikan' => $request->jurusan,
             'updated_by' => Auth::user()->nama_user,
         ]);
-        return redirect()->route('jur-home')->with('edit','Jurusan berhasil diubah.');
+        return redirect()->route('jur-home')->with('edit','Jurusan ' . $jurusan->nama_jurusan_pendidikan . ' berhasil diubah.');
 
     }
 
     public function destroy($id){
-        JurusanPendidikan::destroy($id);
+        $jp = JurusanPendidikan::destroy($id);
 
-        return redirect()->route('jur-home')->with('hapus','Jurusan berhasil dihapus.');
+        return redirect()->route('jur-home')->with('hapus','Jurusan ' . $jp->nama_jurusan_pendidikan . ' berhasil dihapus.');
 
     }
 }

@@ -70,6 +70,7 @@
                                         <th width="80px">No</th>
                                         <th>Nomor Surat</th>
                                         <th>Diterima</th>
+                                        <th>Dicatat</th>
                                         <th>Pengirim</th>
                                         <th>Prihal</th>
                                         <th></th>
@@ -80,7 +81,8 @@
                                         <tr >
                                             <th>{{ $index +1 }}</th>
                                             <th>{{ $value->no_surat }} </th>
-                                            <th>{{ $value->tgl_diterima }}</th>
+                                            <th>{{ strftime("%d %B %Y", strtotime($value->tgl_diterima)) }}</th>
+                                            <th>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</th>
                                             <th>{{ $value->pengirim }}</th>
                                             <th>{{ $value->prihal }}</th>
                                             <th>
@@ -102,6 +104,9 @@
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
                                                         <i class="fa fa-print"></i> Print
                                                     </button>
+                                                    <a href="/{{ $value->upload_file }}" download="{{ substr($value->upload_file, 17) }}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Download">
+                                                        <i class="fa fa-download"></i> Download
+                                                    </a>
                                                     <button onclick="deleteDataPegawai('{{$value->id}}')" type="submit" class="btn btn-sm btn-rounded btn-danger btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
                                                         <i class="fa fa-trash"></i> Hapus
                                                     </button>

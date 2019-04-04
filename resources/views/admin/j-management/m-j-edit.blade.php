@@ -41,14 +41,14 @@
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="jabatan">Nama Jabatan </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ $jabatan->nama_jabatan }}" placeholder="Masukkan jabatan.." required>
+                                            <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ $jabatan->nama_jabatan }}" placeholder="masukkan jabatan.." required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="kode">Kode Jabatan </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="kode" name="kode" value="{{ $jabatan->kode_jabatan }}" placeholder="Masukkan jabatan..">
+                                            <input type="text" class="form-control" id="kode" name="kode" value="{{ $jabatan->kode_jabatan }}" placeholder="masukkan kode..">
                                         </div>
                                     </div>
                                     <div class="form-group row">

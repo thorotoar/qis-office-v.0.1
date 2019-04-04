@@ -30,12 +30,12 @@ class JenjangController extends Controller
             'jenjang.unique' => 'Jenjang yang anda tambahkan sudah tersedia, masukan jenjang lain!.',
         ]);
 
-        Jenjang::create([
+        $j = Jenjang::create([
             'nama_jenjang' => $request->jenjang,
             'created_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('jen-home')->with('sukses','Jenjang berhasil ditambahkan.');
+        return redirect()->route('jen-home')->with('sukses','Jenjang ' . $j->nama_jenjang . ' berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -56,14 +56,14 @@ class JenjangController extends Controller
             'nama_jenjang' => $request->jenjang,
             'updated_by' => Auth::user()->nama_user,
         ]);
-        return redirect()->route('jen-home')->with('edit','Jenjang berhasil diubah.');
+        return redirect()->route('jen-home')->with('edit','Jenjang ' . $jSurat->nama_jenjang . ' berhasil diubah.');
 
     }
 
     public function destroy($id){
-        Jenjang::destroy($id);
+        $j = Jenjang::destroy($id);
 
-        return redirect()->route('jen-home')->with('hapus','Jenjang berhasil dihapus.');
+        return redirect()->route('jen-home')->with('hapus','Jenjang ' . $j->nama_jenjang . ' berhasil dihapus.');
 
     }
 }

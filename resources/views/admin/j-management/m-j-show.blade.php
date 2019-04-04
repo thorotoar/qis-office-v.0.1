@@ -6,17 +6,19 @@
                     <div class="col-lg-12">
                         {{--info jabatan--}}
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h5 class="h5-responsive">
                                     <small class="green-text">Nama jabatan :</small><br>
                                     <strong><span>{{$value->nama_jabatan}}</span></strong>
                                 </h5>
+                            </div>
+                            <div class="col-md-3">
                                 <h5 class="h5-responsive">
-                                    <small class="green-text">Nama jabatan :</small><br>
+                                    <small class="green-text">Kode jabatan :</small><br>
                                     <strong><span>{{$value->kode_jabatan}}</span></strong>
                                 </h5>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h5 class="h5-responsive">
                                     <small class="green-text">Dimasukkan oleh :</small><br>
                                     <strong>@if($value->created_by == null)
@@ -25,7 +27,7 @@
                                         {{$value->created_by}}</strong>
                                 </h5>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h5 class="h5-responsive">
                                     <small class="green-text">Diubah oleh :</small><br>
                                     <strong>@if($value->updated_by == null)

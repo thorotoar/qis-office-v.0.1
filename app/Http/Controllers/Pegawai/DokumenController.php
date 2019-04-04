@@ -41,8 +41,7 @@ class DokumenController extends Controller
         return view('pegawai.dokumen.d-tambah', compact('dokumen'));
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
             'nama_dokumen' => 'required|unique:dokumens,nama_dokumen',
             'keterangan' => 'nullable|unique:dokumens,keterangan',
@@ -71,11 +70,11 @@ class DokumenController extends Controller
             //$user = Dokumen::find($request->id);
             foreach ($request->file('upload_file') as $files){
                 $name = str_replace(' ', '_', str_random(2) . '' . $files->getClientOriginalName());
-                $files->move('images/file-dokumen/', $name);
+                $files->move('file-dokumen/', $name);
                 FileDokumen::create([
                     'dokumen_id' => $dokumen->id,
                     'title' => $name,
-                    'upload_file' => 'images/file-dokumen/' . $name,
+                    'upload_file' => 'file-dokumen/' . $name,
                 ]);
             }
         }
@@ -85,7 +84,6 @@ class DokumenController extends Controller
     }
 
     public function edit(Request $request){
-
         $dokumen = Dokumen::find($request->id);
         $fileDok = FileDokumen::where('dokumen_id', $dokumen->id)->get()->toArray();
         //dd($fileDok);
@@ -95,7 +93,6 @@ class DokumenController extends Controller
 
 
     public function update(Request $request, $id){
-
         $dokumen = Dokumen::find($id);
         $fileDok = FileDokumen::where('dokumen_id', $dokumen->id)->get();
 
@@ -123,23 +120,21 @@ class DokumenController extends Controller
             //$user = Dokumen::find($request->id);
             foreach ($request->file('upload_file') as $files){
                 $name = str_replace(' ', '_', str_random(2) . '' . $files->getClientOriginalName());
-                $files->move('images/file-dokumen/', $name);
+                $files->move('file-dokumen/', $name);
                 FileDokumen::create([
                     'dokumen_id' => $dokumen->id,
                     'title' => $name,
-                    'upload_file' => 'images/file-dokumen/' . $name,
+                    'upload_file' => 'file-dokumen/' . $name,
                 ]);
             }
         }
 
-//        return redirect()->route('d-home')->with('edit', 'Dokumen berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
-        return back()->with('edit', 'Dokumen berhasil diubah.');;
+        return redirect()->route('d-home')->with('edit', 'Dokumen ' . $dokumen->nama_dokumen . ' berhasil diubah.');
+//        return back()->with('edit', 'Dokumen berhasil diubah.');
     }
 
     public function destroy($id){
-
         $dok = Dokumen::find($id);
-        $nama = $dok->nama_dokumen;
         $fileDok = FileDokumen::where('dokumen_id', $dok->id)->get();
 
         foreach ( $fileDok as $files){
@@ -147,8 +142,6 @@ class DokumenController extends Controller
             File::delete($file);
             $dok->delete();
         }
-
-
-        return back()->with('hapus', 'Data '. $nama . ' berhasil dihapus.');
+        return back()->with('hapus', 'Data '. $dok->nama_dokumen . ' berhasil dihapus.');
     }
 }

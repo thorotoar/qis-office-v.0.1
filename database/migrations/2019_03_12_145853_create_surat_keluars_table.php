@@ -30,7 +30,6 @@ class CreateSuratKeluarsTable extends Migration
             $table->string('tgl_keluar')->nullable();
             $table->string('tgl_dicatat')->nullable();
             $table->text('isi_surat')->nullable();
-            $table->text('footer_surat')->nullable();
             $table->string('attach')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

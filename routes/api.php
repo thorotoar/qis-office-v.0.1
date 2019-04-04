@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/pegawai', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/pegawai', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::post('/v1', [
+    'uses' => 'ApiController@test',
+    'as' => 'api-test'
+]);

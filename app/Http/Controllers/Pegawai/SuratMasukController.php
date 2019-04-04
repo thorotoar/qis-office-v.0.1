@@ -63,14 +63,14 @@ class SuratMasukController extends Controller
 
         if (Input::has('upload_file')) {
             $file = str_replace(' ', '_', str_random(4) . '' . $request->file('upload_file')->getClientOriginalName());
-            Input::file('upload_file')->move('images/file-surat-masuk/', $file);
+            Input::file('upload_file')->move('file-surat-masuk/', $file);
             $suratM->update([
-                'upload_file' => 'images/file-surat-masuk/' . $file,
+                'upload_file' => 'file-surat-masuk/' . $file,
             ]);
         }
 
 
-        return redirect()->route('surm-home')->with('sukses','Data surat masuk berhasil ditambahkan.');
+        return redirect()->route('surm-home')->with('sukses','Surat masuk ' .  $suratM->no_surat . ' berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -100,14 +100,14 @@ class SuratMasukController extends Controller
 
             File::delete($suratM->upload_file);
             $file = str_replace(' ', '_', str_random(4) . '' . $request->file('upload_file_new')->getClientOriginalName());
-            Input::file('upload_file_new')->move('images/file-surat-masuk/', $file);
+            Input::file('upload_file_new')->move('file-surat-masuk/', $file);
 
             $suratM->update([
-                'upload_file' => 'images/file-surat-masuk/' . $file,
+                'upload_file' => 'file-surat-masuk/' . $file,
             ]);
         }
 
-        return redirect()->route('surm-home')->with('edit', 'Data surat masuk berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+        return redirect()->route('surm-home')->with('edit', 'Surat masuk ' . $suratM->no_surat . ' berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
     }
 
     public function destroy($id){
@@ -117,6 +117,6 @@ class SuratMasukController extends Controller
         File::delete($file);
         $surM->delete();
 
-        return redirect()->route('surm-home')->with('hapus', 'Data terpilih berhasil dihapus.');
+        return redirect()->route('surm-home')->with('hapus', 'Surat masuk ' . $surM->no_surat . ' berhasil dihapus.');
     }
 }

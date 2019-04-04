@@ -47,6 +47,7 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Nama Jabatan</th>
                                         <th></th>
                                     </tr>
@@ -55,6 +56,7 @@
                                     @foreach($jabatan as $index => $value)
                                         <tr>
                                             <th>{{ $index +1 }}</th>
+                                            <th>{{ ucfirst($value->kode_jabatan) }}</th>
                                             <th>{{ ucfirst($value->nama_jabatan) }}</th>
                                             <th>
                                                 <div class="table-data-feature">

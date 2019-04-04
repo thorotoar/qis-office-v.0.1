@@ -10,15 +10,36 @@ use App\PesertaDidik;
 use App\SuratKeluar;
 use App\SuratMasuk;
 use App\User;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
 {
+    protected $clientSIMDEPAD, $clientSIMPADI, $uriSIMDEPAD, $uriSIMPADI;
+
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->uriSIMPADI = env('SIMPADI_URI');
+        $this->uriSIMDEPAD = env('SIMDEPAD_URI');
+
+        $this->clientSIMPADI = new Client([
+            'base_uri' => $this->uriSIMPADI,
+            'defaults' => [
+                'exceptions' => false
+            ]
+        ]);
+
+        $this->clientSIMDEPAD = new Client([
+            'base_uri' => $this->uriSIMDEPAD,
+            'defaults' => [
+                'exceptions' => false
+            ]
+        ]);
     }
 
     public function index(Request $request){
@@ -66,6 +87,16 @@ class PegawaiController extends Controller
             return back()->with([
                 'sukses' => 'Berhasil Memperbarui Password !'
             ]);
+        }
+    }
+
+    public function getSiswa(Request $request){
+        try {
+            $response = $this->clientSIMPADI->get($this->uriSIMPADI . '/api/siswa');
+            return $response;
+
+        } catch (ConnectException $e) {
+            return $e->getResponse();
         }
     }
 }

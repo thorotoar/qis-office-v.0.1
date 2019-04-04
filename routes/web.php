@@ -142,6 +142,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
             'as' => 'jsm-tambah'
         ]);
 
+        Route::get('/lihat-jenis-surat', [
+            'uses' => 'JenisSuratController@show',
+            'as' => 'jsm-show'
+        ]);
+
         Route::post('/tambah-jenis-surat', [
             'uses' => 'JenisSuratController@store',
             'as' => 'jsm-tambah-selesai'
@@ -229,6 +234,44 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
         ]);
     });
 
+    Route::group(['prefix' => 'manajemen-kebutuhan-khusus'], function (){
+
+        Route::get('/', [
+            'uses' => 'KebutuhanKhususController@index',
+            'as' => 'keb-home'
+        ]);
+
+        Route::get('/manajemen-kebutuhan-khusus-tambah', [
+            'uses' => 'KebutuhanKhususController@create',
+            'as' => 'keb-tambah'
+        ]);
+
+        Route::get('/lihat-kebutuhan-khusus/{id}', [
+            'uses' => 'KebutuhanKhususController@show',
+            'as' => 'keb-lihat'
+        ]);
+
+        Route::post('/tambah-kebutuhan-khusus', [
+            'uses' => 'KebutuhanKhususController@store',
+            'as' => 'keb-tambah-selesai'
+        ]);
+
+        Route::get('/kebutuhan-khusus-edit', [
+            'uses' => 'KebutuhanKhususController@edit',
+            'as' => 'keb-edit'
+        ]);
+
+        Route::post('/update-kebutuhan-khusus/{id}', [
+            'uses' => 'KebutuhanKhususController@update',
+            'as' => 'keb-update'
+        ]);
+
+        Route::delete('/hapus-kebutuhan-khusus/{id}', [
+            'uses' => 'KebutuhanKhususController@destroy',
+            'as' => 'keb-hapus'
+        ]);
+    });
+
     Route::group(['prefix' => 'manajemen-lembaga'], function (){
 
         Route::get('/', [
@@ -262,6 +305,44 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
         ]);
     });
 
+    Route::group(['prefix' => 'manajemen-transportasi'], function (){
+
+        Route::get('/', [
+            'uses' => 'TransportasiController@index',
+            'as' => 'tran-home'
+        ]);
+
+        Route::get('/manajemen-transportasi-tambah', [
+            'uses' => 'TransportasiController@create',
+            'as' => 'tran-tambah'
+        ]);
+
+        Route::get('/lihat-transportasi/{id}', [
+            'uses' => 'TransportasiController@show',
+            'as' => 'tran-lihat'
+        ]);
+
+        Route::post('/tambah-transportasi', [
+            'uses' => 'TransportasiController@store',
+            'as' => 'tran-tambah-selesai'
+        ]);
+
+        Route::get('/transportasi-edit', [
+            'uses' => 'TransportasiController@edit',
+            'as' => 'tran-edit'
+        ]);
+
+        Route::post('/update-transportasi/{id}', [
+            'uses' => 'TransportasiController@update',
+            'as' => 'tran-update'
+        ]);
+
+        Route::delete('/hapus-transportasi/{id}', [
+            'uses' => 'TransportasiController@destroy',
+            'as' => 'tran-hapus'
+        ]);
+    });
+
 });
 
 Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => 'pegawai'], function (){
@@ -280,6 +361,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         'uses' => 'PegawaiController@change',
         'as' => 'u-pass'
     ]);
+
+    Route::get('siswa', [
+        'uses' => 'PegawaiController@getSiswa',
+        'as' => 'get.siswa',
+        ]);
 
     Route::group(['prefix' => 'surat-keluar'], function (){
 

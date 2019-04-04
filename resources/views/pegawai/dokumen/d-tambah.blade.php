@@ -50,7 +50,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal File <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tgl_file" placeholder="tanggal/bulan/tahun" required>
+                                                    <input type="text" class="form-control" name="tgl_file" placeholder="bulan/tanggal/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -61,7 +61,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Dicatat <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tgl_dicatat" placeholder="tanggal/bulan/tahun" required>
+                                                    <input type="text" class="form-control" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -138,7 +138,10 @@
         });
 
         $('.datepicker').datepicker({
-            format: "dd MM yyyy"
+            format: "mm/dd/yyyy",
+            todayBtn: 'linked',
+            autoclose: true
+
         });
     </script>
 @endsection

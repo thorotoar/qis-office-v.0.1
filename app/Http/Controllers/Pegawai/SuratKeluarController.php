@@ -69,7 +69,7 @@ class SuratKeluarController extends Controller
             $nomorSurat = '';
         }
 
-        dd($nomorSurat);
+//        dd($nomorSurat);
 
         $sk = SuratKeluar::create([
             'user_id' => Auth::user()->id,
@@ -104,8 +104,8 @@ class SuratKeluarController extends Controller
 //            }
 
             $pdf = PDF::loadView("pegawai.surat-keluar.k-print", compact('sk'));
-            $pdf->setPaper('A4', 'portrait');
-            $pdf->save('images/file-surat/'. $name .'.pdf');
+            $pdf->setPaper('Legal', 'portrait');
+            $pdf->save('file-surat/'. $name .'.pdf');
 
             $sk->update([
                 'attach' => $name.'.pdf',
@@ -175,8 +175,8 @@ class SuratKeluarController extends Controller
 //            }
 
             $pdf = PDF::loadView("pegawai.surat-keluar.k-print", compact('sk'));
-            $pdf->setPaper('A4', 'portrait');
-            $pdf->save('images/file-surat/'. $name .'.pdf');
+            $pdf->setPaper('Legal', 'portrait');
+            $pdf->save('file-surat/'. $name .'.pdf');
 
             $sk->update([
                 'attach' => $name.'.pdf',
@@ -193,7 +193,7 @@ class SuratKeluarController extends Controller
             File::delete('images/file-surat/'.$sk->attach);
 
             $file = $request->file('file_pdf')->getClientOriginalName();
-            Input::file('file_pdf')->move('images/file-surat/', $file);
+            Input::file('file_pdf')->move('file-surat/', $file);
 
             $sk->update([
                 'attach' => $file,
@@ -215,7 +215,7 @@ class SuratKeluarController extends Controller
         $no = substr($sk->no_surat, 0, 3);
         //pdf
         $pdf = PDF::setOptions(['font' => 'calibri', 'images' => true]);
-        $pdf->setPaper('A4', 'portrait');
+        $pdf->setPaper('Legal', 'portrait');
 
 //        if($jenis->template_surat == 'Template 1'){
 //            $pdf->loadView("pegawai.surat-keluar.k-print-1", compact('sk', 'jenis'));
@@ -242,9 +242,8 @@ class SuratKeluarController extends Controller
     }
 
     public function destroy($id){
-
         $surK = SuratKeluar::find($id);
-        File::delete('images/file-surat/'.$surK->attach);
+        File::delete('file-surat/'.$surK->attach);
         $surK->delete();
 
         $jenis = JenisSurat::where('id', $surK->jenis_id)->firstOrFail();
@@ -258,9 +257,5 @@ class SuratKeluarController extends Controller
             $perihal->label = $perihal->kode_jabatan . ' - ' . $perihal->nama_jabatan;
         }
         return $perihals;
-    }
-
-    public function test(){
-        return view('mail.m-personal');
     }
 }
