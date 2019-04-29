@@ -1,4 +1,4 @@
-<div class="modal" id="test{{$value->id}}" tabindex="1" role="dialog" aria-hidden="true">
+<div class="modal" id="modalPeserta" tabindex="1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -15,11 +15,7 @@
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
                                     <div style="text-align: center">
-                                        @if($value->foto === null)
-                                            <img class="d-block w-100" src="{{asset('images/icon/no.png')}}" alt="First slide">
-                                        @else
-                                            <img class="d-block w-100" src="{{asset($value->foto)}}" alt="First slide">
-                                        @endif
+                                        <img class="d-block w-100" src="" alt="First slide">
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +24,7 @@
                     </div>
                     <div class="col-lg-7">
                         <h2 class="h2-responsive product-name">
-                            <strong>{{$value->nama}}</strong>
+                            <strong id="nama"></strong>
                         </h2>
 
                         <!--Accordion wrapper-->
@@ -48,55 +44,45 @@
                                         <div class="col-md-6">
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">NIK :</small><br>
-                                                <strong><span>@if($value->nik == null)
-                                                            <span>-</span>
-                                                        @endif{{$value->nik}}</span></strong>
+                                                <strong><span id="nik"></span></strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">NISN :</small><br>
-                                                <strong><span>@if($value->nisn == null)
-                                                            <span>-</span>
-                                                        @endif{{$value->nisn}}</span></strong>
+                                                <strong><span id="nisn"></span></strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">TTL :</small><br>
-                                                <strong><span>{{ $value->tempat_lahir }}, {{ $value->tgl_lahir }}</span></strong>
+                                                <strong><span id="ttl"></span></strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Jenis Kelamin :</small><br>
-                                                <strong><span>{{ $value->kelamin }}</span></strong>
+                                                <strong id="jk"></strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Agama :</small><br>
-                                                <strong><span>{{ $value->agama->nama_agama }}</span></strong>
+                                                <strong><span id="agama"></span></strong>
                                             </h6>
                                         </div>
                                         <div class="col-md-6">
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Telepon Rumah  :</small><br>
-                                                <strong><span>@if($value->telpon_rumah == null)
-                                                            <span>-</span>
-                                                        @endif{{$value->telpon_rumah}}</span></strong>
+                                                <strong><span id="telp"></span></strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Telepon Seluler :</small><br>
-                                                <strong><span>@if($value->telpon_selular == null)
-                                                            <span>-</span>
-                                                        @endif{{$value->telpon_selular}}</span></strong>
+                                                <strong><span id="hp"></span></strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Email :</small><br>
-                                                <strong><span>@if($value->email == null)
-                                                            <span>-</span>
-                                                        @endif{{$value->email}}</span></strong>
+                                                <strong><span id="email"></span></strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Kewarganegaraan :</small><br>
-                                                <strong><span>{{ $value->kewarganegaraan->nama_negara }}</span></strong>
+                                                <strong><span id="negara"></span></strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Kebutuhan Khusus :</small><br>
-                                                <strong>{{isset($value->kebutuhanKhusus)?$value->kebutuhanKhusus->nama_kebutuhan:'-'}}</strong>
+                                                <strong id="kebutuhan"></strong>
                                             </h6>
                                         </div>
                                     </div>
@@ -104,7 +90,7 @@
                                         <div class="col-lg-12">
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Alamat :</small><br>
-                                                <strong><span>{{$value->alamat}}</span></strong>
+                                                <strong><span id="alamat"></span></strong>
                                             </h6>
                                         </div>
                                     </div>
@@ -116,50 +102,50 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        {{--info alamat--}}
                         <div class="card">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h6 class="h2-responsive product-name">
+                                        <strong>Info Alamat</strong>
+                                    </h6><hr>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">RT/RW :</small><br>
-                                            <strong>@if($value->rt == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->rt}}/@if($value->rw == null)
-                                                    <span>-</span>
-                                                @endif{{$value->rw}}</strong>
+                                            <strong><span id="rt"></span>/<span id="rw"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Nama Dusun :</small><br>
-                                            <strong><span>@if($value->nama_dusun == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->nama_dusun}}</span></strong>
+                                            <strong><span id="dusun"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Desa/Kelurahan:</small><br>
-                                            <strong>{{$value->desa}}</strong>
+                                            <strong id="desa"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Provinsi :</small><br>
-                                            <strong>{{$value->provinsi->nama_provinsi}}</strong>
+                                            <strong id="provinsi"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Kabupaten :</small><br>
-                                            <strong>{{isset($value->kabupaten)?$value->kabupaten->nama_kabupaten:'-'}}</strong>
+                                            <strong id="kabupaten"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Kecamatan :</small><br>
-                                            <strong>{{isset($value->kecamatan)?$value->kecamatan->nama_kecamatan:'-'}}</strong>
+                                            <strong id="kecamatan"></strong>
                                         </h6>
                                     </div>
                                 </div>
@@ -172,86 +158,73 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Kode Pos :</small><br>
-                                            <strong>@if($value->kode_pos == null)
-                                                    <span>-</span>
-                                                @endif{{$value->kode_pos}}</strong>
+                                            <strong><span id="kodePos"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Jenis Tinggal :</small><br>
-                                            <strong>@if($value->jenis_tinggal == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->jenis_tinggal}}</strong>
+                                            <strong><span id="jenisTinggal"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Alat Transportasi :</small><br>
-                                            <strong>{{$value->transportasiPD->nama_transportasi}}</strong>
+                                            <strong id="trans"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Anak ke :</small><br>
-                                            <strong>@if($value->anak_ke == null)
-                                                    <span>-</span>
-                                                @endif{{$value->anak_ke}}</strong>
+                                            <strong><span id="anak"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Penerima KPS :</small><br>
-                                            <strong>{{$value->kps}}</strong>
+                                            <strong id="kps"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Nomor KPS :</small><br>
-                                            <strong>@if($value->no_kps == null)
-                                                    <span>-</span>
-                                                @endif{{$value->no_kps}}</strong>
+                                            <strong><span id="noKps"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Layak PIP :</small><br>
-                                            <strong>{{$value->pip}}</strong>
+                                            <strong id="pip"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Penerima KIP :</small><br>
-                                            <strong>{{$value->kip}}</strong>
+                                            <strong id="kip"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Nomor KKS :</small><br>
-                                            <strong>@if($value->no_kks == null)
-                                                    <span>-</span>
-                                                @endif{{$value->no_kks}}</strong>
+                                            <strong><span id="kks"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Reg Akta Lahir :</small><br>
-                                            <strong>@if($value->reg_akta == null)
-                                                    <span>-</span>
-                                                @endif{{$value->reg_akta}}</strong>
+                                            <strong><span id="akta"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Lembaga :</small><br>
-                                            <strong>{{$value->lembaga->nama_lembaga}}</strong>
+                                            <strong><span id="lemb"></span></strong>
                                         </h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {{--info ayah--}}
                         <div class="card">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -265,58 +238,49 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Nama :</small><br>
-                                            <strong><span>@if($value->nama_ayah == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->nama_ayah}}</span></strong>
+                                            <strong><span id="namaAyah"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">NIK :</small><br>
-                                            <strong><span>@if($value->nik_ayah == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->nik_ayah}}</span></strong>
+                                            <strong><span id="nikAyah"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Tahun Lahir :</small><br>
-                                            <strong><span>@if($value->tahun_lahir_ayah == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->tahun_lahir_ayah}}</span></strong>
+                                            <strong><span id="lahirAyah"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Jenjang pendidikan :</small><br>
-                                            <strong>{{isset($value->jenjangPendidikanA)?$value->jenjangPendidikanA->nama_jenjang:'-'}}</strong>
+                                            <strong id="jA"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Pekerjaan :</small><br>
-                                            <strong><span>@if($value->pekerjaan_ayah == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->pekerjaan_ayah}}</span></strong>
+                                            <strong><span id="pA"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Penghasilan :</small><br>
-                                            <strong>{{isset($value->penghasilanA)?$value->penghasilanA->jumlah_penghasilan:'-'}}</strong>
+                                            <strong id="penghasilanAyah"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Kebutuhan Khusus :</small><br>
-                                            <strong>{{isset($value->kebutuhanKhususA)?$value->kebutuhanKhususA->nama_kebutuhan:'-'}}</strong>
+                                            <strong id="kebutuhanAyah"></strong>
                                         </h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {{--info ibu--}}
                         <div class="card">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -330,56 +294,49 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Nama :</small><br>
-                                            <strong><span>{{$value->nama_ibu}}</span></strong>
+                                            <strong><span id="namaIbu"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">NIK :</small><br>
-                                            <strong><span>@if($value->nik_ibu == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->nik_ibu}}</span></strong>
+                                            <strong><span id="nikIbu"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Tahun Lahir :</small><br>
-                                            <strong><span>@if($value->tahun_lahir_ibu == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->tahun_lahir_ibu}}</span></strong>
+                                            <strong><span id="lahirIbu"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Jenjang pendidikan :</small><br>
-                                            <strong>{{isset($value->jenjangPendidikanI)?$value->jenjangPendidikanI->nama_jenjang:'-'}}</strong>
+                                            <strong id="jI"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Pekerjaan :</small><br>
-                                            <strong><span>@if($value->pekerjaan_ibu == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->pekerjaan_ibu}}</span></strong>
+                                            <strong><span id="pI"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Penghasilan :</small><br>
-                                            <strong>{{isset($value->penghasilanI)?$value->penghasilanI->jumlah_penghasilan:'-'}}</strong>
+                                            <strong id="penghasilanIbu"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Kebutuhan Khusus :</small><br>
-                                            <strong>{{isset($value->kebutuhanKhususI)?$value->kebutuhanKhususI->nama_kebutuhan:'-'}}</strong>
+                                            <strong id="kebutuhanIbu"></strong>
                                         </h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {{--inf0 wali--}}
                         <div class="card">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -393,45 +350,37 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Nama :</small><br>
-                                            <strong><span>@if($value->nama_wali == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->nama_wali}}</span></strong>
+                                            <strong><span id="namaWali"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">NIK :</small><br>
-                                            <strong><span>@if($value->nik_wali == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->nik_wali}}</span></strong>
+                                            <strong><span id="nikWali"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Tahun Lahir :</small><br>
-                                            <strong><span>@if($value->tahun_lahir_wali == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->tahun_lahir_wali}}</span></strong>
+                                            <strong><span id="lahirWali"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Jenjang pendidikan :</small><br>
-                                            <strong>{{isset($value->jenjangPendidikanW)?$value->jenjangPendidikanW->nama_jenjang:'-'}}</strong>
+                                            <strong id="jW"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Pekerjaan :</small><br>
-                                            <strong><span>@if($value->pekerjaan_wali == null)
-                                                        <span>-</span>
-                                                    @endif{{$value->pekerjaan_wali}}</span></strong>
+                                            <strong><span id="pW"></span></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Penghasilan :</small><br>
-                                            <strong>{{isset($value->penghasilanW)?$value->penghasilanW->jumlah_penghasilan:'-'}}</strong>
+                                            <strong id="penghasilanWali"></strong>
                                         </h6>
                                     </div>
                                 </div>

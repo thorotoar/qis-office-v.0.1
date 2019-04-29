@@ -92,7 +92,6 @@
 
     <script>
         var id;
-
         $('body').on('click','.sweet-message-edit',function () {
             id=$(this).data('id');
             swal({

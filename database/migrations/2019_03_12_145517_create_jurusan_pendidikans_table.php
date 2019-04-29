@@ -16,8 +16,8 @@ class CreateJurusanPendidikansTable extends Migration
         Schema::create('jurusan_pendidikans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_jurusan_pendidikan');
-            $table->string('created_by');
-            $table->string('updated_by');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

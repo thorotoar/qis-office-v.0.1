@@ -54,6 +54,12 @@
                                     </thead>
                                     <tbody>
                                     @foreach($jabatan as $index => $value)
+                                        @php
+                                        $namaJ = $value->nama_jabatan;
+                                        $kodeJ = $value->kode_jabatan;
+                                        $created = $value->created_by == null ? '-' : $value->created_by;
+                                        $updated = $value->updated_by == null ? '-' : $value->updated_by;
+                                        @endphp
                                         <tr>
                                             <th>{{ $index +1 }}</th>
                                             <th>{{ ucfirst($value->kode_jabatan) }}</th>
@@ -64,7 +70,8 @@
                                                         {{csrf_field()}} {{method_field('DELETE')}}
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
-                                                    <button data-target="#user{{$value->id}}" type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat" data-id="pegawaiId">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat"
+                                                    onclick="lihatJabatan('{{$value->id}}', '{{$namaJ}}', '{{$kodeJ}}', '{{$created}}', '{{$updated}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-jabatan-edit" data-toggle="tooltip"
@@ -76,7 +83,6 @@
                                                     </button>
                                                 </div>
                                             </th>
-                                            @include('admin.j-management.m-j-show')
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -90,6 +96,9 @@
         </div>
         <!-- End Container fluid  -->
     </div>
+
+    <!-- Show a modal -->
+    @include('admin.j-management.m-j-show')
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
     <script>
@@ -113,6 +122,13 @@
             })
         });
 
+        function lihatJabatan(id, namaJ, kodeJ, created, updated) {
+            $("#namaJ").text(namaJ);
+            $("#kodeJ").text(kodeJ);
+            $("#created").text(created);
+            $("#updated").text(updated);
+            $("#modalJabatan").modal('show');
+        }
 
         function deleteDataJabatan(id) {
             swal({

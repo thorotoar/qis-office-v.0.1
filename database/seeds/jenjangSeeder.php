@@ -32,7 +32,7 @@ class jenjangSeeder extends Seeder
         ]);
 
         Jenjang::find(3)->update([
-            'nama_jenjang' => 'TK/Sederajat',
+            'nama_jenjang' => 'TK',
         ]);
 
         Jenjang::find(4)->update([
@@ -40,15 +40,15 @@ class jenjangSeeder extends Seeder
         ]);
 
         Jenjang::find(5)->update([
-            'nama_jenjang' => 'SD/Sederajat',
+            'nama_jenjang' => 'SD',
         ]);
 
         Jenjang::find(6)->update([
-            'nama_jenjang' => 'SMP/Sederajat',
+            'nama_jenjang' => 'SMP',
         ]);
 
         Jenjang::find(7)->update([
-            'nama_jenjang' => 'SMA/Sederajat',
+            'nama_jenjang' => 'SMA',
         ]);
 
         Jenjang::find(8)->update([

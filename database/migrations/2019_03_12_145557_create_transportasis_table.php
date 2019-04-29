@@ -16,8 +16,8 @@ class CreateTransportasisTable extends Migration
         Schema::create('transportasis', function (Blueprint $table) {
             $table->increments('id');
             $table->text('nama_transportasi');
-            $table->string('created_by');
-            $table->string('updated_by');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

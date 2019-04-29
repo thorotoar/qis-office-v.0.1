@@ -53,6 +53,11 @@
                                     </thead>
                                     <tbody>
                                     @foreach($jurusan as $index => $value)
+                                        @php
+                                        $namaJur = $value->nama_jurusan_pendidikan;
+                                        $created = $value->created_by == null ? '-' : $value->created_by;
+                                        $updated = $value->updated_by == null ? '-' : $value->updated_by;
+                                        @endphp
                                         <tr>
                                             <th>{{ $index +1 }}</th>
                                             <th>{{ $value->nama_jurusan_pendidikan }}</th>
@@ -62,7 +67,8 @@
                                                         {{csrf_field()}} {{method_field('DELETE')}}
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
-                                                    <button data-target="#user{{$value->id}}" type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat" data-id="pegawaiId">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat"
+                                                            onclick="lihatJurusan('{{$value->id}}', '{{$namaJur}}', '{{$created}}', '{{$updated}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-jurusan-edit" data-toggle="tooltip"
@@ -74,7 +80,6 @@
                                                     </button>
                                                 </div>
                                             </th>
-                                            @include('admin.jur-management.jur-show')
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -88,6 +93,9 @@
         </div>
         <!-- End Container fluid  -->
     </div>
+
+    <!-- Show a modal -->
+    @include('admin.jur-management.jur-show')
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
@@ -112,6 +120,12 @@
             })
         });
 
+        function lihatJurusan(id, namaJur, created, updated) {
+            $("#namaJur").text(namaJur);
+            $("#created").text(created);
+            $("#updated").text(updated);
+            $("#modalJurusan").modal('show');
+        }
 
         function deleteData(id) {
             swal({

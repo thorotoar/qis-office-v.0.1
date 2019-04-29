@@ -459,6 +459,40 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     });
 
+    Route::group(['prefix' => 'jadwal-pelajaran-mdc'], function (){
+
+        Route::get('/', [
+            'uses' => 'JadwalPelajaranController@indexMdc',
+            'as' => 'mdc'
+        ]);
+
+        Route::get('/jadwal-mdc-tambah', [
+            'uses' => 'JadwalPelajaranController@createMdc',
+            'as' => 'mdc-tambah'
+        ]);
+
+        Route::post('/tambah-jadwal-mdc', [
+            'uses' => 'JadwalPelajaranController@storeMdc',
+            'as' => 'mdc-tambah-selesai'
+        ]);
+
+        Route::get('/jadwal-mdc-edit', [
+            'uses' => 'JadwalPelajaranController@editMdc',
+            'as' => 'mdc-edit'
+        ]);
+
+        Route::post('/update-jadwal-mdc/{id}', [
+            'uses' => 'JadwalPelajaranController@updateMdc',
+            'as' => 'mdc-update'
+        ]);
+
+        Route::delete('/hapus-jadwal-mdc/{id}', [
+            'uses' => 'JadwalPelajaranController@destroyMdc',
+            'as' => 'mdc-hapus'
+        ]);
+
+    });
+
     Route::group(['prefix' => 'data-pegawai'], function (){
 
         Route::get('/', [
@@ -587,6 +621,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         Route::get('/peserta-print-all', [
             'uses' => 'PesertaController@print_all',
             'as' => 'p-print-all'
+        ]);
+
+        Route::get('/nilai-peserta/{id}', [
+            'uses' => 'PesertaController@lihatNilai',
+            'as' => 'p-nilai'
         ]);
 
     });

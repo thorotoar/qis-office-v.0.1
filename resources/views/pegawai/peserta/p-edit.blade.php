@@ -560,7 +560,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <hr>
-                                                <button id="editPeserta" type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
                                                 <button type="reset" class="btn btn-primary">Clear</button>
                                                 <a href="{{route('p-home')}}" class="btn btn-dark">Cancel</a>
                                             </div>

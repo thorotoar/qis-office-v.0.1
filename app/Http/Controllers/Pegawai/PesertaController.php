@@ -29,7 +29,8 @@ class PesertaController extends Controller
 
     public function index(){
 
-        $pesertaDidik = PesertaDidik::orderBy('created_at', 'ASC')->get();
+        $pesertaDidik = PesertaDidik::orderBy('created_at')->get();
+
         return view('pegawai.peserta.p-home', compact('pesertaDidik'));
     }
 
@@ -318,7 +319,6 @@ class PesertaController extends Controller
                 'foto' => 'images/foto-peserta/' . $file,
             ]);
         }
-
         $nama = $request->nama;
 
         return redirect()->route('p-home')->with('edit', 'Data Peserta Didik '. $nama . ' berhasil diubah.');
@@ -345,11 +345,19 @@ class PesertaController extends Controller
     }
 
     public function print_all(){
-
         $data = PesertaDidik::all();
         //dd($data);
         $pdf = PDF::loadView("pegawai.peserta.p-print-all", compact('data'));
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('daftar_peserta.pdf');
+    }
+
+    public function lihatNilai($id){
+        $peserta = PesertaDidik::find($id);
+//        dd($peserta);
+        $lemb = Lembaga::where('id', $peserta->lembaga_id)->first();
+
+        return view('pegawai.peserta.nilai.p-nilai', compact('peserta', 'lemb'));
+
     }
 }

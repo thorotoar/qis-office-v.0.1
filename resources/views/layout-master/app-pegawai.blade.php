@@ -174,18 +174,16 @@
                             <li><a href="{{route('surk-home')}}"><i class="fa fa-envelope"></i> Surat Keluar</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a class="" href="{{route('p-home')}}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kelola Peserta Didik</span></a>
+                    <li><a class="" href="{{route('p-home')}}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kelola Peserta Didik</span></a></li>
+                    <li><a class="" href="{{route('d-pegawai')}}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a></li>
+                    <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Kelola Jadwal Pelajaran</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{route('surm-home')}}"> Quali International Surabaya</a></li>
+                            <li><a href="{{route('mdc')}}"> Muslim Day Care</a></li>
+                            <li><a href="{{route('surk-home')}}"> Sanggar ABK</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a class="" href="{{route('d-pegawai')}}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a>
-                    </li>
-                    <li>
-                        <a class="" href="{{url('/homek')}}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Kelola Kurikulum</span></a>
-                    </li>
-                    <li>
-                        <a class="" href="{{route('d-home')}}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a>
-                    </li>
+                    <li><a class="" href="{{route('d-home')}}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a></li>
                 </ul>
             </nav>
             <!-- End Sidebar navigation -->
@@ -220,6 +218,8 @@
 
 {{--sweatalert--}}
 <script src="{{asset('js/lib/sweetalert/sweetalert.min.js')}}"></script>
+<!-- scripit init-->
+<script src="{{asset('js/lib/sweetalert/sweetalert.init.js')}}"></script>
 
 {{--dropzone--}}
 <script src="{{asset('js/lib/dropzone/dropzone.js')}}"></script>

@@ -51,7 +51,7 @@ class UserManajemenController extends Controller
             'status_user' => $user->type,
         ]);
 
-        return redirect()->route('um-home')->with('sukses','User berhasil ditambahkan.');
+        return redirect()->route('um-home')->with('sukses', $user->nama_user . ' berhasil ditambahkan sebagai ' . $user->type . ' dengan username ' . $user->username . '.');
     }
 
     public function edit(Request $request){
@@ -90,14 +90,15 @@ class UserManajemenController extends Controller
         ]);
 
         //dd($user->email);
-        return redirect()->route('um-home')->with('edit','User berhasil diubah.');
+        return redirect()->route('um-home')->with('edit','Username ' . $user->username . ' berhasil diubah.');
 
     }
 
     public function destroy($id){
-        User::destroy($id);
+        $user = User::find($id);
+        $user->delete();
 
-        return redirect()->route('um-home')->with('hapus','User berhasil dihapus.');
+        return redirect()->route('um-home')->with('hapus','Username ' . $user->username . ' berhasil dihapus.');
 
     }
 }

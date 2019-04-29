@@ -55,6 +55,14 @@
                                     </thead>
                                     <tbody>
                                     @foreach($userM as $index => $value)
+                                        @php
+                                        $nama = $value->nama_user;
+                                        $jab = ucwords($value->type);
+                                        $uname = $value->username;
+                                        $email = $value->email_user == null ? '-' : $value->email_user;
+                                        $created = $value->created_by == null ? '-' : $value->created_by;
+                                        $updated = $value->updated_by == null ? '-' : $value->updated_by;
+                                        @endphp
                                         <tr>
                                             <th>{{ $index +1 }}</th>
                                             <th>{{ $value->username }}</th>
@@ -66,7 +74,8 @@
                                                         {{csrf_field()}} {{method_field('DELETE')}}
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
-                                                    <button data-target="#user{{$value->id}}" type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat" data-id="pegawaiId">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat"
+                                                    onclick="lihatUser('{{$value->id}}', '{{$nama}}', '{{$jab}}', '{{$uname}}', '{{$email}}', '{{$created}}', '{{$updated}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-jenjang-edit" data-toggle="tooltip"
@@ -78,7 +87,6 @@
                                                     </button>
                                                 </div>
                                             </th>
-                                            @include('admin.user-management.m-a-show')
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -92,6 +100,9 @@
         </div>
         <!-- End Container fluid  -->
     </div>
+
+    <!-- Show a model -->
+    @include('admin.user-management.m-a-show')
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
@@ -116,6 +127,15 @@
             })
         });
 
+        function  lihatUser(id, nama, jab, uname, email, created, updated) {
+            $("#nama").text(nama);
+            $("#jab").text(jab);
+            $("#uname").text(uname);
+            $("#emailU").text(email);
+            $("#createdU").text(created);
+            $("#updatedU").text(updated);
+            $("#modalUser").modal('show');
+        }
 
         function deleteData(id) {
             swal({

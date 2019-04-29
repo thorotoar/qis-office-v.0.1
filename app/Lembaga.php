@@ -16,7 +16,7 @@ class Lembaga extends Model
     protected $guarded = ['id'];
 
     public function pesertaDidik(){
-        return $this->hasMany(PesertaDidik::class);
+        return $this->hasMany(PesertaDidik::class, 'lembaga_id');
     }
 
     public function jadwalPelajaran(){

@@ -299,7 +299,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tahun Lahir Ayah </label>
-                                                <input type="text" class=" form-control input-sm yearpicker" name="tahun_lahir_ayah" value="" required>
+                                                <input type="text" class=" form-control input-sm yearpicker" name="tahun_lahir_ayah" value="">
                                             </div>
                                             <div class="form-group">
                                                 <label for="jenjang-ayah">Jenjang Pendidikan Ayah </label>
@@ -362,7 +362,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tahun Lahir Ibu </label>
-                                                <input type="text" class="yearpicker form-control input-sm yearpicker" name="tahun_lahir_ibu" value="" required>
+                                                <input type="text" class="yearpicker form-control input-sm yearpicker" name="tahun_lahir_ibu" value="">
                                             </div>
                                             <div class="form-group">
                                                 <label for="jenjang-ibu">Jenjang Pendidikan Ibu </label>
@@ -425,7 +425,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tahun Lahir Wali </label>
-                                                <input type="text" class="form-control input-sm yearpicker" name="tahun_lahir_wali" value="" required>
+                                                <input type="text" class="form-control input-sm yearpicker" name="tahun_lahir_wali" value="">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -464,7 +464,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <hr>
-                                                <button id="addPeserta" type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
                                                 <button type="reset" class="btn btn-primary">Clear</button>
                                                 <a href="{{route('p-home')}}" class="btn btn-dark">Cancel</a>
                                             </div>

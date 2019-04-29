@@ -48,10 +48,10 @@
                                         <label class="col-lg-4 col-form-label" for="val-skill">Nama Pegawai <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
                                             <select class="form-control custom-select" id="nama-pegawai" name="id_pegawai">
-                                                <option value="">Pilih Pegawai</option>
+                                                <option readonly="true" disabled>Pilih Pegawai</option>
                                                 @foreach(App\Pegawai::all() as $item)
                                                     <option value="{{$item->id}}"
-                                                            @if($item->id == $item->id)
+                                                            @if($item->id == $userM->id)
                                                             selected
                                                             @endif
                                                     >{{$item->nama}}</option>

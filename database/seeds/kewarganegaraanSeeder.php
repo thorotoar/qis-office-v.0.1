@@ -14,7 +14,7 @@ class kewarganegaraanSeeder extends Seeder
     {
         $faker=\Faker\Factory::create('id_ID');
 
-        for ($c = 0; $c < 245; $c++){
+        for ($c = 0; $c < 242; $c++){
             Kewarganegaraan::create([
                 'nama_negara' => $faker->country,
                 'kode_negara' => $faker->countryCode,

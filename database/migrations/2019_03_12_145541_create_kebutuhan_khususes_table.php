@@ -17,8 +17,8 @@ class CreateKebutuhanKhususesTable extends Migration
             $table->increments('id');
             $table->string('kode_kebutuhan');
             $table->string('nama_kebutuhan');
-            $table->string('created_by');
-            $table->string('updated_by');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }
