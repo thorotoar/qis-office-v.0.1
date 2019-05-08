@@ -42,6 +42,8 @@
                             <h4 class="card-title">Daftar Jabatan</h4><hr>
                             <a class="btn btn-primary btn-flat" href="{{route('jm-tambah')}}">
                                 <i class="fa fa-plus"></i>&nbsp;Tambah Jabatan</a>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getJabatan()"><i
+                                        class="fa fa-refresh"></i></a>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
                                     <thead>
@@ -121,6 +123,22 @@
                 }
             })
         });
+
+        function getJabatan() {
+            swal({
+                    title: "Tambahkan Jabatan?",
+                    text: "Data jabatan dari setiap lembaga akan ditambahkan !!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Iya, tambahkan !!",
+                    closeOnConfirm: false
+                },function (isConfirm){
+                if (isConfirm){
+                    window.location='{{route('get.jabatan')}}';
+                }
+            });
+        }
 
         function lihatJabatan(id, namaJ, kodeJ, created, updated) {
             $("#namaJ").text(namaJ);

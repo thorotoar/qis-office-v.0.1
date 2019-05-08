@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
-                                <form id="form-addPeserta" action="{{route('p-tambah-peserta')}}" enctype="multipart/form-data" method="post">
+                                <form action="{{route('p-tambah-peserta')}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     {{--Personal Info--}}
                                     <div class="row">

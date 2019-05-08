@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
-                                <form id="form-confirm" class="form-valide" action="{{route('jsm-update', $jSurat->id)}}" method="post">
+                                <form class="form-valide" action="{{route('jsm-update', $jSurat->id)}}" method="post">
                                     {{csrf_field()}}
                                     <div class="row">
                                         <div class="col-md-3">

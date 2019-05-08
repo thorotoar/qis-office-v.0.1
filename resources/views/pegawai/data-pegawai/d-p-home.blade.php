@@ -27,6 +27,11 @@
                         </div>
                     </div>
                 </div>
+            @elseif(session()->has('sukses'))
+                <div class="alert alert-info alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{session()->get('sukses')}}
+                </div>
             @elseif(session()->has('destroy'))
                 <div class="row">
                     <div class="col-lg-12">
@@ -66,6 +71,8 @@
                                     <i class="fa fa-plus"></i>&nbsp;Tambah Data Pegawai</a>
                                 <a class="btn btn-primary btn-flat" href="{{route('d-p-print-all')}}">
                                     <i class="fa fa-print"></i>&nbsp;Print All</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getPegawai()"><i
+                                            class="fa fa-sync"></i></a>
                             </div>
                             <div class="card col-md-12 ">
                                 <div class="button-list">
@@ -100,7 +107,6 @@
                                     <tr>
                                         <th width="50px">No</th>
                                         <th>Foto</th>
-                                        <th>NIK</th>
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>TTL</th>
@@ -110,9 +116,46 @@
                                     </thead>
                                     <tbody>
                                     @foreach($pegawai_view as $index => $value)
-                                        {{--@php--}}
-                                            {{--$pegawai = App\Pegawai::find($value->pegawai_id); //$pegawai->foto--}}
-                                        {{--@endphp--}}
+                                        @php
+                                            //$pegawai = App\Pegawai::find($value->pegawai_id); //$pegawai->foto
+                                            $img = $value->foto == null ? asset('images/icon/no.png') : asset($value->foto);
+                                            $nama = $value->nama;
+                                            $type = ucwords($value->user->type);
+                                            $nik = $value->nik == null ? '-' : $value->nik;
+                                            $nip = $value->nip == null ? '-' : $value->nip;
+                                            $ttl = $value->tempat_lahir . ', ' . $value->tgl_lahir;
+                                            $kelamin = $value->kelamin;
+                                            $agama = $value->agama->nama_agama;
+                                            $telp = $value->telpon;
+                                            $email = $value->email;
+                                            $negara = $value->kewarganegaraan->nama_negara;
+                                            $status = $value->status_pernikahan;
+                                            $alamat = $value->alamat;
+                                            $noRek = $value->no_rek == null ? '-' : $value->no_rek;
+                                            $bank = $value->bank_id == null ? '-' : $value->bank_id;
+                                            $kcpBank = $value->kcp_bank == null ? '-' : $value->kcp_bank;
+
+                                            $nikA = $value->nik_ayah;
+                                            $namaA = $value->ayah;
+                                            $nikI = $value->nik_ibu;
+                                            $namaI = $value->ibu;
+                                            $namaP = $value->pasangan == null ? '-' : $value->pasangan;
+                                            $pekerjaanP = $value->pekerjaan_pasangan == null ? '-' : $value->pekerjaan_pasangan;
+
+                                            $nuptk = $value->nuptk == null ? '-' : $value->nuptk;
+                                            $sk = $value->no_sk == null ? '-' : $value->no_sk;
+                                            $tglM = $value->tgl_masuk;
+                                            $jabatanY = $value->jabatanYayasan == null ? '-' : $value->jabatanYayasan->nama_jabatan_yayasan;
+                                            $jabatan = $value->jabatan == null ? '-' : $value->jabatan->nama_jabatan;
+                                            $lembaga = $value->lembaga->nama_lembaga;
+                                            $jenjangT = $value->jenjang == null ? '-' : $value->jenjang->nama_jenjang;
+                                            $thnLulus = $value->thn_lulus == null ? '-' : $value->thn_lulus;
+                                            $instansi = $value->instansi;
+                                            $jurusan = $value->jurusan == null ? '-' : $value->jurusan->nama_jurusan_pendidikan;
+
+                                            $created = $value->created_by == null ? '-' : $value->created_by;
+                                            $updated = $value->updated_by == null ? '-' : $value->updated_by;
+                                        @endphp
                                         <tr>
                                             <th>{{ $index +1 }}</th>
                                             <th>@if($value->foto == null)
@@ -120,7 +163,6 @@
                                                 @else
                                                     <img src="{{asset($value->foto)}}" width="84" height="112">
                                                 @endif</th>
-                                            <th>{{ $value->nik }} </th>
                                             <th>{{ $value->nama }}</th>
                                             <th>{{ $value->kelamin }}</th>
                                             <th>{{ $value->tempat_lahir }}, {{ $value->tgl_lahir }}</th>
@@ -131,7 +173,12 @@
                                                         {{csrf_field()}} {{method_field('DELETE')}}
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
-                                                    <button data-target="#test{{$value->id}}" type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat" data-id="pegawaiId">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat"
+                                                            data-placement="top" title="Lihat" onclick="lihatPegawai('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$nik}}', '{{$nip}}', '{{$ttl}}',
+                                                            '{{$kelamin}}', '{{$agama}}', '{{$telp}}', '{{$email}}', '{{$negara}}', '{{$status}}', '{{$alamat}}',
+                                                            '{{$noRek}}', '{{$bank}}', '{{$kcpBank}}', '{{$nikA}}', '{{$namaA}}', '{{$nikI}}', '{{$namaI}}', '{{$namaP}}', '{{$pekerjaanP}}',
+                                                            '{{$nuptk}}', '{{$sk}}', '{{$tglM}}', '{{$jabatanY}}', '{{$jabatan}}', '{{$lembaga}}', '{{$jenjangT}}', '{{$thnLulus}}', '{{$instansi}}',
+                                                            '{{$jurusan}}', '{{$created}}', '{{$updated}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-pegawai-edit" data-toggle="tooltip"
@@ -146,7 +193,6 @@
                                                     </button>
                                                 </div>
                                             </th>
-                                            @include('pegawai.data-pegawai.d-p-show')
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -160,6 +206,9 @@
         </div>
         <!-- End Container fluid  -->
     </div>
+
+    <!-- Show a modal  -->
+    @include('pegawai.data-pegawai.d-p-show')
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
@@ -184,6 +233,61 @@
                 }
             })
         });
+
+        function lihatPegawai(id, img, nama, nik, nip, ttl, kelamin, agama, telp, email, negara, status, alamat, noRek, bank, kcpBank, nikA,
+                              namaA, nikI, namaI, namaP, pekerjaanP, nuptk, sk, tglM, jabatanY, jabatan, lembaga, jenjangT, thnLulus, instansi, jurusan, created, updated) {
+            $("#carousel-thumb img").attr('src', img);
+            $("#nama").text(nama);
+            $("#nik").text(nik);
+            $("#nip").text(nip);
+            $("#ttl").text(ttl);
+            $("#jk").text(kelamin);
+            $("#agama").text(agama);
+            $("#telp").text(telp);
+            $("#email").text(email);
+            $("#negara").text(negara);
+            $("#alamat").text(alamat);
+            $("#statusH").text(status);
+            $("#noRek").text(noRek);
+            $("#bank").text(bank);
+            $("#kcpBank").text(kcpBank);
+            $("#nikA").text(nikA);
+            $("#namaA").text(namaA);
+            $("#nikI").text(nikI);
+            $("#namaI").text(namaI);
+            $("#namaP").text(namaP);
+            $("#pekerjaanP").text(pekerjaanP);
+            $("#nuptk").text(nuptk);
+            $("#sk").text(sk);
+            $("#tglM").text(tglM);
+            $("#jabatanY").text(jabatanY);
+            $("#jabatan").text(jabatan);
+            $("#lembagaP").text(lembaga);
+            $("#jenjangT").text(jenjangT);
+            $("#thnLulus").text(thnLulus);
+            $("#instansi").text(instansi);
+            $("#jurusan").text(jurusan);
+            $("#created").text(created);
+            $("#updated").text(updated);
+            $("#modalPegawai").modal('show');
+        }
+
+        function getPegawai() {
+            swal({
+                    title: "Tambahkan Pegawai?",
+                    text: "Data pegawai dari setiap lembaga akan ditambahkan !!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Iya, tambahkan !!",
+                    closeOnConfirm: false
+                },function (isConfirm){
+                if (isConfirm){
+                    window.location='{{route('get.pegawai')}}';
+                }
+            });
+            return false;
+        }
 
         body.on('click','.sweet-print',function () {
             id=$(this).data('id');

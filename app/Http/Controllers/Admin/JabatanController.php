@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Jabatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 
 class JabatanController extends Controller
 {
@@ -13,6 +15,23 @@ class JabatanController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->uriSIMPADI = env('SIMPADI_URI');
+        $this->uriSIMDEPAD = env('SIMDEPAD_URI');
+
+        $this->clientSIMPADI = new Client([
+            'base_uri' => $this->uriSIMPADI,
+            'defaults' => [
+                'exceptions' => false
+            ]
+        ]);
+
+        $this->clientSIMDEPAD = new Client([
+            'base_uri' => $this->uriSIMDEPAD,
+            'defaults' => [
+                'exceptions' => false
+            ]
+        ]);
     }
 
     public function index()
@@ -85,5 +104,28 @@ class JabatanController extends Controller
         $jabatan->delete();
 
         return redirect()->route('jm-home')->with('hapus','Jabatan ' . $jabatan->nama_jabatan . ' berhasil dihapus.');
+    }
+
+    public function getJabatan(){
+        try {
+            $response = $this->clientSIMPADI->get($this->uriSIMPADI . '/api/role')->getBody()->getContents();
+            $response = json_decode($response, true);
+            foreach ($response as $row){
+                $check = Jabatan::where('nama_jabatan', $row['nama'])->where('lembaga_id', 3)->count();
+
+                if(!$check){
+                    Jabatan::create([
+                        'nama_jabatan' => $row['nama'],
+                        'lembaga_id' => 3,
+                        'created_by' => Auth::user()->nama_user,
+                    ]);
+                }
+            }
+
+            return redirect()->route('jm-home')->with('sukses', 'Data jabatan dari lembaga berhasil ditambahkan.');
+
+        } catch (ConnectException $e) {
+            return $e->getResponse();
+        }
     }
 }

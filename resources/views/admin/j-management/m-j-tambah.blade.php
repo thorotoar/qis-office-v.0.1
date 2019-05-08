@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-8 ml-auto">
-                                            <button id="add" type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                             <a href="{{route('jm-home')}}" class="btn btn-dark">Cancel</a>
                                         </div>
                                     </div>

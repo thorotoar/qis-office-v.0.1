@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-validation">
-                                <form id="form-confirm" class="form-valide" action="{{route('jur-update', $jurusan->id)}}" method="post">
+                                <form class="form-valide" action="{{route('jur-update', $jurusan->id)}}" method="post">
                                     {{csrf_field()}}
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="jurusan">Nama Jurusan </label>

@@ -24,7 +24,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
-                                <form id="form-addSuratMasuk" action="{{route('surm-tambah-selesai')}}" enctype="multipart/form-data" method="post">
+                                <form action="{{route('surm-tambah-selesai')}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     {{--surat masuk--}}
                                     <div class="row">
@@ -79,7 +79,7 @@
                                     <div class="row">
                                         <div class="col-lg-5">
                                             <div class="form-group">
-                                                <button id="addSuratMasuk" type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
                                                 <button type="reset" class="btn btn-primary">Clear</button>
                                                 <a href="{{route('surm-home')}}" class="btn btn-dark">Cancel</a>
                                             </div>

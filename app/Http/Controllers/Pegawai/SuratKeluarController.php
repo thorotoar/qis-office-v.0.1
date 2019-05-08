@@ -40,17 +40,6 @@ class SuratKeluarController extends Controller
         $no_urut = str_pad(SuratKeluar::count() + 1, 3, 0, STR_PAD_LEFT);
 
         return view('pegawai.surat-keluar.k-tambah', compact('jenis', 'no_urut'));
-
-//        if($jenis->template_surat == 'Template 1'){
-//            return view('pegawai.surat-keluar.k-tambah-1', compact('jenis', 'no_urut'));
-//        }
-//        elseif ($jenis->template_surat == 'Template 2'){
-//
-//            return view('pegawai.surat-keluar.k-tambah-2', compact('jenis', 'no_urut'));
-//        }
-//        else{
-//            return back()->with('not_found', 'Jenis Surat Tidak Ditemukan');
-//        }
     }
 
     public function store(Request $request){

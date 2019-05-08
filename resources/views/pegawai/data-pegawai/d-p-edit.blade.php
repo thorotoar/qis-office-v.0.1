@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
-                                <form id="form-editPegawai" action="{{route('u-d-pegawai', $pegawai)}}" enctype="multipart/form-data" method="post">
+                                <form action="{{route('u-d-pegawai', $pegawai)}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     {{--Personal Info--}}
                                     <div class="row">
@@ -50,6 +50,10 @@
                                             <div class="form-group">
                                                 <label>NIK <span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" name="nik" value="{{ $pegawai->nik  }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>NIP <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="nip" value="{{ $pegawai->nip }}" onkeypress="return numberOnly(event, false)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Nama <span class="text-danger">*</span></label>
@@ -300,7 +304,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Masuk <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_lahir" value="{{ $pegawai->tgl_masuk  }}" placeholder="tanggal/bulan/tahun" required>
+                                                    <input type="text" class="form-control" name="tanggal_masuk" value="{{ $pegawai->tgl_masuk  }}" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -373,7 +377,7 @@
                                     <div class="row">
                                         <div class="col-lg-5">
                                             <div class="form-group">
-                                                <button id="editPegawai" type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
                                                 <button type="reset" class="btn btn-primary">Clear</button>
                                                 <a href="{{route('d-pegawai')}}" class="btn btn-dark">Cancel</a>
                                             </div>

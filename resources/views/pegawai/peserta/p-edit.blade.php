@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
-                                <form id="form-editPeserta" action="{{route('p-update', $peserta)}}" enctype="multipart/form-data" method="post">
+                                <form action="{{route('p-update', $peserta)}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     {{--Personal Info--}}
                                     <div class="row">

@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-lg-7">
                         <h2 class="h2-responsive product-name">
-                            <strong id="nama"></strong>
+                            <strong id="nama"></strong>&nbsp;<button id="full" class="btn btn-sm btn-outline-danger btn-flat btn-rounded disabled" disabled></button>
                         </h2>
 
                         <!--Accordion wrapper-->
@@ -392,19 +392,13 @@
                                     <div class="col-md-6">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Dimasukkan oleh :</small><br>
-                                            <strong>@if($value->created_by == null)
-                                                    <span>-</span>
-                                                @endif
-                                                {{$value->created_by}}</strong>
+                                            <strong id="created"></strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-6">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Diubah oleh :</small><br>
-                                            <strong>@if($value->updated_by == null)
-                                                    <span>-</span>
-                                                @endif
-                                                {{$value->updated_by}}</strong>
+                                            <strong id="updated"></strong>
                                         </h6>
                                     </div>
                                 </div>

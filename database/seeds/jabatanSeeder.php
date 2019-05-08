@@ -15,7 +15,7 @@ class jabatanSeeder extends Seeder
     {
         $faker = Factory::create('id_ID');
 
-        for ($c = 0; $c < 13; $c++){
+        for ($c = 0; $c < 15; $c++){
             Jabatan::create([
                 'nama_jabatan' => $faker->sentence('1', 'true'),
                 'lembaga_id' => rand(\App\Lembaga::min('id'), \App\Lembaga::max('id')),
@@ -81,25 +81,37 @@ class jabatanSeeder extends Seeder
         Jabatan::find(10)->update([
             'kode_jabatan' => 'KPG',
             'nama_jabatan' => 'Konsultan Psikolog',
-            'lembaga_id' => '4',
+            'lembaga_id' => '3',
         ]);
 
         Jabatan::find(11)->update([
             'kode_jabatan' => 'KPK',
             'nama_jabatan' => 'Konsultan Pendidik',
-            'lembaga_id' => '4',
+            'lembaga_id' => '3',
         ]);
 
         Jabatan::find(12)->update([
             'kode_jabatan' => 'DKU',
             'nama_jabatan' => 'Dokter Umum',
-            'lembaga_id' => '4',
+            'lembaga_id' => '3',
         ]);
 
         Jabatan::find(13)->update([
             'kode_jabatan' => 'DKG',
             'nama_jabatan' => 'Dokter Gigi',
-            'lembaga_id' => '4',
+            'lembaga_id' => '3',
+        ]);
+
+        Jabatan::find(14)->update([
+            'kode_jabatan' => 'PGS',
+            'nama_jabatan' => 'Pengasuh',
+            'lembaga_id' => '3',
+        ]);
+
+        Jabatan::find(15)->update([
+            'kode_jabatan' => 'PDD',
+            'nama_jabatan' => 'Pendidik',
+            'lembaga_id' => '3',
         ]);
 
     }

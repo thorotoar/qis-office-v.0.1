@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-validation">
-                                <form id="form-confirm" class="form-valide" action="{{route('um-update', $userM->id)}}" method="post">
+                                <form class="form-valide" action="{{route('um-update', $userM->id)}}" method="post">
                                     {{csrf_field()}}
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="username">Username <span class="text-danger">*</span></label>
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-8 ml-auto">
-                                            <button id="confirm" type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                             <a href="{{route('um-home')}}" class="btn btn-dark">Cancel</a>
                                         </div>
                                     </div>

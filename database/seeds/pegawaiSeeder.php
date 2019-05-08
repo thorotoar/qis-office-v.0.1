@@ -19,6 +19,8 @@ class pegawaiSeeder extends Seeder
      */
     public function run()
     {
+        $jabatanD = Jabatan::where('nama_jabatan', 'Pendidik')->first();
+        $jabatanG = Jabatan::where('nama_jabatan', 'Pengasuh')->first();
         $faker = Factory::create('id_ID');
         $gender = ['Laki-laki','Perempuan'];
         $status = ['Sudah Menikah','Belum Menikah'];
@@ -29,6 +31,7 @@ class pegawaiSeeder extends Seeder
             Pegawai::create([
                 'user_id' => rand(User::min('id'), User::max('id')),
                 'nik' => $faker->numerify('###########'),
+                'nip' => $faker->numerify('###########'),
                 'foto' => $faker->imageUrl('84', '112'),
                 'nama' => $faker->name,
                 'alamat' => $faker->address,
@@ -88,7 +91,7 @@ class pegawaiSeeder extends Seeder
         ]);
 
         Pegawai::find(5)->update([
-            'nama' => 'Farah Nur Jihan',
+            'nama' => 'Abraham Samad',
             'jabatan_yayasan_id' => '5',
             'lembaga_id' => '1',
         ]);
@@ -137,6 +140,82 @@ class pegawaiSeeder extends Seeder
         Pegawai::find(13)->update([
             'jabatan_id' => '9',
             'lembaga_id' => '4',
+        ]);
+
+        Pegawai::create([
+            'user_id' => rand(User::min('id'), User::max('id')),
+            'nik' => $faker->numerify('###########'),
+            'nip' => '0000000000003',
+            'foto' => $faker->imageUrl('84', '112'),
+            'nama' => 'Pendidik',
+            'alamat' => $faker->address,
+            'tempat_lahir' => $faker->city,
+            'tgl_lahir' => $faker->date('d M Y','01 01 2000'),
+            'kelamin' => array_random($gender),
+            'agama_id' => rand(Agama::min('id'), Agama::max('id')),
+            'kewarganegaraan_id' => rand(Kewarganegaraan::min('id'), Kewarganegaraan::max('id')),
+            'telpon' => $faker->numerify('##########'),
+            'email' => $faker->unique()->safeEmail,
+            'status_pernikahan' => array_random($status),
+            'nuptk' => '',
+            'no_rek' => '',
+            'bank_id' => rand(Bank::min('id'), Bank::max('id')),
+            'kcp_bank' => '',
+            'ibu' => $faker->name,
+            'nik_ibu' => $faker->numerify('###########'),
+            'ayah' => $faker->name,
+            'nik_ayah' => $faker->numerify('###########'),
+            'pasangan' => $faker->name,
+            'pekerjaan_pasangan' => $faker->jobTitle,
+            'tgl_masuk' => $faker->date('d M Y','01 01 2000'),
+            'no_sk' => $faker->numerify('###########'),
+            'created_by' => '',
+            'updated_by' => '',
+            'lembaga_id' => 3,
+            'status_user' => '',
+            'jabatan_id' => $jabatanD->id,
+            'jenjang_id' => rand(\App\Jenjang::min('id'), \App\Jenjang::max('id')),
+            'jurusan_id' => rand(\App\JurusanPendidikan::min('id'), \App\JurusanPendidikan::max('id')),
+            'instansi' => $instansi_g,
+            'thn_lulus' => $faker->year,
+        ]);
+
+        Pegawai::create([
+            'user_id' => rand(User::min('id'), User::max('id')),
+            'nik' => $faker->numerify('###########'),
+            'nip' => '0000000000002',
+            'foto' => $faker->imageUrl('84', '112'),
+            'nama' => 'Pengasuh',
+            'alamat' => $faker->address,
+            'tempat_lahir' => $faker->city,
+            'tgl_lahir' => $faker->date('d M Y','01 01 2000'),
+            'kelamin' => array_random($gender),
+            'agama_id' => rand(Agama::min('id'), Agama::max('id')),
+            'kewarganegaraan_id' => rand(Kewarganegaraan::min('id'), Kewarganegaraan::max('id')),
+            'telpon' => $faker->numerify('##########'),
+            'email' => $faker->unique()->safeEmail,
+            'status_pernikahan' => array_random($status),
+            'nuptk' => '',
+            'no_rek' => '',
+            'bank_id' => rand(Bank::min('id'), Bank::max('id')),
+            'kcp_bank' => '',
+            'ibu' => $faker->name,
+            'nik_ibu' => $faker->numerify('###########'),
+            'ayah' => $faker->name,
+            'nik_ayah' => $faker->numerify('###########'),
+            'pasangan' => $faker->name,
+            'pekerjaan_pasangan' => $faker->jobTitle,
+            'tgl_masuk' => $faker->date('d M Y','01 01 2000'),
+            'no_sk' => $faker->numerify('###########'),
+            'created_by' => '',
+            'updated_by' => '',
+            'lembaga_id' => 3,
+            'status_user' => '',
+            'jabatan_id' => $jabatanG->id,
+            'jenjang_id' => rand(\App\Jenjang::min('id'), \App\Jenjang::max('id')),
+            'jurusan_id' => rand(\App\JurusanPendidikan::min('id'), \App\JurusanPendidikan::max('id')),
+            'instansi' => $instansi_g,
+            'thn_lulus' => $faker->year,
         ]);
     }
 }

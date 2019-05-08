@@ -157,7 +157,7 @@
                     <div class="col-md-2">
                         <h6 class="h6-responsive">
                             <small class="green-text">Provinsi :</small><br>
-                            <strong>{{$data->provinsi->nama_provinsi}}</strong>
+                            <strong>{{$data->provinsi_id == null ? '-' : $data->provinsi->nama_provinsi}}</strong>
                         </h6>
                     </div>
                     <div class="col-md-2">
@@ -191,7 +191,7 @@
                     <div class="col-md-2">
                         <h6 class="h6-responsive">
                             <small class="green-text">Alat Transportasi :</small><br>
-                            <strong>{{$data->transportasiPD->nama_transportasi}}</strong>
+                            <strong>{{$data->transportasi_id ==null ? '-' : $data->transportasiPD->nama_transportasi}}</strong>
                         </h6>
                     </div>
                     <div class="col-md-2">

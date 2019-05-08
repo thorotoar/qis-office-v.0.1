@@ -15,7 +15,6 @@ class CreateKewarganegaraansTable extends Migration
     {
         Schema::create('kewarganegaraans', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kode_negara');
             $table->string('nama_negara');
             $table->timestamps();
         });

@@ -106,4 +106,8 @@ class PesertaDidik extends Model
     public function suratKeluar(){
         return $this->belongsTo(SuratKeluar::class, 'peserta_id');
     }
+
+    public function jadwalPeserta(){
+        return $this->hasOne(JadwalPelajaran::class);
+    }
 }

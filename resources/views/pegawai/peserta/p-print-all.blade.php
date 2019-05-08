@@ -35,7 +35,7 @@
         <th>Nama</th>
         <th>TTL</th>
         <th>Jenis Kelamin</th>
-        <th>No. Telp</th>
+        <th width="119px">No. Telp</th>
         <th>Email</th>
         <th>Alamat</th>
         <th>Lembaga</th>
@@ -44,7 +44,7 @@
         <tr>
             <td style="vertical-align: middle;text-align: center">{{$index +1}}</td>
             <td><strong>{{$datas->nama}}</strong></td>
-            <td>{{$datas->tgl_lahir}}, {{$datas->tempat_lahir}} </td>
+            <td>{{$datas->tempat_lahir}}, {{$datas->tgl_lahir}}</td>
             <td>{{$datas->kelamin}}</td>
             <td>{{$datas->telpon_selular}}</td>
             <td>{{$datas->email}}</td>

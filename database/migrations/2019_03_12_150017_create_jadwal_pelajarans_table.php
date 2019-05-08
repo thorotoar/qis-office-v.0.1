@@ -15,11 +15,15 @@ class CreateJadwalPelajaransTable extends Migration
     {
         Schema::create('jadwal_pelajarans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('nama_jadwal');
-            $table->date('tgl_jadwal');
-            $table->date('tgl_dicatat');
+            $table->integer('siswa_id')->unsigned()->nullable();
+            $table->foreign('siswa_id')->references('id')->on('peserta_didiks');
+            $table->string('waktu_mulai');
+            $table->string('waktu_akhir');
+            $table->string('kegiatan');
+            $table->string('ruangan');
+            $table->string('keterangan');
+            $table->string('thn_jadwal')->nullable();
+            $table->string('tgl_dicatat');
             $table->integer('lembaga_id')->unsigned();
             $table->foreign('lembaga_id')->references('id')->on('lembagas');
             $table->string('created_by')->nullable();

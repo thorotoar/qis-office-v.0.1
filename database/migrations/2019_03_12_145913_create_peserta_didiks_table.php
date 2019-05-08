@@ -85,6 +85,7 @@ class CreatePesertaDidiksTable extends Migration
             $table->foreign('penghasilan_wali_id')->references('id')->on('penghasilans')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->string('tgl_masuk')->nullable();
             $table->string('status')->nullable();
+            $table->boolean('isFull')->default(false);
             $table->integer('lembaga_id')->unsigned()->nullable();
             $table->foreign('lembaga_id')->references('id')->on('lembagas')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->string('created_by')->nullable();

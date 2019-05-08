@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-validation">
-                                <form id="form-add" class="form-valide" action="{{route('jm-update',['id'=>$jabatan->id])}}" method="post">
+                                <form class="form-valide" action="{{route('jm-update',['id'=>$jabatan->id])}}" method="post">
                                     {{csrf_field()}}
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="jabatan">Nama Jabatan </label>
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-8 ml-auto">
-                                            <button id="add" type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                             <a href="{{route('jm-home')}}" class="btn btn-dark">Cancel</a>
                                         </div>
                                     </div>

@@ -128,6 +128,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
             'uses' => 'JabatanController@destroy',
             'as' => 'jm-hapus'
         ]);
+
+        Route::get('/jabatan-import', [
+            'uses' => 'JabatanController@getJabatan',
+            'as' => 'get.jabatan'
+        ]);
     });
 
     Route::group(['prefix' => 'manajemen-jenis-surat'], function (){
@@ -362,11 +367,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         'as' => 'u-pass'
     ]);
 
-    Route::get('siswa', [
-        'uses' => 'PegawaiController@getSiswa',
-        'as' => 'get.siswa',
-        ]);
-
     Route::group(['prefix' => 'surat-keluar'], function (){
 
         Route::get('/', [
@@ -491,6 +491,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'mdc-hapus'
         ]);
 
+        Route::get('jadwal-peserta-didik', [
+            'uses' => 'JadwalPelajaranController@getJadwalMdc',
+            'as' => 'get.jadwal.mdc',
+        ]);
+
     });
 
     Route::group(['prefix' => 'data-pegawai'], function (){
@@ -569,6 +574,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'uses' => 'DataPegawaiController@print_all',
             'as' => 'd-p-print-all'
         ]);
+
+        Route::get('import-pegawai', [
+            'uses' => 'DataPegawaiController@getPegawai',
+            'as' => 'get.pegawai',
+        ]);
     });
 
     Route::group(['prefix' => 'peserta-didik'], function (){
@@ -626,6 +636,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         Route::get('/nilai-peserta/{id}', [
             'uses' => 'PesertaController@lihatNilai',
             'as' => 'p-nilai'
+        ]);
+
+        Route::get('siswa', [
+            'uses' => 'PesertaController@getSiswa',
+            'as' => 'get.siswa',
         ]);
 
     });

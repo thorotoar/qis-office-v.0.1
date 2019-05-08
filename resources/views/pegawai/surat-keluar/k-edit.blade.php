@@ -24,7 +24,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
-                                    <form id="form-addSuratKeluar" action="{{route('surk-update', $sk->id)}}" enctype="multipart/form-data" method="post">
+                                    <form action="{{route('surk-update', $sk->id)}}" enctype="multipart/form-data" method="post">
                                         {{csrf_field()}}
                                         @if($sk->jenisSurat->template_surat == 'Template 1')
                                             <div class="row">

@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
-                                <form id="form-addSuratKeluar" action="{{route('jsm-tambah-selesai')}}" enctype="multipart/form-data" method="post">
+                                <form action="{{route('jsm-tambah-selesai')}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     <div class="row">
                                         <div class="col-md-3">

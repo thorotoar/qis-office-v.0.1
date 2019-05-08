@@ -18,6 +18,7 @@
     <link href="{{asset('css/lib/datepicker/bootstrap-datepicker3.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/jquery-ui.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('timepicker/wickedpicker.min.css')}}">
+    <link href="{{asset('icons/font-awesome/css/all.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{asset('css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
     <link href="{{asset('css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />

@@ -57,12 +57,12 @@
                             <h4 class="card-title">Daftar Peserta Didik</h4>
                             <hr>
                             <div class="button-list">
-                                <a class="btn btn-primary btn-flat" href="{{route('p-tambah')}}">
-                                    <i class="fa fa-plus"></i>&nbsp;Tambah Peserta Didik</a>
+                                {{--<a class="btn btn-primary btn-flat" href="{{route('p-tambah')}}">--}}
+                                    {{--<i class="fa fa-plus"></i>&nbsp;Tambah Peserta Didik</a>--}}
+                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getSiswa()"><i
+                                            class="fa fa-refresh"></i>&nbsp;Tambah Peserta Didik</a>
                                 <a class="btn btn-primary btn-flat" href="{{route('p-print-all')}}">
                                     <i class="fa fa-print"></i>&nbsp;Print All</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getSiswa()"><i
-                                            class="fa fa-refresh"></i></a>
                             </div>
                             <div class="card col-md-12 ">
                                 <div class="button-list">
@@ -114,6 +114,7 @@
                                         @php
                                         $img = $value->foto == null ? asset('images/icon/no.png') : asset($value->foto);
                                         $nama = $value->nama;
+                                        $full = $value->isFull == false ? 'Belum Lengkap' : 'Lengkap';
                                         $nik = $value->nik == null ? '-' : $value->nik;
                                         $nisn = $value->nisn == null ? '-' : $value->nisn;
                                         $ttl = $value->tempat_lahir . ', ' . $value->tgl_lahir;
@@ -165,6 +166,10 @@
                                         $jejangWali = $value->jenjangPendidikanW == null ? '-' : $value->jenjangPendidikanW->nama_jenjang;
                                         $pekerjaanWali = $value->pekerjaan_wali == null ? '-' : $value->pekerjaan_wali;
                                         $penghasilanWali = $value->penghasilanW == null ? '-' : $value->penghasilanW->jumlah_penghasilan;
+
+                                        $created = $value->created_by == null ? '-' : $value->created_by;
+                                        $updated = $value->updated_by == null ? '-' : $value->updated_by;
+
                                         @endphp
                                         <tr>
                                             <th>{{ $index +1 }}</th>
@@ -174,7 +179,7 @@
                                                 @else
                                                     <img src="{{asset($value->foto)}}" width="84" height="112">
                                                 @endif</th>
-                                            <th>{{ $value->nama }}</th>
+                                            <th>{{ $value->nama }}&nbsp;<button class="btn btn-sm btn-outline-danger btn-flat btn-rounded disabled" disabled>{{ $value->isFull == false ? 'Belum Lengkap' : 'Lengkap' }}</button></th>
                                             <th>{{ $value->kelamin }}</th>
                                             <th>{{ $value->tempat_lahir }}, {{ $value->tgl_lahir }}</th>
                                             <th>{{ $value->lembaga != "" ? $value->lembaga->nama_lembaga : '-'}}</th>
@@ -186,13 +191,13 @@
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat"
-                                                            data-placement="top" title="Lihat" onclick="lihatPeserta('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$nik}}', '{{$nisn}}', '{{$ttl}}',
+                                                            data-placement="top" title="Lihat" onclick="lihatPeserta('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$full}}', '{{$nik}}', '{{$nisn}}', '{{$ttl}}',
                                                             '{{$kelamin}}', '{{$agama}}', '{{$telp}}', '{{$hp}}', '{{$email}}', '{{$negara}}', '{{$kebutuhan}}', '{{$alamat}}',
                                                             '{{$rt}}', '{{$rw}}', '{{$dusun}}', '{{$desa}}', '{{$provinsi}}', '{{$kabupaten}}', '{{$kecamatan}}', '{{$kodePos}}', '{{$jenisTinggal}}',
                                                             '{{$trans}}', '{{$anak}}', '{{$kps}}', '{{$noKps}}', '{{$pip}}', '{{$kip}}', '{{$kks}}', '{{$akta}}', '{{$lembaga}}',
                                                             '{{$namaAyah}}' , '{{$nikAyah}}' , '{{$lahirAyah}}' , '{{$jejangAyah}}' , '{{$pekerjaanAyah}}' , '{{$penghasilanAyah}}' , '{{$kebutuhanAyah}}',
                                                             '{{$namaIbu}}' , '{{$nikIbu}}' , '{{$lahirIbu}}' , '{{$jejangIbu}}' , '{{$pekerjaanIbu}}' , '{{$penghasilanIbu}}' , '{{$kebutuhanIbu}}',
-                                                            '{{$namaWali}}' , '{{$nikWali}}' , '{{$lahirWali}}' , '{{$jejangWali}}' , '{{$pekerjaanWali}}' , '{{$penghasilanWali}}')">
+                                                            '{{$namaWali}}' , '{{$nikWali}}' , '{{$lahirWali}}' , '{{$jejangWali}}' , '{{$pekerjaanWali}}' , '{{$penghasilanWali}}', '{{$created}}', '{{$updated}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
                                                     <button type="button" data-id="{{$value->id}}"
@@ -235,13 +240,14 @@
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
     <script>
-        function lihatPeserta(id, img, nama, nik, nisn, ttl, kelamin, agama, telp, hp, email, negara, kebutuhan, alamat, rt, rw, dusun, desa,
+        function lihatPeserta(id, img, nama, full, nik, nisn, ttl, kelamin, agama, telp, hp, email, negara, kebutuhan, alamat, rt, rw, dusun, desa,
                               provinsi, kabupaten, kecamatan, kodePos, jenisTinggal, trans, anak, kps, noKps, pip, kip, kks, akta, lembaga,
                               namaAyah, nikAyah, lahirAyah, jejangAyah, pekerjaanAyah, penghasilanAyah, kebutuhanAyah,
                               namaIbu, nikIbu, lahirIbu, jejangIbu, pekerjaanIbu, penghasilanIbu, kebutuhanIbu,
-                              namaWali, nikWali, lahirWali, jejangWali, pekerjaanWali, penghasilanWali) {
+                              namaWali, nikWali, lahirWali, jejangWali, pekerjaanWali, penghasilanWali, created, updated) {
             $("#carousel-thumb img").attr('src', img);
             $("#nama").text(nama);
+            $("#full").text(full);
             $("#nik").text(nik);
             $("#nisn").text(nisn);
             $("#ttl").text(ttl);
@@ -291,6 +297,8 @@
             $("#jW").text(jejangWali);
             $("#pW").text(pekerjaanWali);
             $("#penghasilanWali").text(penghasilanWali);
+            $("#created").text(created);
+            $("#updated").text(updated);
             $("#modalPeserta").modal('show');
         }
 
@@ -384,20 +392,11 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Iya, tambahkan !!",
                     closeOnConfirm: false
-                },
-                function(){
-                    $.ajax({
-                        url: "{{ route('get.siswa') }}",
-                        type: "GET",
-                        dataType: "JSON",
-                        success: function (data) {
-                            swal('Success!', 'Data peserta dari lembaga berhasil ditambahkan.', 'success');
-                        },
-                        error: function () {
-                            swal('Error!', 'Terjadi suatu kesalahan! Silahkan refresh browser Anda.', 'error');
-                        }
-                    });
-                });
+                }, function (isConfirm) {
+                if (isConfirm) {
+                    window.location = '{{route('get.siswa')}}';
+                }
+            });
 
             return false;
         }

@@ -18,4 +18,8 @@ class JadwalPelajaran extends Model
     public function lembaga_jp(){
         return $this->belongsTo(Lembaga::class, 'lembaga_id');
     }
+
+    public function jadwalPeserta(){
+        return $this->belongsTo(PesertaDidik::class, 'siswa_id');
+    }
 }
