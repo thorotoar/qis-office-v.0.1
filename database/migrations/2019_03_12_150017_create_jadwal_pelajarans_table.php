@@ -16,7 +16,7 @@ class CreateJadwalPelajaransTable extends Migration
         Schema::create('jadwal_pelajarans', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('siswa_id')->unsigned()->nullable();
-            $table->foreign('siswa_id')->references('id')->on('peserta_didiks');
+            $table->foreign('siswa_id')->references('id')->on('peserta_didiks')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->string('waktu_mulai');
             $table->string('waktu_akhir');
             $table->string('kegiatan');

@@ -70,19 +70,6 @@
                     <div class="card p-30">
                         <div class="media">
                             <div class="media-left meida media-middle">
-                                <span><i class="fa fa-book f-s-40 color-warning"></i></span>
-                            </div>
-                            <div class="media-body media-text-right">
-                                <h2>{{ $jPelajaran }}</h2>
-                                <p class="m-b-0">Jadwal Pelajaran</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card p-30">
-                        <div class="media">
-                            <div class="media-left meida media-middle">
                                 <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
                             </div>
                             <div class="media-body media-text-right">
@@ -101,6 +88,45 @@
                             <div class="media-body media-text-right">
                                 <h2>{{$pegawai}}</h2>
                                 <p class="m-b-0">Pegawai</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-30">
+                        <div class="media">
+                            <div class="media-left meida media-middle">
+                                <span><i class="fa fa-book f-s-40 color-warning"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2>{{ $jQIS }}</h2>
+                                <p class="m-b-0">Jadwal Pelajaran QIS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-30">
+                        <div class="media">
+                            <div class="media-left meida media-middle">
+                                <span><i class="fa fa-book f-s-40 color-warning"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2>{{ $jMDC }}</h2>
+                                <p class="m-b-0">Jadwal Pelajaran MDC</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-30">
+                        <div class="media">
+                            <div class="media-left meida media-middle">
+                                <span><i class="fa fa-book f-s-40 color-warning"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2>{{ $jABK }}</h2>
+                                <p class="m-b-0">Jadwal Pelajaran ABK</p>
                             </div>
                         </div>
                     </div>

@@ -1,8 +1,145 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Faker\Factory;
 use App\Bank;
+const DATA = [
+    'nama_bank' => [
+        'BANK BRI',
+        'BANK EKSPOR INDONESIA',
+        'BANK MANDIRI',
+        'BANK BNI',
+        'BANK DANAMON',
+        'PERMATA BANK',
+        'BANK BCA',
+        'BANK BII',
+        'BANK PANIN',
+        'BANK ARTA NIAGA KENCANA',
+        'BANK NIAGA',
+        'BANK BUANA IND',
+        'BANK LIPPO',
+        'BANK NISP',
+        'AMERICAN EXPRESS BANK LTD',
+        'CITIBANK N.A.',
+        'JP. MORGAN CHASE BANK, N.A.',
+        'BANK OF AMERICA, N.A',
+        'ING INDONESIA BANK',
+        'BANK MULTICOR TBK.',
+        'BANK ARTHA GRAHA',
+        'BANK CREDIT AGRICOLE INDOSUEZ',
+        'THE BANGKOK BANK COMP. LTD',
+        'THE HONGKONG & SHANGHAI B.C.',
+        'THE BANK OF TOKYO MITSUBISHI UFJ LTD',
+        'BANK SUMITOMO MITSUI INDONESIA',
+        'BANK DBS INDONESIA',
+        'BANK RESONA PERDANIA',
+        'BANK MIZUHO INDONESIA',
+        'STANDARD CHARTERED BANK',
+        'BANK ABN AMRO',
+        'BANK KEPPEL TATLEE BUANA',
+        'BANK CAPITAL INDONESIA, TBK.',
+        'BANK BNP PARIBAS INDONESIA',
+        'BANK UOB INDONESIA',
+        'KOREA EXCHANGE BANK DANAMON',
+        'RABOBANK INTERNASIONAL INDONESIA',
+        'ANZ PANIN BANK',
+        'DEUTSCHE BANK AG.',
+        'BANK WOORI INDONESIA',
+        'BANK OF CHINA LIMITED',
+        'BANK BUMI ARTA',
+        'BANK EKONOMI',
+        'BANK ANTARDAERAH',
+        'BANK HAGA',
+        'BANK IFI',
+        'BANK CENTURY, TBK.',
+        'BANK MAYAPADA',
+        'BANK JABAR',
+        'BANK DKI',
+        'BPD DIY',
+        'BANK JATENG',
+        'BANK JATIM',
+        'BPD JAMBI',
+        'BPD ACEH',
+        'BANK SUMUT',
+        'BANK NAGARI',
+        'BANK RIAU',
+        'BANK SUMSEL',
+        'BANK LAMPUNG',
+        'BPD KALSEL',
+        'BPD KALIMANTAN BARAT',
+        'BPD KALTIM',
+        'BPD KALTENG',
+        'BPD SULSEL',
+        'BANK SULUT',
+        'BPD NTB',
+        'BPD BALI',
+        'BANK NTT',
+        'BANK MALUKU',
+        'BPD PAPUA',
+        'BANK BENGKULU',
+        'BPD SULAWESI TENGAH',
+        'BANK SULTRA',
+        'BANK NUSANTARA PARAHYANGAN',
+        'BANK SWADESI',
+        'BANK MUAMALAT',
+        'BANK MESTIKA',
+        'BANK METRO EXPRESS',
+        'BANK SHINTA INDONESIA',
+        'BANK MASPION',
+        'BANK HAGAKITA',
+        'BANK GANESHA',
+        'BANK WINDU KENTJANA',
+        'HALIM INDONESIA BANK',
+        'BANK HARMONI INTERNATIONAL',
+        'BANK KESAWAN',
+        'BANK TABUNGAN NEGARA (PERSERO)',
+        'BANK HIMPUNAN SAUDARA 1906, TBK .',
+        'BANK TABUNGAN PENSIUNAN NASIONAL',
+        'BANK SWAGUNA',
+        'BANK JASA ARTA',
+        'BANK MEGA',
+        'BANK JASA JAKARTA',
+        'BANK BUKOPIN',
+        'BANK SYARIAH MANDIRI',
+        'BANK BISNIS INTERNASIONAL',
+        'BANK SRI PARTHA',
+        'BANK BINTANG MANUNGGAL',
+        'BANK BUMIPUTERA',
+        'BANK YUDHA BHAKTI',
+        'BANK MITRANIAGA',
+        'BANK AGRO NIAGA',
+        'BANK INDOMONEX',
+        'BANK ROYAL INDONESIA',
+        'BANK ALFINDO',
+        'BANK SYARIAH MEGA',
+        'BANK INA PERDANA',
+        'BANK HARFA',
+        'PRIMA MASTER BANK',
+        'BANK PERSYARIKATAN INDONESIA',
+        'BANK AKITA',
+        'LIMAN INTERNATIONAL BANK',
+        'ANGLOMAS INTERNASIONAL BANK',
+        'BANK DIPO INTERNATIONAL',
+        'BANK KESEJAHTERAAN EKONOMI',
+        'BANK UIB',
+        'BANK ARTOS IND',
+        'BANK PURBA DANARTA',
+        'BANK MULTI ARTA SENTOSA',
+        'BANK MAYORA',
+        'BANK INDEX SELINDO',
+        'BANK VICTORIA INTERNATIONAL',
+        'BANK EKSEKUTIF',
+        'CENTRATAMA NASIONAL BANK',
+        'BANK FAMA INTERNASIONAL',
+        'BANK SINAR HARAPAN BALI',
+        'BANK HARDA',
+        'BANK FINCONESIA',
+        'BANK MERINCORP',
+        'BANK MAYBANK INDOCORP',
+        'BANK OCBC – INDONESIA',
+        'BANK CHINA TRUST INDONESIA',
+        'BANK COMMONWEALTH',
+        'LAINNYA'
+    ]];
 
 class bankSeeder extends Seeder
 {
@@ -11,44 +148,14 @@ class bankSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        $faker = Factory::create('id_ID');
 
-        for ($c = 0; $c < 7; $c++){
-            $bank = Bank::create([
-                'nama_bank' => $faker->sentence('1', 'true'),
+    public function run(){
+        foreach (DATA['nama_bank'] as $i=>$r){
+            Bank::create([
+                'nama_bank' => $r,
                 'created_by' => '',
                 'updated_by' => '',
             ]);
         }
-
-        Bank::find(1)->update([
-            'nama_bank' => 'BRI',
-        ]);
-
-        Bank::find(2)->update([
-            'nama_bank' => 'BNI',
-        ]);
-
-        Bank::find(3)->update([
-            'nama_bank' => 'BCA',
-        ]);
-
-        Bank::find(4)->update([
-            'nama_bank' => 'BI',
-        ]);
-
-        Bank::find(5)->update([
-            'nama_bank' => 'BANK JATIM',
-        ]);
-
-        Bank::find(6)->update([
-            'nama_bank' => 'BTN',
-        ]);
-
-        Bank::find(7)->update([
-            'nama_bank' => 'MANDIRI',
-        ]);
     }
 }

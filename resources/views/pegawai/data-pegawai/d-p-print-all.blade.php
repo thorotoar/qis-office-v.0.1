@@ -43,13 +43,13 @@
     @foreach($data as $index => $datas)
         <tr>
             <td style="vertical-align: middle;text-align: center">{{$index +1}}</td>
-            <td><strong>{{$datas->pegawai->nama}}</strong></td>
-            <td>{{$datas->pegawai->tgl_lahir}}, {{$datas->pegawai->tempat_lahir}} </td>
-            <td>{{$datas->pegawai->kelamin}}</td>
-            <td>{{$datas->pegawai->telpon}}</td>
-            <td>{{$datas->pegawai->email}}</td>
-            <td>{{$datas->pegawai->alamat}}</td>
-            <td>{{$datas->pegawai->lembaga->nama_lembaga}}</td>
+            <td><strong>{{$datas->nama}}</strong></td>
+            <td>{{$datas->tgl_lahir}}, {{$datas->tempat_lahir}} </td>
+            <td>{{$datas->kelamin}}</td>
+            <td>{{$datas->telpon}}</td>
+            <td>{{$datas->email}}</td>
+            <td>{{$datas->alamat}}</td>
+            <td>{{$datas->lembaga->nama_lembaga}}</td>
         </tr>
     @endforeach
 </table>

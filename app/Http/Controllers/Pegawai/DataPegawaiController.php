@@ -86,16 +86,16 @@ class DataPegawaiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'required|unique:pegawais,nik',
-            'nip' => 'required|unique:pegawais,nip',
+//            'nik' => 'required|unique:pegawais,nik',
+//            'nip' => 'required|unique:pegawais,nip',
             'no_telp' => 'required|unique:pegawais,telpon',
             'email' => 'required|unique:pegawais,email',
             'no_rek' => 'nullable|unique:pegawais,no_rek',
-            'nik_ibu' => 'required|unique:pegawais,nik_ibu',
-            'nik_ayah' => 'required|unique:pegawais,nik_ayah',
+//            'nik_ibu' => 'required|unique:pegawais,nik_ibu',
+//            'nik_ayah' => 'required|unique:pegawais,nik_ayah',
         ],[
-            'nik.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
-            'nip.required' => 'NIP belum anda isi, silahkan isi terlebih dahulu!.',
+//            'nik.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
+//            'nip.required' => 'NIP belum anda isi, silahkan isi terlebih dahulu!.',
             'no_telp.required' => 'Nomor Telpon belum anda isi, silahkan isi terlebih dahulu!.',
             'email.required' => 'E-Mail belum anda isi, silahkan isi terlebih dahulu!.',
             'nik_ibu.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
@@ -163,7 +163,8 @@ class DataPegawaiController extends Controller
     public function edit(Request $request){
 
         $pegawai = Pegawai::find($request->id);
-        $jabatan = Jabatan::all();
+//        dd($pegawai);
+        $jabatan = Jabatan::where('lembaga_id', '!=', 1)->get();
         $kewarganegaraan = Kewarganegaraan::all();
         $agama = Agama::all();
         $bank = Bank::all();
@@ -178,13 +179,13 @@ class DataPegawaiController extends Controller
     public function update(Request $request, $id){
 
         $request->validate([
-            'nik' => "required|unique:pegawais,nik,$id",
-            'nip' => "required|unique:pegawais,nip,$id",
+//            'nik' => "required|unique:pegawais,nik,$id",
+//            'nip' => "required|unique:pegawais,nip,$id",
             'no_telp' => "required|unique:pegawais,telpon,$id",
             'email' => "required|unique:pegawais,email,$id",
             'no_rek' => "nullable|unique:pegawais,no_rek,$id",
-            'nik_ibu' => "required|unique:pegawais,nik_ibu,$id",
-            'nik_ayah' => "required|unique:pegawais,nik_ayah,$id",
+//            'nik_ibu' => "required|unique:pegawais,nik_ibu,$id",
+//            'nik_ayah' => "required|unique:pegawais,nik_ayah,$id",
         ],[
             'nik.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
             'nip.required' => 'NIP belum anda isi, silahkan isi terlebih dahulu!.',
@@ -270,14 +271,12 @@ class DataPegawaiController extends Controller
 
     public function print(Request $request){
 
-        $data = RiwayatPendidikan::find($request->id);
-        //dd($data);
-        //$pdf = PDF::loadView("pegawai.data-pegawai.d-p-print", compact('data'));
+        $data = Pegawai::find($request->id);
         return view('pegawai.data-pegawai.d-p-print', compact('data'));
     }
 
     public function print_all(){
-        $data = RiwayatPendidikan::all();
+        $data = Pegawai::all();
         $pdf = PDF::loadView("pegawai.data-pegawai.d-p-print-all", compact('data'));
         $pdf->setPaper('A4', 'landscape');
 
@@ -302,38 +301,61 @@ class DataPegawaiController extends Controller
                         'lembaga_id' => 3,
                         'created_by' => Auth::user()->nama_user,
                     ]);
+
+                    $check = Pegawai::where('user_id', Auth::user()->id)->where('nip', $row['nip'])->where('nama', $row['user_id']['nama'])->where('alamat', $row['user_id']['alamat'])
+                        ->where('tempat_lahir', $row['user_id']['tempat_lahir'])->where('tgl_lahir', strftime("%d %B %Y", strtotime($row['user_id']['tanggal_lahir'])))->where('kelamin', $row['user_id']['jenis_kelamin'])
+                        ->where('agama_id', $agama->id)->where('kewarganegaraan_id', $negara->id)->where('telpon', $row['user_id']['no_telp'])->where('email', $row['user_id']['email'])
+                        ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])))->where('status_pekerjaan', $row['status'])->where('jabatan_id', $jabatan->id)
+                        ->where('lembaga_id', 3)->where('created_by', Auth::user()->nama_user)->count();
+
+                    if (!$check){
+                        Pegawai::create([
+                            'user_id' => Auth::user()->id,
+                            'nip' => $row['nip'],
+                            'nama' => $row['user_id']['nama'],
+                            'alamat' => $row['user_id']['alamat'],
+                            'tempat_lahir' => $row['user_id']['tempat_lahir'],
+                            'tgl_lahir' => strftime("%d %B %Y", strtotime($row['user_id']['tanggal_lahir'])),
+                            'kelamin' => $row['user_id']['jenis_kelamin'],
+                            'agama_id' => $agama->id,
+                            'kewarganegaraan_id' => $negara->id,
+                            'telpon' => $row['user_id']['no_telp'],
+                            'email' => $row['user_id']['email'],
+                            'tgl_masuk' => strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])),
+                            'status_pekerjaan' => $row['status'],
+                            'jabatan_id' => $jabatan->id,
+                            'lembaga_id' => 3,
+                            'created_by' => Auth::user()->nama_user,
+                        ]);
+                    }
+                } else {
+                    $check = Pegawai::where('user_id', Auth::user()->id)->where('nip', $row['nip'])->where('nama', $row['user_id']['nama'])->where('alamat', $row['user_id']['alamat'])
+                        ->where('tempat_lahir', $row['user_id']['tempat_lahir'])->where('tgl_lahir', strftime("%d %B %Y", strtotime($row['user_id']['tanggal_lahir'])))->where('kelamin', $row['user_id']['jenis_kelamin'])
+                        ->where('agama_id', $agama->id)->where('kewarganegaraan_id', $negara->id)->where('telpon', $row['user_id']['no_telp'])->where('email', $row['user_id']['email'])
+                        ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])))->where('status_pekerjaan', $row['status'])->where('jabatan_id', $jabatan->id)
+                        ->where('lembaga_id', 3)->where('created_by', Auth::user()->nama_user)->count();
+
+                    if (!$check){
+                        Pegawai::create([
+                            'user_id' => Auth::user()->id,
+                            'nip' => $row['nip'],
+                            'nama' => $row['user_id']['nama'],
+                            'alamat' => $row['user_id']['alamat'],
+                            'tempat_lahir' => $row['user_id']['tempat_lahir'],
+                            'tgl_lahir' => strftime("%d %B %Y", strtotime($row['user_id']['tanggal_lahir'])),
+                            'kelamin' => $row['user_id']['jenis_kelamin'],
+                            'agama_id' => $agama->id,
+                            'kewarganegaraan_id' => $negara->id,
+                            'telpon' => $row['user_id']['no_telp'],
+                            'email' => $row['user_id']['email'],
+                            'tgl_masuk' => strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])),
+                            'status_pekerjaan' => $row['status'],
+                            'jabatan_id' => $jabatan->id,
+                            'lembaga_id' => 3,
+                            'created_by' => Auth::user()->nama_user,
+                        ]);
+                    }
                 }
-
-                $check = Pegawai::where('user_id', Auth::user()->id)->where('nip', $row['nip'])->where('nama', $row['user_id']['nama'])->where('alamat', $row['user_id']['alamat'])
-                                ->where('tempat_lahir', $row['user_id']['tempat_lahir'])->where('tgl_lahir', strftime("%d %B %Y", strtotime($row['user_id']['tanggal_lahir'])))->where('kelamin', $row['user_id']['jenis_kelamin'])
-                                ->where('agama_id', $agama->id)->where('kewarganegaraan_id', $negara->id)->where('telpon', $row['user_id']['no_telp'])->where('email', $row['user_id']['email'])
-                                ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])))->where('status_pekerjaan', $row['status'])->where('jabatan_id', $jabatan->id)
-                                ->where('lembaga_id', 3)->where('created_by', Auth::user()->nama_user)->count();
-
-                if (!$check){
-                    $test = Pegawai::create([
-                        'user_id' => Auth::user()->id,
-                        'nip' => $row['nip'],
-                        'nama' => $row['user_id']['nama'],
-                        'alamat' => $row['user_id']['alamat'],
-                        'tempat_lahir' => $row['user_id']['tempat_lahir'],
-                        'tgl_lahir' => strftime("%d %B %Y", strtotime($row['user_id']['tanggal_lahir'])),
-                        'kelamin' => $row['user_id']['jenis_kelamin'],
-                        'agama_id' => $agama->id,
-                        'kewarganegaraan_id' => $negara->id,
-                        'telpon' => $row['user_id']['no_telp'],
-                        'email' => $row['user_id']['email'],
-                        'tgl_masuk' => strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])),
-                        'status_pekerjaan' => $row['status'],
-                        'jabatan_id' => $jabatan->id,
-                        'lembaga_id' => 3,
-                        'created_by' => Auth::user()->nama_user,
-                    ]);
-                }
-
-//                if ($row['nip'] != null) {
-//
-//                }
             }
 
             return redirect()->route('d-pegawai')->with('sukses', 'Data pegawai dari lembaga berhasil ditambahkan.');

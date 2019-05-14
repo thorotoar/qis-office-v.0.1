@@ -141,7 +141,6 @@
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                                    <button type="reset" class="btn btn-primary">Clear</button>
                                                     <a href="{{route('surk-home')}}" class="btn btn-dark">Cancel</a>
                                                 </div>
                                             </div>

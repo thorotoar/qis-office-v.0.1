@@ -52,7 +52,7 @@
                                                 <input type="text" class="form-control" name="nik" value="" onkeypress="return numberOnly(event, false)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>NIP <span class="text-danger">*</span></label>
+                                                <label>NIP </label>
                                                 <input type="text" class="form-control" name="nip" value="" onkeypress="return numberOnly(event, false)" required>
                                             </div>
                                             <div class="form-group">
@@ -68,7 +68,7 @@
                                                 <div class="input-group date datepicker">
                                                     <input type="text" class="form-control" name="tanggal_lahir" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
-                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -294,7 +294,7 @@
                                                 <div class="input-group date datepicker">
                                                     <input type="text" class="form-control" name="tanggal_masuk" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
-                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -328,7 +328,7 @@
                                                 <div class="input-group date datepicker">
                                                     <input type="text" class="form-control" name="tanggal_selesai" placeholder="tanggal/bulan/tahun">
                                                     <div class="input-group-addon">
-                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -423,5 +423,10 @@
             format: "dd MM yyyy"
         });
 
+        $('.yearpicker').datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
     </script>
 @endsection

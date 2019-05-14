@@ -108,6 +108,6 @@ class PesertaDidik extends Model
     }
 
     public function jadwalPeserta(){
-        return $this->hasOne(JadwalPelajaran::class);
+        return $this->hasMany(JadwalPelajaran::class, 'siswa_id');
     }
 }

@@ -101,7 +101,7 @@ class SuratKeluarController extends Controller
             ]);
         }
 
-        return redirect()->route('surk-home')->with('sukses', $jenisur->nama_jenis_surat.'_'.substr($sk->no_surat, 0, 3). ' berhasil diubah.');
+        return redirect()->route('surk-home')->with('sukses', "<b>" . $jenisur->nama_jenis_surat.'_'.substr($sk->no_surat, 0, 3) . "</b>" . ' berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -179,7 +179,7 @@ class SuratKeluarController extends Controller
         $sk = SuratKeluar::find($request->id);
 
         if (Input::has('file_pdf')){
-            File::delete('images/file-surat/'.$sk->attach);
+            File::delete('file-surat/'.$sk->attach);
 
             $file = $request->file('file_pdf')->getClientOriginalName();
             Input::file('file_pdf')->move('file-surat/', $file);
@@ -194,7 +194,7 @@ class SuratKeluarController extends Controller
         }
 
 
-        return back()->with('send', 'Surat Berhasil Terkirim');
+        return back()->with('send', 'Surat Keluar Berhasil Terkirim');
     }
     
     public  function print(Request $request){
@@ -246,5 +246,13 @@ class SuratKeluarController extends Controller
             $perihal->label = $perihal->kode_jabatan . ' - ' . $perihal->nama_jabatan;
         }
         return $perihals;
+    }
+
+    public function printAll(){
+        $datas = SuratKeluar::all();
+        //dd($data);
+        $pdf = PDF::loadView("pegawai.surat-keluar.k-print-all", compact('datas'));
+        $pdf->setPaper('A4');
+        return $pdf->stream('daftar_surat_keluar.pdf');
     }
 }

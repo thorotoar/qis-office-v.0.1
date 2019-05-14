@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Pegawai;
 
+use App\Mail\SuratMasukEmail;
 use App\SuratMasuk;
+use http\Client\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use Mail;
+use PDF;
 
 class SuratMasukController extends Controller
 {
@@ -110,6 +114,28 @@ class SuratMasukController extends Controller
         return redirect()->route('surm-home')->with('edit', 'Surat masuk ' . $suratM->no_surat . ' berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
     }
 
+    public function attach(Request $request){
+        $sk = SuratMasuk::find($request->id);
+
+        if (Input::has('file_pdf')){
+            File::delete('file-surat-masuk/'.$sk->attach);
+
+            $file = $request->file('file_pdf')->getClientOriginalName();
+            Input::file('file_pdf')->move('file-surat-masuk/', $file);
+
+            $sk->update([
+                'attach' => $file,
+            ]);
+
+            Mail::send(new SuratMasukEmail($request, $sk->upload_file));
+        }else{
+            Mail::send(new SuratMasukEmail($request, $sk->upload_file));
+        }
+
+
+        return back()->with('send', 'Surat Masuk Berhasil Terkirim');
+    }
+
     public function destroy($id){
 
         $surM = SuratMasuk::find($id);
@@ -118,5 +144,20 @@ class SuratMasukController extends Controller
         $surM->delete();
 
         return redirect()->route('surm-home')->with('hapus', 'Surat masuk ' . $surM->no_surat . ' berhasil dihapus.');
+    }
+
+    public function print(Request $request){
+        $data = SuratMasuk::find($request->id);
+        $file = File::get('file-surat-masuk/'. substr($data->upload_file, '17'));
+
+        return Response::make($file);
+    }
+
+    public function printAll(){
+        $datas = SuratMasuk::all();
+        //dd($data);
+        $pdf = PDF::loadView("pegawai.surat-masuk.m-print-all", compact('datas'));
+        $pdf->setPaper('A4');
+        return $pdf->stream('daftar_surat_masuk.pdf');
     }
 }

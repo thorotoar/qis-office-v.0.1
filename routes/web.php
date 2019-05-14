@@ -404,6 +404,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surk-print'
         ]);
 
+        Route::get('/surat-keluar-print-all', [
+            'uses' => 'SuratKeluarController@printAll',
+            'as' => 'surk-print-all'
+        ]);
+
         Route::post('/surat-keluar-kirim/{id}', [
             'uses' => 'SuratKeluarController@attach',
             'as' => 'surk-kirim'
@@ -452,6 +457,21 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surm-update'
         ]);
 
+        Route::get('/surat-masuk-print', [
+            'uses' => 'SuratMasukController@print',
+            'as' => 'surm-print'
+        ]);
+
+        Route::get('/surat-masuk-print-all', [
+            'uses' => 'SuratMasukController@printAll',
+            'as' => 'surm-print-all'
+        ]);
+
+        Route::post('/surat-masuk-kirim', [
+            'uses' => 'SuratMasukController@attach',
+            'as' => 'surm-kirim'
+        ]);
+
         Route::delete('/hapus-surat-masuk/{id}', [
             'uses' => 'SuratMasukController@destroy',
             'as' => 'surm-hapus'
@@ -481,7 +501,7 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'mdc-edit'
         ]);
 
-        Route::post('/update-jadwal-mdc/{id}', [
+        Route::post('/update-jadwal-mdc', [
             'uses' => 'JadwalPelajaranController@updateMdc',
             'as' => 'mdc-update'
         ]);
@@ -491,11 +511,30 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'mdc-hapus'
         ]);
 
+        Route::delete('/hapus-jadwal-mdc-/{id}', [
+            'uses' => 'JadwalPelajaranController@destroyJadwalMdc',
+            'as' => 'mdc-j-hapus'
+        ]);
+
         Route::get('jadwal-peserta-didik', [
             'uses' => 'JadwalPelajaranController@getJadwalMdc',
             'as' => 'get.jadwal.mdc',
         ]);
 
+        Route::get('/jadwal-mdc-print', [
+            'uses' => 'JadwalPelajaranController@print',
+            'as' => 'mdc-print'
+        ]);
+
+        Route::get('/jadwal-mdc-print-all', [
+            'uses' => 'JadwalPelajaranController@print_all',
+            'as' => 'mdc-print-all'
+        ]);
+
+        Route::get('/modal-jadwal-mdc/{id}', [
+            'uses' => 'JadwalPelajaranController@modalJadwal',
+            'as' => 'modal-jadwal'
+        ]);
     });
 
     Route::group(['prefix' => 'data-pegawai'], function (){

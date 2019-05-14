@@ -5,7 +5,6 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SuratKeluarEmail extends Mailable
 {
@@ -35,7 +34,7 @@ class SuratKeluarEmail extends Mailable
             ->to($data->penerima)
             ->from(env('MAIL_USERNAME'), 'QIS - Quali International Surabaya')
             ->subject($data->subjek)
-            ->attach(public_path('images/file-surat/'. $this->file))
+            ->attach(public_path('file-surat/'. $this->file))
             ->view('pegawai.surat-keluar.k-mail' ,compact('data'));
     }
 }

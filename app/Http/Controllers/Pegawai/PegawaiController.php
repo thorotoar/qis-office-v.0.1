@@ -28,10 +28,12 @@ class PegawaiController extends Controller{
         $pMDC = PesertaDidik::where('lembaga_id', [4])->count();
         $sMasuk = SuratMasuk::all()->count();
         $sKeluar = SuratKeluar::all()->count();
-        $jPelajaran = JadwalPelajaran::all()->count();
+        $jQIS = JadwalPelajaran::where('lembaga_id', 2)->count();
+        $jMDC = JadwalPelajaran::where('lembaga_id', 3)->count();
+        $jABK = JadwalPelajaran::where('lembaga_id', 4)->count();
 
         $pegawaiShow = Pegawai::find($request->id);
-        return view('pegawai.pegawai-home', compact('pegawai', 'dokumen', 'pQIS', 'pABK', 'pMDC', 'sMasuk', 'sKeluar', 'jPelajaran', 'pegawaiShow'));
+        return view('pegawai.pegawai-home', compact('pegawai', 'dokumen', 'pQIS', 'pABK', 'pMDC', 'sMasuk', 'sKeluar', 'jQIS', 'jMDC', 'jABK', 'pegawaiShow'));
     }
 
     public function changePass(){

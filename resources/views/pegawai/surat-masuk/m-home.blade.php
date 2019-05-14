@@ -33,6 +33,11 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     {{session()->get('hapus')}}
                 </div>
+            @elseif(session()->has('send'))
+                <div class="alert alert-info alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{session()->get('send')}}
+                </div>
         @endif
             <!-- Start Page Content -->
             <div class="row">
@@ -43,9 +48,9 @@
                             <div class="button-list">
                                 <a class="btn btn-primary btn-flat" href="{{route('surm-tambah')}}">
                                     <i class="fa fa-plus"></i>&nbsp;Tambah Surat Masuk</a>
-                                <a class="btn btn-primary btn-flat" href="{{route('surk-test')}}">
+                                <a class="btn btn-primary btn-flat" href="{{route('surm-print-all')}}">
                                     <i class="fa fa-print"></i>&nbsp;Print All</a>
-                                <button type="button" data-target="#raw" class="btn btn-primary btn-flat" data-toggle="modal" data-placement="top">
+                                <button type="button" data-target="#rawMasuk" class="btn btn-primary btn-flat" data-toggle="modal" data-placement="top">
                                     <i class="fa fa-send"></i> Kirim
                                 </button>
                             </div>
@@ -78,41 +83,50 @@
                                     </thead>
                                     <tbody>
                                     @foreach($smasukView as $index => $value)
-                                        <tr >
-                                            <th>{{ $index +1 }}</th>
-                                            <th>{{ $value->no_surat }} </th>
-                                            <th>{{ strftime("%d %B %Y", strtotime($value->tgl_diterima)) }}</th>
-                                            <th>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</th>
-                                            <th>{{ $value->pengirim }}</th>
-                                            <th>{{ $value->prihal }}</th>
-                                            <th>
+                                        @php
+                                        $img = substr($value->upload_file, '21');
+                                        $noSM = $value->no_surat;
+                                        $tglT = $value->tgl_diterima;
+                                        $tglC = $value->tgl_dicatat;
+                                        $pengirim = $value->pengirim;
+                                        $penerima = $value->penerima;
+                                        $prihal = $value->prihal;
+                                        $created = $value->created_by == null ? '-' : $value->created_by;
+                                        $updated = $value->updated_by == null ? '-' : $value->updated_by;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $index +1 }}</td>
+                                            <td>{{ $value->no_surat }} </td>
+                                            <td>{{ strftime("%d %B %Y", strtotime($value->tgl_diterima)) }}</td>
+                                            <td>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</td>
+                                            <td>{{ $value->pengirim }}</td>
+                                            <td>{{ $value->prihal }}</td>
+                                            <td>
                                                 <div class="table-data-feature">
                                                     <form id="form-deleteSuratMasuk-{{$value->id}}" class="form-group pull-left" action="" method="post" hidden>
                                                         {{csrf_field()}} {{method_field('DELETE')}}
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
-                                                    <button data-target="#test{{$value->id}}" type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat" data-id="pegawaiId">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat" onclick="lihatSurat('{{$value->id}}', '{{$img}}', '{{$noSM}}', '{{$tglT}}', '{{$tglC}}', '{{$pengirim}}', '{{$penerima}}', '{{$prihal}}', '{{$created}}' ,'{{$updated}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
-                                                    <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-suratMasuk-edit" data-toggle="tooltip"
-                                                            data-placement="top" title="Edit">
+                                                    <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-suratMasuk-edit" data-toggle="tooltip" data-placement="top" title="Edit">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print" onclick="sendSurat('{{$value->id}}')">
                                                         <i class="fa fa-send"></i> Kirim
                                                     </button>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
+                                                    <a href="{{route('surm-print', ['id' => $value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
                                                         <i class="fa fa-print"></i> Print
-                                                    </button>
-                                                    <a href="/{{ $value->upload_file }}" download="{{ substr($value->upload_file, 17) }}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Download">
+                                                    </a>
+                                                    <a href="/{{ $value->upload_file }}" download="{{ substr($value->upload_file, '17') }}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Download">
                                                         <i class="fa fa-download"></i> Download
                                                     </a>
                                                     <button onclick="deleteDataPegawai('{{$value->id}}')" type="submit" class="btn btn-sm btn-rounded btn-danger btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
                                                         <i class="fa fa-trash"></i> Hapus
                                                     </button>
                                                 </div>
-                                            </th>
-                                            @include('pegawai.surat-masuk.m-show')
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -126,29 +140,18 @@
         </div>
         <!-- End Container fluid  -->
     </div>
+    @include('pegawai.surat-masuk.m-show')
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('tinymce/tinymce.min.js')}}"></script>
+    <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
 
     <script>
         var id;
         var body = $('body');
         body.on('click','.sweet-suratMasuk-edit',function () {
             id=$(this).data('id');
-            swal({
-                title: "Edit data terpilih?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Iya",
-                cancelButtonText: "Tidak",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            },function (isConfirm){
-
-                if (isConfirm){
-                    window.location='{{route('surm-edit')}}'+'?id='+id;
-                }
-            })
+            window.location='{{route('surm-edit')}}'+'?id='+id;
         });
 
         function deleteDataPegawai(id) {
@@ -166,6 +169,24 @@
             })
         }
 
+        function lihatSurat(id, img, noSM, tglT, tglC, pengirim, penerima, prihal, created, updated){
+            $("#img-masuk").text(img);
+            $("#noSM").text(noSM);
+            $("#tgl-diterima").text(tglT);
+            $("#tgl-dicatat").text(tglC);
+            $("#pengirim").text(pengirim);
+            $("#penerima").text(penerima);
+            $("#prihal").text(prihal);
+            $("#created").text(created);
+            $("#updated").text(updated);
+            $("#modalSuratMasuk").modal('show');
+        }
+
+        function sendSurat(id){
+            $("#formSuratMasuk input[name=id]").val(id);
+            $("#sendSuratMasuk").modal('show');
+        }
+
         $('.input-date').datepicker({
             todayBtn: 'linked',
             format: 'dd MM yyyy',
@@ -177,6 +198,46 @@
         $('#refresh').on("click", function (){
             $('#from_surat').val('');
             $("#myTable_filter input[type=search]").val('').trigger('keyup');
+        });
+
+        var editor_config;
+        $(function () {
+            editor_config = {
+                branding: false,
+                path_absolute: '{{url('/')}}',
+                selector: '.isi',
+                height: 250,
+                themes: 'modern',
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor textcolor',
+                    'searchreplace visualblocks code',
+                    'insertdatetime media table contextmenu paste code help wordcount'
+                ],
+                toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                relative_urls: false,
+                file_browser_callback: function (field_name, url, type, win) {
+                    var x = window.innerWidth || document.documentElement.clientWidth ||
+                        document.getElementsByTagName('body')[0].clientWidth,
+                        y = window.innerHeight || document.documentElement.clientHeight ||
+                            document.getElementsByTagName('body')[0].clientHeight,
+                        cmsURL = editor_config.path_absolute + 'filemanager?field_name=' + field_name;
+                    if (type == 'image') {
+                        cmsURL = cmsURL + '&type=Images';
+                    } else {
+                        cmsURL = cmsURL + '&type=Files';
+                    }
+
+                    tinyMCE.activeEditor.windowManager.open({
+                        file: cmsURL,
+                        title: 'File Manager',
+                        width: x * 0.8,
+                        height: y * 0.8,
+                        resizable: 'yes',
+                        close_previous: 'no'
+                    });
+                }
+            };
+            tinymce.init(editor_config);
         });
     </script>
 @endsection

@@ -56,7 +56,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                                <a class="btn btn-primary btn-flat" href="{{route('surk-test')}}">
+                                <a class="btn btn-primary btn-flat" href="{{route('surk-print-all')}}">
                                     <i class="fa fa-print"></i>&nbsp;Print All</a>
                                 <button type="button" data-target="#raw" class="btn btn-primary btn-flat" data-toggle="modal" data-placement="top">
                                 <i class="fa fa-send"></i> Kirim
@@ -101,18 +101,13 @@
                                     <tbody class="tbody">
                                     @foreach($keluarView as $index => $value)
                                         <tr>
-                                            <th>{{ $index +1 }}</th>
-                                            <th>{{ $value->no_surat }} </th>
-                                            <th>{{ strftime("%d %B %Y", strtotime($value->tgl_keluar)) }}</th>
-                                            <th>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</th>
-                                            <th>
-                                                @if($value->perihal == null)
-                                                    -
-                                                    @endif
-                                                    {{ $value->perihal }}
-                                            </th>
-                                            <th>{{$value->jenisSurat->nama_jenis_surat}}</th>
-                                            <th>
+                                            <td>{{ $index +1 }}</td>
+                                            <td>{{ $value->no_surat }} </td>
+                                            <td>{{ strftime("%d %B %Y", strtotime($value->tgl_keluar)) }}</td>
+                                            <td>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</td>
+                                            <td>{{ $value->perihal == null ? '-' : $value->perihal }}</td>
+                                            <td>{{ $value->jenisSurat->nama_jenis_surat }}</td>
+                                            <td>
                                                 <div class="table-data-feature">
                                                     <form id="form-deleteSuratP-{{$value->id}}" class="form-group pull-left" action="" method="post" hidden>
                                                         {{csrf_field()}} {{method_field('DELETE')}}
@@ -132,7 +127,7 @@
                                                         <i class="fa fa-trash"></i> Hapus
                                                     </button>
                                                 </div>
-                                            </th>
+                                            </td>
                                             @include('pegawai.surat-keluar.k-send')
                                         </tr>
                                     @endforeach
@@ -158,42 +153,13 @@
         var body = $('body');
         body.on('click','.sweet-suratMasuk-edit',function () {
             id=$(this).data('id');
-            swal({
-                title: "Edit data terpilih?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Iya",
-                cancelButtonText: "Tidak",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            },function (isConfirm){
-
-                if (isConfirm){
-                    window.location='{{route('surk-edit')}}'+'?id='+id;
-                }
-            })
+            window.location='{{route('surk-edit')}}'+'?id='+id;
         });
 
         body.on('click','.print',function () {
             id=$(this).data('id');
             window.location='{{route('surk-print')}}'+'?id='+id;
         });
-
-        {{--body.on('click','.send',function () {--}}
-            {{--id=$(this).data('id');--}}
-            {{--window.location='{{route('surk-send')}}'+'?id='+id;--}}
-        {{--});--}}
-
-        {{--function create() {--}}
-            {{--id=$(this).data('id');--}}
-            {{--window.location='{{route('surp-print')}}'+'?id='+id;--}}
-        {{--}--}}
-
-        {{--body.on('click','.create',function () {--}}
-            {{--id=$(this).data('id');--}}
-            {{--window.location='{{route('surk-tambah')}}'+'?id='+id;--}}
-        {{--});--}}
 
         function deleteDataPegawai(id) {
             swal({

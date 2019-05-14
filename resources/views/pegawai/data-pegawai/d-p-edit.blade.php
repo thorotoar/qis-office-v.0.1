@@ -48,12 +48,12 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>NIK <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" name="nik" value="{{ $pegawai->nik  }}" required>
+                                                <label>NIK </label>
+                                                <input type="number" class="form-control" name="nik" value="{{ $pegawai->nik  }}">
                                             </div>
                                             <div class="form-group">
-                                                <label>NIP <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="nip" value="{{ $pegawai->nip }}" onkeypress="return numberOnly(event, false)" required>
+                                                <label>NIP </label>
+                                                <input type="text" class="form-control" name="nip" value="{{ $pegawai->nip }}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Nama <span class="text-danger">*</span></label>
@@ -68,7 +68,7 @@
                                                 <div class="input-group date datepicker">
                                                     <input type="text" class="form-control" name="tanggal_lahir" value="{{ $pegawai->tgl_lahir  }}" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
-                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                        &nbsp;<buttjenjon class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></buttjenjon>
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,7 +110,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>No. Telp <span class="text-danger">*</span></label>
-                                                <input class="form-control" type="number" name="no_telp" value="{{ $pegawai->telpon  }}" required>
+                                                <input class="form-control" type="text" name="no_telp" value="{{ $pegawai->telpon  }}" onkeypress="return numberOnly(event, false)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Email <span class="text-danger">*</span></label>
@@ -132,16 +132,21 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="status">Status Pernikahan <span class="text-danger">*</span></label>
+                                                <label for="status">Status Pernikahan </label>
                                                 <div>
-                                                    <select class="form-control custom-select" id="status" name="status" required>
-                                                        <option value=""  disabled>Status</option>
+                                                    <select class="form-control custom-select" id="status" name="status">
                                                         @if($pegawai->status_pernikahan == 'Sudah Menikah')
+                                                            <option value=""  disabled>Status</option>
                                                             <option value="Sudah Menikah" selected>Sudah Menikah</option>
                                                             <option value="Belum Menikah" >Belum Menikah</option>
                                                         @elseif($pegawai->status_pernikahan == 'Belum Menikah')
+                                                            <option value=""  disabled>Status</option>
                                                             <option value="Sudah Menikah" >Sudah Menikah</option>
                                                             <option value="Belum Menikah" selected>Belum Menikah</option>
+                                                        @else
+                                                            <option value="" readonly disabled selected>Status</option>
+                                                            <option value="Sudah Menikah" >Sudah Menikah</option>
+                                                            <option value="Belum Menikah" >Belum Menikah</option>
                                                         @endif
                                                     </select>
                                                 </div>
@@ -165,13 +170,20 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label for="bank">Jenjang Terakhir <span class="text-danger">*</span></label>
+                                                <label for="jenjang">Jenjang Terakhir </label>
                                                 <div>
-                                                    <select class="form-control custom-select" id="bank" name="jenjang" required>
-                                                        <option value="{{$pegawai->jenjang_id}}">{{App\Jenjang::find($pegawai->jenjang_id)->nama_jenjang}}</option>
-                                                        @foreach($jenjang as $jenjangs)
-                                                            <option value="{{$jenjangs->id}}">{{$jenjangs->nama_jenjang}}</option>
-                                                        @endforeach
+                                                    <select class="form-control custom-select" id="jenjang" name="jenjang">
+                                                        @if($pegawai->jenjang_id != null)
+                                                            <option value="{{$pegawai->jenjang_id}}">{{App\Jenjang::find($pegawai->jenjang_id)->nama_jenjang}}</option>
+                                                            @foreach($jenjang as $jenjangs)
+                                                                <option value="{{$jenjangs->id}}">{{$jenjangs->nama_jenjang}}</option>
+                                                            @endforeach
+                                                        @elseif($pegawai->jenjang_id == null)
+                                                            <option value="" disabled selected readonly>Pilih Jenjang</option>
+                                                            @foreach($jenjang as $jenjangs)
+                                                                <option value="{{$jenjangs->id}}">{{$jenjangs->nama_jenjang}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -182,17 +194,25 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Tahun Lulus <span class="text-danger">*</span></label>
-                                                <input type="text" class="yearpicker form-control" name="thn_lulus" value="{{$pegawai->thn_lulus}}" required>
+                                                <label>Tahun Lulus </label>
+                                                <input type="text" class="yearpicker form-control" name="thn_lulus" value="{{$pegawai->thn_lulus}}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="jurusan">Jurusan</label>
                                                 <div>
                                                     <select class="form-control custom-select" id="jurusan" name="jurusan">
-                                                        <option value="{{$pegawai->jurusan_id}}">{{App\JurusanPendidikan::find($pegawai->jurusan_id)->nama_jurusan_pendidikan}}</option>
-                                                        @foreach($jurusan as $jurusans)
-                                                            <option value="{{$jurusans->id}}">{{$jurusans->nama_jurusan_pendidikan}}</option>
-                                                        @endforeach
+                                                        @if($pegawai->jurusan_id != null)
+                                                            <option value="" disabled readonly>Pilih Jurusan Peendidikan</option>
+                                                            <option value="{{$pegawai->jurusan_id}}">{{App\JurusanPendidikan::find($pegawai->jurusan_id)->nama_jurusan_pendidikan}}</option>
+                                                            @foreach($jurusan as $jurusans)
+                                                                <option value="{{$jurusans->id}}">{{$jurusans->nama_jurusan_pendidikan}}</option>
+                                                            @endforeach
+                                                        @elseif($pegawai->jurusan_id == null)
+                                                            <option value="" disabled readonly selected>Pilih Jurusan Peendidikan</option>
+                                                            @foreach($jurusan as $jurusans)
+                                                                <option value="{{$jurusans->id}}">{{$jurusans->nama_jurusan_pendidikan}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -216,14 +236,21 @@
                                                 <label for="bank">Bank</label>
                                                 <div>
                                                     <select class="form-control custom-select" id="bank" name="bank">
-                                                        <option value=""  disabled>Pilih Bank</option>
-                                                        @foreach($bank as $bankv)
-                                                            <option value="{{$bankv->id}}"
-                                                            @if($bankv->id == $pegawai->bank_id)
-                                                                selected
-                                                            @endif
-                                                            >{{$bankv->nama_bank}}</option>
-                                                        @endforeach
+                                                        @if($pegawai->bank_id != null)
+                                                            <option value=""  disabled>Pilih Bank</option>
+                                                            @foreach($bank as $bankv)
+                                                                <option value="{{$bankv->id}}"
+                                                                        @if($bankv->id == $pegawai->bank_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$bankv->nama_bank}}</option>
+                                                            @endforeach
+                                                        @else
+                                                            <option value=""  disabled>Pilih Bank</option>
+                                                            @foreach($bank as $bankv)
+                                                                <option value="{{$bankv->id}}">{{$bankv->nama_bank}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -246,22 +273,22 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>NIK Ibu <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" name="nik_ibu" value="{{ $pegawai->nik_ibu  }}" required>
+                                                <label>NIK Ibu </label>
+                                                <input type="number" class="form-control" name="nik_ibu" value="{{ $pegawai->nik_ibu }}">
                                             </div>
                                             <div class="form-group">
-                                                <label>NIK Ayah <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" name="nik_ayah" value="{{ $pegawai->nik_ayah  }}" required>
+                                                <label>NIK Ayah </label>
+                                                <input type="number" class="form-control" name="nik_ayah" value="{{ $pegawai->nik_ayah }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Nama Ibu <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="nama_ibu" value="{{ $pegawai->ibu  }}" required>
+                                                <label>Nama Ibu </label>
+                                                <input type="text" class="form-control" name="nama_ibu" value="{{ $pegawai->ibu }}">
                                             </div>
                                             <div class="form-group">
-                                                <label>Nama Ayah <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="nama_ayah" value="{{ $pegawai->ayah  }}" required>
+                                                <label>Nama Ayah </label>
+                                                <input type="text" class="form-control" name="nama_ayah" value="{{ $pegawai->ayah }}">
                                             </div>
                                         </div>
                                     </div>
@@ -277,7 +304,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Nama Pasangan</label>
-                                                <input type="text" class="form-control" name="nama_p" value="{{ $pegawai->pasangan  }}">
+                                                <input type="text" class="form-control" name="nama_p" value="{{ $pegawai->pasangan }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -306,7 +333,7 @@
                                                 <div class="input-group date datepicker">
                                                     <input type="text" class="form-control" name="tanggal_masuk" value="{{ $pegawai->tgl_masuk  }}" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
-                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -326,16 +353,13 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="jabatan">Jenis Kepegawaian <span class="text-danger">*</span></label>
+                                                <label for="jabatan">Jenis Kepegawaian Lembaga</label>
                                                 <div>
                                                     <select class="form-control custom-select" id="jabatan" name="jabatan"  required>
                                                         <option value=""  disabled readonly>Pilih Jenis</option>
                                                         @foreach ($jabatan as $value)
-                                                            <option value="{{$value->id}}"
-                                                                    @if($value->id == $pegawai->jabatan_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$value->nama_jabatan}}</option>
+                                                            <option value="{{$value->id}}" @if($value->id == $pegawai->jabatan_id)
+                                                            selected @endif >{{$value->nama_jabatan}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -351,7 +375,7 @@
                                                 <div class="input-group date datepicker">
                                                     <input type="text" class="form-control" name="tanggal_selesai" value="{{ $pegawai->tgl_selesai  }}" placeholder="tanggal/bulan/tahun">
                                                     <div class="input-group-addon">
-                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -360,13 +384,18 @@
                                                 <div>
                                                     <select class="form-control custom-select" id="jabatanY" name="jabatanY">
                                                         <option value="0" disabled readonly>Pilih Jenis</option>
-                                                        @foreach ($jabaya as $value)
-                                                            <option value="{{$value->id}}"
-                                                                    @if($value->id == $pegawai->jabatan_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$value->nama_jabatan}}</option>
-                                                        @endforeach
+                                                        @if($pegawai->jabatan_yayasan_id != null)
+                                                            <option value=""  disabled readonly>Pilih Jenis</option>
+                                                            @foreach ($jabaya as $value)
+                                                                <option value="{{$value->id}}" @if($value->id == $pegawai->jabatan_yayasan_id)
+                                                                selected @endif >{{$value->nama_jabatan}}</option>
+                                                            @endforeach
+                                                        @else
+                                                            <option value=""  disabled readonly selected>Pilih Jenis</option>
+                                                            @foreach ($jabaya as $value)
+                                                                <option value="{{$value->id}}">{{$value->nama_jabatan}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -441,6 +470,12 @@
 
         $('.datepicker').datepicker({
             format: "dd MM yyyy"
+        });
+
+        $('.yearpicker').datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
         });
     </script>
 @endsection
