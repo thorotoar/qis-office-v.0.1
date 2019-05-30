@@ -21,6 +21,10 @@ class Jabatan extends Model
         return $this->hasMany(Pegawai::class);
     }
 
+    public function jabatanYayasan(){
+        return $this->hasMany(Pegawai::class, 'jabatan_yayasan_id');
+    }
+
     public function lembaga(){
         return $this->belongsTo(Lembaga::class);
     }

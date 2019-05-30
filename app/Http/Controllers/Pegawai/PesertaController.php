@@ -10,6 +10,7 @@ use App\KebutuhanKhusus;
 use App\Kecamatan;
 use App\Kewarganegaraan;
 use App\Lembaga;
+use App\NilaiABK;
 use App\NilaiDC;
 use App\Pegawai;
 use App\Penghasilan;
@@ -396,15 +397,14 @@ class PesertaController extends Controller
     }
 
 
-    public function getSiswa()
-    {
+    public function getSiswa(){
         try {
             $response = $this->clientSIMPADI->get($this->uriSIMPADI . '/api/siswa')->getBody()->getContents();
             $response = json_decode($response, true);
             foreach ($response as $row) {
                 $agama = Agama::where('nama_agama', $row['user_id']['agama'])->first();
-                $jenjangIbu = Jenjang::where('nama_jenjang', $row['pendidikan_terakhir_ibu'])->first();
-                $jenjangAyah = Jenjang::where('nama_jenjang', $row['pendidikan_terakhir_ayah'])->first();
+                $jenjangA = Jenjang::where('nama_jenjang', $row['pendidikan_terakhir_ibu'])->first();
+                $jenjangI = Jenjang::where('nama_jenjang', $row['pendidikan_terakhir_ayah'])->first();
                 $pIbu = Penghasilan::where('jumlah_penghasilan', $row['penghasilan_ibu'])->first();
                 $pAyah = Penghasilan::where('jumlah_penghasilan', $row['penghasilan_ayah'])->first();
                 $kebutuhan = KebutuhanKhusus::where('nama_kebutuhan', $row['jenis_abk'])->first();
@@ -413,9 +413,9 @@ class PesertaController extends Controller
                 $check = PesertaDidik::where('user_id', Auth::id())->where('nama', $row['user_id']['nama'])->where('kelamin', $row['user_id']['jenis_kelamin'])->where('nik', $row['nomer_nik'])
                     ->where('tempat_lahir', $row['user_id']['tempat_lahir'])->where('tgl_lahir', strftime("%d %B %Y", strtotime($row['user_id']['tanggal_lahir'])))
                     ->where('agama_id', $agama->id)->where('kebutuhan_id', $kebutuhan->id)->where('alamat', $row['user_id']['alamat'])->where('telpon_selular', $row['user_id']['no_telp'])
-                    ->where('email', $row['user_id']['email'])->where('nama_ayah', $row['nama_ayah'])->where('tahun_lahir_ayah', $row['tahun_kelahiran_ayah'])->where('jenjang_ayah_id', $jenjangAyah->id)
+                    ->where('email', $row['user_id']['email'])->where('nama_ayah', $row['nama_ayah'])->where('tahun_lahir_ayah', $row['tahun_kelahiran_ayah'])->where('jenjang_ayah_id', $jenjangA->id)
                     ->where('pekerjaan_ayah', $row['pekerjaan_ayah'])->where('penghasilan_ayah_id', $pAyah->id)->where('nama_ibu', $row['nama_ibu'])->where('tahun_lahir_ibu', $row['tahun_kelahiran_ibu'])
-                    ->where('jenjang_ibu_id', $jenjangIbu->id)->where('pekerjaan_ibu', $row['pekerjaan_ibu'])->where('penghasilan_ibu_id', $pIbu->id)->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])))
+                    ->where('jenjang_ibu_id', $jenjangI->id)->where('pekerjaan_ibu', $row['pekerjaan_ibu'])->where('penghasilan_ibu_id', $pIbu->id)->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])))
                     ->where('status', $row['status'])->where('lembaga_id', 3)->where('created_by', Auth::user()->nama_user);
 
                 if (!$check->count()) {
@@ -434,12 +434,12 @@ class PesertaController extends Controller
                         'email' => $row['user_id']['email'],
                         'nama_ayah' => $row['nama_ayah'],
                         'tahun_lahir_ayah' => $row['tahun_kelahiran_ayah'],
-                        'jenjang_ayah_id' => $jenjangAyah->id,
+                        'jenjang_ayah_id' => $jenjangA->id,
                         'pekerjaan_ayah' => $row['pekerjaan_ayah'],
                         'penghasilan_ayah_id' => $pAyah->id,
                         'nama_ibu' => $row['nama_ibu'],
                         'tahun_lahir_ibu' => $row['tahun_kelahiran_ibu'],
-                        'jenjang_ibu_id' => $jenjangIbu->id,
+                        'jenjang_ibu_id' => $jenjangI->id,
                         'pekerjaan_ibu' => $row['pekerjaan_ibu'],
                         'penghasilan_ibu_id' => $pIbu->id,
                         'tgl_masuk' => strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])),
@@ -504,9 +504,136 @@ class PesertaController extends Controller
                 }
             }
 
-            return redirect()->route('p-home')->with('sukses', 'Data peserta dari lembaga berhasil ditambahkan.');
+            return redirect()->route('p-home')->with('sukses', 'Data peserta '. "<b>" . 'Muslim Day Care' . "</b>" .' berhasil ditambahkan.');
 
         } catch (ConnectException $e) {
+            return $e->getResponse();
+        }
+    }
+
+    public function getSiswaABK(){
+        try{
+            $response = $this->clientSIMDEPAD->get($this->uriSIMDEPAD . '/api/peserta')->getBody()->getContents();
+            $response = json_decode($response, true);
+
+            foreach ($response as $row){
+                $sex = $row['sexStud']['ind'] == 'Perempuan' ? 'Perempuan' : 'Laki-laki';
+                $status = $row['stud']['status'] == 'Active' ? 'aktif' : 'tidak aktif';
+                $kebutuhan = KebutuhanKhusus::where('nama_kebutuhan', $row['dis']['name'])->first();
+                $jenjang = Jenjang::where('nama_jenjang', $row['edu']['ind'])->first();
+                $negara = Kewarganegaraan::where('nama_negara', 'Indonesia')->first();
+
+                //ayah
+                $namaA = $row['hub']['eng'] == 'Parent' && $row['sexFam']['en'] == 'Male';
+                $tahunA = $row['hub']['eng'] == 'Parent' && $row['sexFam']['en'] == 'Male';
+                $jenjangFamA = $row['hub']['eng'] == 'Parent' && $row['sexFam']['en'] == 'Male';
+                $pekerjaanA = $row['hub']['eng'] == 'Parent' && $row['sexFam']['en'] == 'Male';
+                //ibu
+                $namaI = $row['hub']['eng'] == 'Parent' && $row['sexFam']['en'] == 'Female';
+                $tahunI = $row['hub']['eng'] == 'Parent' && $row['sexFam']['en'] == 'Female';
+                $jenjangFamI = $row['hub']['eng'] == 'Parent' && $row['sexFam']['en'] == 'Female';
+                $pekerjaanI = $row['hub']['eng'] == 'Parent' && $row['sexFam']['en'] == 'Female';
+
+                $check = PesertaDidik::where('nama', $row['stud']['name'])->where('kelamin', $sex)->where('nisn', $row['stud']['ni'])
+                    ->where('tempat_lahir', $row['stud']['born_place'])->where('tgl_lahir', strftime("%d %B %Y", strtotime($row['stud']['dob'])))
+                    ->where('agama_id', 1)->where('kewarganegaraan_id', $negara->id)->where('kebutuhan_id', $kebutuhan->id)->where('alamat', $row['fam']['address'])
+                    ->where('telpon_selular', $row['fam']['phone'])->where('email', $row['user_id']['email'])
+                    ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['stud']['register'])))->where('status', $status)->where('lembaga_id', 4)
+                    ->where('created_by', Auth::user()->nama_user);
+
+                $checkA = PesertaDidik::where('nama_ayah', $namaA == true ? $row['fam']['name'] : null)
+                    ->where('tahun_lahir_ayah', $tahunA == true ? substr($row['fam']['dob'], 0, 4) : null)
+                    ->where('jenjang_ayah_id', $jenjangFamA == true && $row['edu']['id'] != null ? $jenjang->id : null)
+                    ->where('pekerjaan_ayah', $pekerjaanA == true ? $row['prof']['ind'] : null);
+                $checkI = PesertaDidik::where('nama_ibu', $namaI == true ? $row['fam']['name'] : null)
+                    ->where('tahun_lahir_ibu', $tahunI == true ? substr($row['fam']['dob'], 0, 4) : null)
+                    ->where('jenjang_ibu_id', $jenjangFamI == true && $row['edu']['id'] != null ? $jenjang->id : null)
+                    ->where('pekerjaan_ibu', $pekerjaanI == true ? $row['prof']['ind'] : null);
+                $checkW = PesertaDidik::where('nama_wali', $row['hub']['ind'] != 'Orang Tua' ? $row['fam']['name'] : null)
+                    ->where('tahun_lahir_wali', $row['hub']['ind'] != 'Orang Tua' ? substr($row['fam']['dob'], 0, 4) : null)
+                    ->where('jenjang_wali_id', $row['hub']['ind'] != 'Orang Tua' && $row['edu']['ind'] != '' ? $jenjang->id : null)
+                    ->where('pekerjaan_wali', $row['hub']['ind'] != 'Orang Tua' ? $row['prof']['ind'] : null);
+
+                if (!$check->count() && !$checkA->count() || !$checkI->count() || !$checkW->count()) {
+                    $peserta = PesertaDidik::create([
+                        'user_id' => Auth::user()->id,
+                        'nama' => $row['stud']['name'],
+                        'kelamin' => $sex,
+                        'nisn' => $row['stud']['ni'],
+                        'tempat_lahir' => $row['stud']['born_place'],
+                        'tgl_lahir' => strftime("%d %B %Y", strtotime($row['stud']['dob'])),
+                        'agama_id' => 1,
+                        'kewarganegaraan_id' => $negara->id,
+                        'kebutuhan_id' => $kebutuhan->id,
+                        'alamat' => $row['fam']['address'],
+                        'telpon_selular' => $row['fam']['phone'],
+                        'email' => $row['user_id']['email'],
+                        'nama_ayah' => $namaA == true ? $row['fam']['name'] : null,
+                        'tahun_lahir_ayah' => $tahunA == true ? substr($row['fam']['dob'], 0, 4) : null,
+                        'jenjang_ayah_id' => $jenjangFamA == true && $row['edu']['id'] != null ? $jenjang->id : null,
+                        'pekerjaan_ayah' => $pekerjaanA == true ? $row['prof']['ind'] : null,
+                        'nama_ibu' => $namaI == true ? $row['fam']['name'] : null,
+                        'tahun_lahir_ibu' => $tahunI == true ? substr($row['fam']['dob'], 0, 4) : null,
+                        'jenjang_ibu_id' => $jenjangFamI == true && $row['edu']['id'] != null ? $jenjang->id : null,
+                        'pekerjaan_ibu' => $pekerjaanI == true ? $row['prof']['ind'] : null,
+                        'nama_wali' => $row['hub']['ind'] != 'Orang Tua' ? $row['fam']['name'] : null,
+                        'tahun_lahir_wali' => $row['hub']['ind'] != 'Orang Tua' ? substr($row['fam']['dob'], 0, 4) : null,
+                        'jenjang_wali_id' => $row['hub']['ind'] != 'Orang Tua' && $row['edu']['ind'] != '' ? $jenjang->id : null,
+                        'pekerjaan_wali' => $row['hub']['ind'] != 'Orang Tua' ? $row['prof']['ind'] : null,
+                        'tgl_masuk' => strftime("%d %B %Y", strtotime($row['stud']['register'])),
+                        'status' => $row['stud']['status'] == 'Active' ? 'aktif' : 'tidak aktif',
+                        'isFull' => false,
+                        'lembaga_id' => 4,
+                        'created_by' => Auth::user()->nama_user,
+                    ]);
+                } else{
+                    $peserta = $check->first();
+                }
+
+                if ($row['score'] != null) {
+                    $it = new \MultipleIterator();
+                    $it->attachIterator(new \ArrayIterator($row['score']));
+                    $it->attachIterator(new \ArrayIterator($row['act']));
+                    $it->attachIterator(new \ArrayIterator($row['mstAct']));
+
+                    foreach ($it as $value) {
+                        $checkN = NilaiABK::where('tgl_monitoring', strftime("%d %B %Y", strtotime($value[0]['date'])))->where('aktivitas', $value[2]['name'])->where('sub_aktivitas', $value[1]['name'])->where('target', $value[1]['target'])->count();
+
+                        if (!$checkN){
+                            NilaiABK::create([
+                                'peserta_id' => $peserta->id,
+                                'isMonitoring' => true,
+                                'tgl_monitoring' => strftime("%d %B %Y", strtotime($value[0]['date'])),
+                                'aktivitas' => $value[2]['name'],
+                                'sub_aktivitas' => $value[1]['name'],
+                                'target' => $value[1]['target'],
+                                'nilai' => $value[0]['value'],
+                                'prestasi' => $value[0]['achievement'],
+                                'keterangan' => $value[0]['note'],
+                            ]);
+                        }
+                    }
+                }
+
+                if ($row['rsEval'] != null){
+                    foreach ($row['rsEval'] as $value){
+                        $checkN = NilaiABK::where('tgl_evaluasi', strftime("%d %B %Y", strtotime(substr($value['created_at'], 0, 10))))->count();
+
+                        if (!$checkN){
+                            NilaiABK::create([
+                                'peserta_id' => $peserta->id,
+                                'isEvaluasi' => true,
+                                'tgl_evaluasi' => strftime("%d %B %Y", strtotime(substr($value['created_at'], 0, 10))),
+                                'evaluasi' => $value['detail']
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            return redirect()->route('p-home')->with('sukses', 'Data peserta '. "<b>" . 'Sanggar ABK' . "</b>" .' berhasil ditambahkan.');
+
+        }catch (ConnectException $e) {
             return $e->getResponse();
         }
     }

@@ -240,13 +240,13 @@ class SuratKeluarController extends Controller
         return redirect()->route('surk-home')->with('hapus', 'Data ' . $jenis['nama_jenis_surat'] . '_' . substr($surK->no_surat, 0, 3) . ' terpilih berhasil dihapus.');
     }
 
-    public function searchJabatan($Q){
-        $perihals = Jabatan::where('kode_jabatan', 'LIKE', '%' . $Q . '%')->get();
-        foreach ($perihals as $perihal) {
-            $perihal->label = $perihal->kode_jabatan . ' - ' . $perihal->nama_jabatan;
-        }
-        return $perihals;
-    }
+//    public function searchJabatan($Q){
+//        $perihals = Jabatan::where('kode_jabatan', 'LIKE', '%' . $Q . '%')->get();
+//        foreach ($perihals as $perihal) {
+//            $perihal->label = $perihal->kode_jabatan . ' - ' . $perihal->nama_jabatan;
+//        }
+//        return $perihals;
+//    }
 
     public function printAll(){
         $datas = SuratKeluar::all();
