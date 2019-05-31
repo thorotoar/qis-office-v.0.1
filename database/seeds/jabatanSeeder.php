@@ -110,7 +110,7 @@ class jabatanSeeder extends Seeder
 
         Jabatan::find(15)->update([
             'kode_jabatan' => 'PDD',
-            'nama_jabatan' => 'Pendidik',
+            'nama_jabatan' => 'Pengajar',
             'lembaga_id' => '3',
         ]);
 

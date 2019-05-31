@@ -179,9 +179,9 @@
                     <li><a class="" href="{{route('d-pegawai')}}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a></li>
                     <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Kelola Jadwal Pelajaran</span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="{{route('surm-home')}}"> Quali International Surabaya</a></li>
-                            <li><a href="{{route('mdc')}}"> Muslim Day Care</a></li>
-                            <li><a href="{{route('surk-home')}}"> Sanggar ABK</a></li>
+                            <li><a href="{{route('jadwal.qis')}}"> Quali International Surabaya</a></li>
+                            <li><a href="{{route('jadwal.mdc')}}"> Muslim Day Care</a></li>
+                            <li><a href="{{route('jadwal.abk')}}"> Sanggar ABK</a></li>
                         </ul>
                     </li>
                     <li><a class="" href="{{route('d-home')}}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a></li>

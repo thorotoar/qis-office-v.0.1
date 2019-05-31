@@ -19,7 +19,7 @@ class pegawaiSeeder extends Seeder
      */
     public function run()
     {
-        $jabatanD = Jabatan::where('nama_jabatan', 'Pendidik')->first();
+        $jabatanD = Jabatan::where('nama_jabatan', 'Pengajar')->first();
         $jabatanG = Jabatan::where('nama_jabatan', 'Pengasuh')->first();
         $faker = Factory::create('id_ID');
         $gender = ['Laki-laki','Perempuan'];

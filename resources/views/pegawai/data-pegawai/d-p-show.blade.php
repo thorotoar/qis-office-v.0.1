@@ -59,7 +59,7 @@
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Jenis Kelamin :</small><br>
-                                                <strong id="kelamin"></strong>
+                                                <strong id="jk"></strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Agama :</small><br>

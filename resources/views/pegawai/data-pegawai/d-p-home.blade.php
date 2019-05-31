@@ -30,7 +30,7 @@
             @elseif(session()->has('sukses'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('sukses')}}
+                    {!! session('sukses') !!}
                 </div>
             @elseif(session()->has('destroy'))
                 <div class="row">
@@ -71,8 +71,18 @@
                                     <i class="fa fa-plus"></i>&nbsp;Tambah Data Pegawai</a>
                                 <a class="btn btn-primary btn-flat" href="{{route('d-p-print-all')}}">
                                     <i class="fa fa-print"></i>&nbsp;Print All</a>
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getPegawai()"><i
-                                            class="fa fa-sync"></i></a>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-sync"></i></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="">Quali International Surabaya</a></li>
+                                        <li><a href="{{route('get.pegawai')}}">Muslim Day Care</a></li>
+                                        <li><a href="{{route('get.pegawai.abk')}}">Sanggar ABK</a></li>
+                                    </ul>
+                                </div>
+                                {{--<a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getPegawai()"><i--}}
+                                            {{--class="fa fa-sync"></i></a>--}}
                             </div>
                             <div class="card col-md-12 ">
                                 <div class="button-list">
@@ -117,6 +127,16 @@
                                     <tbody>
                                     @foreach($pegawai_view as $index => $value)
                                         @php
+                                            $check = \App\Pegawai::where('id', $value->id)->where('nama', '!=', null)->where('nik', '!=', null)->where('nip', '!=', null)
+                                            ->where('tempat_lahir', '!=', null)->where('tgl_lahir', '!=', null)->where('kelamin', '!=', null)
+                                            ->where('agama_id', '!=', null)->where('telpon', '!=', null)->where('email', '!=', null)
+                                            ->where('kewarganegaraan_id', '!=', null)->where('status_pernikahan', '!=', null)->where('alamat', '!=', null)
+                                            ->where('no_rek', '!=', null)->where('bank_id', '!=', null)->where('kcp_bank', '!=', null)->where('nik_ayah', '!=', null)
+                                            ->where('ayah', '!=', null)->where('nik_ibu', '!=', null)->where('ibu', '!=', null)->where('nuptk', '!=', null)
+                                            ->where('no_sk', '!=', null)->where('tgl_masuk', '!=', null)->where('jabatan_id', '!=', null)
+                                            ->where('jabatan_yayasan_id', '!=', null)->where('lembaga_id', '!=', null)->where('jenjang_id', '!=', null)
+                                            ->where('thn_lulus', '!=', null)->where('instansi', '!=', null)->where('jurusan_id', '!=', null)->first();
+
                                             //$pegawai = App\Pegawai::find($value->pegawai_id); //$pegawai->foto
                                             $img = $value->foto == null ? asset('images/icon/no.png') : asset($value->foto);
                                             $nama = $value->nama;
@@ -145,13 +165,13 @@
                                             $nuptk = $value->nuptk == null ? '-' : $value->nuptk;
                                             $sk = $value->no_sk == null ? '-' : $value->no_sk;
                                             $tglM = $value->tgl_masuk;
-                                            $jabatanY = $value->jabatanYayasan == null ? '-' : $value->jabatanYayasan->nama_jabatan_yayasan;
-                                            $jabatan = $value->jabatan == null ? '-' : $value->jabatan->nama_jabatan;
+                                            $jabatanY = $value->jabatan_yayasan_id == null ? '-' : $value->jabatanYayasan->nama_jabatan;
+                                            $jabatan = $value->jabatan_id == null ? '-' : $value->jabatan->nama_jabatan;
                                             $lembaga = $value->lembaga->nama_lembaga;
-                                            $jenjangT = $value->jenjang == null ? '-' : $value->jenjang->nama_jenjang;
+                                            $jenjangT = $value->jenjang_id == null ? '-' : $value->jenjang->nama_jenjang;
                                             $thnLulus = $value->thn_lulus == null ? '-' : $value->thn_lulus;
                                             $instansi = $value->instansi;
-                                            $jurusan = $value->jurusan == null ? '-' : $value->jurusan->nama_jurusan_pendidikan;
+                                            $jurusan = $value->jurusan_id == null ? '-' : $value->jurusan->nama_jurusan_pendidikan;
 
                                             $created = $value->created_by == null ? '-' : $value->created_by;
                                             $updated = $value->updated_by == null ? '-' : $value->updated_by;
@@ -163,7 +183,13 @@
                                                 @else
                                                     <img src="{{asset($value->foto)}}" width="84" height="112">
                                                 @endif</th>
-                                            <th>{{ $value->nama }}</th>
+                                            <th>{{ $value->nama }} <button class="btn btn-sm btn-outline-danger btn-flat btn-rounded disabled" disabled>
+                                                    @if(!$check)
+                                                        Tidak Lengkap
+                                                    @else
+                                                        Lengkap
+                                                    @endif
+                                                </button></th>
                                             <th>{{ $value->kelamin }}</th>
                                             <th>{{ $value->tempat_lahir }}, {{ $value->tgl_lahir }}</th>
                                             <th>{{ $value->lembaga->nama_lembaga }}</th>
@@ -173,12 +199,7 @@
                                                         {{csrf_field()}} {{method_field('DELETE')}}
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat"
-                                                            data-placement="top" title="Lihat" onclick="lihatPegawai('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$nik}}', '{{$nip}}', '{{$ttl}}',
-                                                            '{{$kelamin}}', '{{$agama}}', '{{$telp}}', '{{$email}}', '{{$negara}}', '{{$status}}', '{{$alamat}}',
-                                                            '{{$noRek}}', '{{$bank}}', '{{$kcpBank}}', '{{$nikA}}', '{{$namaA}}', '{{$nikI}}', '{{$namaI}}', '{{$namaP}}', '{{$pekerjaanP}}',
-                                                            '{{$nuptk}}', '{{$sk}}', '{{$tglM}}', '{{$jabatanY}}', '{{$jabatan}}', '{{$lembaga}}', '{{$jenjangT}}', '{{$thnLulus}}', '{{$instansi}}',
-                                                            '{{$jurusan}}', '{{$created}}', '{{$updated}}')">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-placement="top" title="Lihat" onclick="lihatPegawai('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$nik}}', '{{$nip}}', '{{$ttl}}', '{{$kelamin}}', '{{$agama}}', '{{$telp}}', '{{$email}}', '{{$negara}}', '{{$status}}', '{{$alamat}}', '{{$noRek}}', '{{$bank}}', '{{$kcpBank}}', '{{$nikA}}', '{{$namaA}}', '{{$nikI}}', '{{$namaI}}', '{{$namaP}}', '{{$pekerjaanP}}', '{{$nuptk}}', '{{$sk}}', '{{$tglM}}', '{{$jabatanY}}', '{{$jabatan}}', '{{$lembaga}}', '{{$jenjangT}}', '{{$thnLulus}}', '{{$instansi}}', '{{$jurusan}}', '{{$created}}', '{{$updated}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-pegawai-edit" data-toggle="tooltip"

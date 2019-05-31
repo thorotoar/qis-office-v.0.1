@@ -24,7 +24,7 @@
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
-                            {{session()->get('sukses')}}
+                            {!! session('sukses') !!}
                         </div>
                     </div>
                 </div>
@@ -59,8 +59,18 @@
                             <div class="button-list">
                                 {{--<a class="btn btn-primary btn-flat" href="{{route('p-tambah')}}">--}}
                                     {{--<i class="fa fa-plus"></i>&nbsp;Tambah Peserta Didik</a>--}}
-                                <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getSiswa()"><i
-                                            class="fa fa-refresh"></i>&nbsp;Tambah Peserta Didik</a>
+                                {{--<a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getSiswa()"><i--}}
+                                            {{--class="fa fa-refresh"></i>&nbsp;Tambah Peserta Didik</a>--}}
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        Tambah Peserta Didik <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="">Quali International Surabaya</a></li>
+                                        <li><a href="{{route('get.siswa')}}">Muslim Day Care</a></li>
+                                        <li><a href="{{route('get.siswa.abk')}}">Sanggar ABK</a></li>
+                                    </ul>
+                                </div>
                                 <a class="btn btn-primary btn-flat" href="{{route('p-print-all')}}">
                                     <i class="fa fa-print"></i>&nbsp;Print All</a>
                             </div>

@@ -101,9 +101,6 @@
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
                                                         <i class="fa fa-send"></i> Kirim
                                                     </button>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
-                                                        <i class="fa fa-print"></i> Print
-                                                    </button>
                                                     <button onclick="deleteDataDokumen('{{$value->id}}')" type="submit" class="btn btn-sm btn-rounded btn-danger btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
                                                         <i class="fa fa-trash"></i> Hapus
                                                     </button>
@@ -131,21 +128,7 @@
         var body = $('body');
         body.on('click','.sweet-dokumen-edit',function () {
             id=$(this).data('id');
-            swal({
-                title: "Edit data terpilih?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Iya",
-                cancelButtonText: "Tidak",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            },function (isConfirm){
-
-                if (isConfirm){
-                    window.location='{{route('d-edit')}}'+'?id='+id;
-                }
-            })
+            window.location='{{route('d-edit')}}'+'?id='+id;
         });
 
         body.on('click','.lihat',function () {

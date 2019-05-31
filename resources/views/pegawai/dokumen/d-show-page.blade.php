@@ -56,39 +56,27 @@
                                         <div class="col-md-6">
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Nama :</small><br>
-                                                <strong><span>@if($dokumen->nama_dokumen == null)
-                                                            <span>-</span>
-                                                        @endif{{$dokumen->nama_dokumen}}</span></strong>
+                                                <strong>{{$dokumen->nama_dokumen == null ? '-' : $dokumen->nama_dokumen}}</strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Tanggal File :</small><br>
-                                                <strong><span>@if($dokumen->tgl_file == null)
-                                                            <span>-</span>
-                                                        @endif{{$dokumen->tgl_file}}</span></strong>
+                                                <strong>{{$dokumen->tgl_file == null ? '-' : strftime("%d %B %Y", strtotime($dokumen->tgl_file))}}</strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Tanggal Dicatat :</small><br>
-                                                <strong><span>@if($dokumen->tgl_dicatat == null)
-                                                            <span>-</span>
-                                                        @endif{{$dokumen->tgl_dicatat}}</span></strong>
+                                                <strong>{{$dokumen->tgl_dicatat == null ? '-' : $dokumen->tgl_dicatat}}</strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Keterangan :</small><br>
-                                                <strong><span>@if($dokumen->keterangan == null)
-                                                            <span>-</span>
-                                                        @endif{{$dokumen->keterangan}}</span></strong>
+                                                <strong>{{$dokumen->keterangan == null ? '-' : $dokumen->keterangan}}</strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Created By :</small><br>
-                                                <strong><span>@if($dokumen->created_by == null)
-                                                            <span>-</span>
-                                                        @endif{{$dokumen->created_by}}</span></strong>
+                                                <strong>{{$dokumen->created_by == null ? '-' : $dokumen->created_by}}</strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Updated By :</small><br>
-                                                <strong><span>@if($dokumen->updated_by == null)
-                                                            <span>-</span>
-                                                        @endif{{$dokumen->updated_by}}</span></strong>
+                                                <strong>{{$dokumen->updated_by == null ? '-' : $dokumen->updated_by}}</strong>
                                             </h6>
                                         </div>
                                     </div>

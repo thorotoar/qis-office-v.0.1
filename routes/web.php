@@ -409,7 +409,7 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surk-print-all'
         ]);
 
-        Route::post('/surat-keluar-kirim/{id}', [
+        Route::post('/surat-keluar-kirim', [
             'uses' => 'SuratKeluarController@attach',
             'as' => 'surk-kirim'
         ]);
@@ -479,11 +479,21 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     });
 
-    Route::group(['prefix' => 'jadwal-pelajaran-mdc'], function (){
+    Route::group(['prefix' => 'jadwal-pelajaran'], function (){
 
-        Route::get('/', [
-            'uses' => 'JadwalPelajaranController@indexMdc',
-            'as' => 'mdc'
+        Route::get('/qis', [
+            'uses' => 'JadwalPelajaranController@index',
+            'as' => 'jadwal.qis'
+        ]);
+
+        Route::get('/mdc', [
+            'uses' => 'JadwalPelajaranController@indexMDC',
+            'as' => 'jadwal.mdc'
+        ]);
+
+        Route::get('/abk', [
+            'uses' => 'JadwalPelajaranController@indexABK',
+            'as' => 'jadwal.abk'
         ]);
 
         Route::get('/jadwal-mdc-tambah', [
@@ -516,9 +526,19 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'mdc-j-hapus'
         ]);
 
-        Route::get('jadwal-peserta-didik', [
-            'uses' => 'JadwalPelajaranController@getJadwalMdc',
+        Route::get('jadwal-peserta-didik-qis', [
+            'uses' => 'JadwalPelajaranController@getJadwalQIS',
+            'as' => 'get.jadwal.qis',
+        ]);
+
+        Route::get('jadwal-peserta-didik-mdc', [
+            'uses' => 'JadwalPelajaranController@getJadwalMDC',
             'as' => 'get.jadwal.mdc',
+        ]);
+
+        Route::get('jadwal-peserta-didik-abk', [
+            'uses' => 'JadwalPelajaranController@getJadwalABK',
+            'as' => 'get.jadwal.abk',
         ]);
 
         Route::get('/jadwal-mdc-print', [
@@ -618,6 +638,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'uses' => 'DataPegawaiController@getPegawai',
             'as' => 'get.pegawai',
         ]);
+
+        Route::get('import-pegawai-abk', [
+            'uses' => 'DataPegawaiController@getPegawaiABK',
+            'as' => 'get.pegawai.abk',
+        ]);
     });
 
     Route::group(['prefix' => 'peserta-didik'], function (){
@@ -677,9 +702,14 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'p-nilai'
         ]);
 
-        Route::get('siswa', [
+        Route::get('siswa-mdc', [
             'uses' => 'PesertaController@getSiswa',
             'as' => 'get.siswa',
+        ]);
+
+        Route::get('siswa-abk', [
+            'uses' => 'PesertaController@getSiswaABK',
+            'as' => 'get.siswa.abk',
         ]);
 
     });

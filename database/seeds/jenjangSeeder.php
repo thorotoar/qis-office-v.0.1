@@ -48,7 +48,7 @@ class jenjangSeeder extends Seeder
         ]);
 
         Jenjang::find(7)->update([
-            'nama_jenjang' => 'SMA',
+            'nama_jenjang' => 'SMA/SMK',
         ]);
 
         Jenjang::find(8)->update([

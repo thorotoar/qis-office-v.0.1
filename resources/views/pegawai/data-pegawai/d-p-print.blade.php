@@ -299,7 +299,7 @@
                     <div class="col-md-2">
                         <h6 class="h6-responsive">
                             <small class="green-text">Jenjang Terkhir :</small><br>
-                            <strong><span>{{$data->jenjang->nama_jenjang}}</span></strong>
+                            <strong><span>{{$data->jenjang_id != null ? $data->jenjang->nama_jenjang : ' '}}</span></strong>
                         </h6>
                     </div>
                     <div class="col-md-2">
@@ -317,10 +317,7 @@
                     <div class="col-md-2">
                         <h6 class="h6-responsive">
                             <small class="green-text">Jurusan :</small><br>
-                            <strong>@if($data->jurusan->nama_jurusan_pendidikan == null)
-                                    <span>-</span>
-                                @endif
-                                {{$data->jurusan->nama_jurusan_pendidikan}}</strong>
+                            <strong>{{$data->jurusan_id != null ? $data->jurusan->nama_jurusan_pendidikan : ' '}}</strong>
                         </h6>
                     </div>
                 </div>

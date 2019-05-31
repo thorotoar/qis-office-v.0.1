@@ -1,4 +1,4 @@
-<div class="modal" id="send{{ $value->id }}" tabindex="1" role="dialog" aria-hidden="true">
+<div class="modal" id="sendSuratKeluar" tabindex="1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,8 +7,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form action="{{route('surk-kirim', $value->id)}}" enctype="multipart/form-data" method="post">
+                        <form action="{{route('surk-kirim')}}" enctype="multipart/form-data" method="post" id="formSuratKeluar">
                             {{csrf_field()}}
+                            <input type="hidden" name="id">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">

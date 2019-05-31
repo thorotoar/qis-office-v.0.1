@@ -46,7 +46,7 @@
                                                 <div class="input-group date datepicker">
                                                     <input type="text" class="form-control" name="tgl_file" placeholder="bulan/tanggal/tahun" value="{{$dokumen->tgl_file}}"  required>
                                                     <div class="input-group-addon">
-                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -57,7 +57,7 @@
                                                 <div class="input-group date datepicker">
                                                     <input type="text" class="form-control" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" value="{{$dokumen->tgl_dicatat}}"  required>
                                                     <div class="input-group-addon">
-                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                        &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>

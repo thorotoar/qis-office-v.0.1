@@ -117,7 +117,7 @@
                                                             data-placement="top" title="Edit">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
-                                                    <button type="button" data-target="#send{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Print">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Kirim" onclick="sendSurat('{{$value->id}}')">
                                                         <i class="fa fa-send"></i> Kirim
                                                     </button>
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat print" data-toggle="tooltip" data-placement="top" title="Print">
@@ -128,12 +128,10 @@
                                                     </button>
                                                 </div>
                                             </td>
-                                            @include('pegawai.surat-keluar.k-send')
                                         </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
-                                {{ csrf_field() }}
                             </div>
                         </div>
                     </div>
@@ -144,6 +142,8 @@
         <!-- End Container fluid  -->
     </div>
     <!-- End Page wrapper  -->
+    @include('pegawai.surat-keluar.k-send')
+
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
@@ -233,5 +233,10 @@
             $('#from_surat').val('');
             $("#myTable_filter input[type=search]").val('').trigger('keyup');
         });
+
+        function sendSurat(id){
+            $("#formSuratKeluar input[name=id]").val(id);
+            $("#sendSuratKeluar").modal('show');
+        }
     </script>
 @endsection
