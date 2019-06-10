@@ -17,33 +17,13 @@
         <!-- End Bread crumb -->
         <!-- Container fluid  -->
         <div class="container-fluid">
-            @if(session()->has('sukses'))
+            @if(session()->has('send'))
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
-                            {{session()->get('sukses')}}
-                        </div>
-                    </div>
-                </div>
-            @elseif(session()->has('destroy'))
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissible fade show">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            {{session()->get('destroy')}}
-                        </div>
-                    </div>
-                </div>
-            @elseif(session()->has('edit'))
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissible fade show">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            {{session()->get('edit')}}
+                            {!! session('send') !!}
                         </div>
                     </div>
                 </div>
@@ -55,8 +35,10 @@
                         <div class="card">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab" role="tablist">
-                                @if( $lemb->nama_lembaga == 'Muslim Day Care')
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#harian" role="tab">Report Harian</a> </li>
+                                @if( $lemb->nama_lembaga == 'Quali International Surabaya')
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#nilai" role="tab">Hasil Nilai</a> </li>
+                                @elseif( $lemb->nama_lembaga == 'Muslim Day Care')
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#harian" role="tab">Report Harian</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#konsultasi" role="tab">Report Konsultasi</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#kesehatan" role="tab">Report Kesehatan</a> </li>
                                 @elseif( $lemb->nama_lembaga == 'Sanggar ABK')
@@ -66,7 +48,64 @@
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                @if($lemb->nama_lembaga == 'Muslim Day Care')
+                                @if($lemb->nama_lembaga == 'Quali International Surabaya')
+                                    <div class="tab-pane active" id="nilai" role="tabpanel">
+                                        <div class="card-body">
+                                            <br><div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="card card-outline-primary">
+                                                        <div class="card-header">
+                                                            <h4 class="m-b-0 text-white">Hasil Nilai Peserta Didik</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <hr>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>Tanggal Dicatat</th>
+                                                                        <th>Grammar</th>
+                                                                        <th>Comprehension</th>
+                                                                        <th>Conversation</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    @foreach( \App\NilaiQIS::where('peserta_id', $peserta->id)->get() as $index => $value)
+                                                                        @php
+                                                                        $id = \App\PesertaDidik::where('id', $value->peserta_id)->first()->id;
+                                                                        $email = \App\PesertaDidik::where('id', $value->peserta_id)->first()->email;
+                                                                        @endphp
+                                                                        <tr>
+                                                                            <th>{{$value->nilai_grammar}}</th>
+                                                                            <th>{{$value->nilai_comprehension}}</th>
+                                                                            <th>{{$value->nilai_conversation}}</th>
+                                                                            <th>
+                                                                                <button data-id="{{$id}}" class="btn btn-sm btn-rounded btn-primary btn-flat ser-print"
+                                                                                        data-toggle="modal" data-placement="top"
+                                                                                        title="Cetak Sertifikan" @if($value->isLulus == false)
+                                                                                        disabled @endif>
+                                                                                <i class="fa fa-search"></i> Cetak Sertifikat
+                                                                                </button>
+                                                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat"
+                                                                                                 data-toggle="modal" data-placement="top"
+                                                                                                 title="Kirim Sertifikan" @if($value->isLulus == false)
+                                                                                                 disabled @endif onclick="sendSertifikat('{{$value->id}}', '{{$email}}')">
+                                                                                    <i class="fa fa-search"></i> Kirim Sertifikat
+                                                                                </button>
+                                                                            </th>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif($lemb->nama_lembaga == 'Muslim Day Care')
                                     <div class="tab-pane active" id="harian" role="tabpanel">
                                         <div class="card-body">
                                             <br><div class="row">
@@ -99,15 +138,15 @@
                                                                             $ket = $value->keterangan == null ? '-' : $value->keterangan;
                                                                         @endphp
                                                                         <tr>
-                                                                            <th scope="row">{{ $index + 1 }}</th>
-                                                                            <th>{{ $value->tgl_catat  }}</th>
-                                                                            <th>
+                                                                            <td scope="row">{{ $index + 1 }}</td>
+                                                                            <td>{{ $value->tgl_catat  }}</td>
+                                                                            <td>
                                                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat"
                                                                                         data-toggle="modal" data-placement="top" title="Lihat Detail Monitoring"
                                                                                         onclick="getLihatNilai('{{$value->id}}', '{{$title}}', '{{$no}}', '{{$kode}}', '{{$ins}}', '{{$res}}', '{{$nilai}}', '{{$ket}}')">
                                                                                     <i class="fa fa-search"></i> Detail Monitoring
                                                                                 </button>
-                                                                            </th>
+                                                                            </td>
                                                                         </tr>
                                                                     @endforeach
                                                                     </tbody>
@@ -134,7 +173,7 @@
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                    @foreach( \App\NilaiDC::where('peserta_id', $peserta->id)->where('isHarian', true)->where('jenis', 'Pendidik')->get() as $index => $value)
+                                                                    @foreach( \App\NilaiDC::where('peserta_id', $peserta->id)->where('isHarian', true)->where('jenis', 'Pengajar')->get() as $index => $value)
                                                                         @php
                                                                             $title = 'Hasil Monitoring Pendidikan';
                                                                             $no = $index + 1;
@@ -462,6 +501,7 @@
     </div>
 
     @include('pegawai.peserta.nilai.p-nilai-show')
+    @include('pegawai.peserta.nilai.p-send')
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
@@ -487,6 +527,11 @@
             })
         });
 
+        body.on('click', '.ser-print', function () {
+            id = $(this).data('id');
+            window.location = '{{route('p-n-print')}}' + '?id=' + id;
+        });
+
         function getLihatNilai(id, title, no, kode, ins, res, nilai, ket){
             $("#title").text(title);
             $("#no").text(no);
@@ -496,6 +541,15 @@
             $("#nilai").text(nilai);
             $("#ket").text(ket);
             $("#modalHarian").modal('show');
+        }
+
+        function getLihatKons(id, title, no, aspek, hasil, ket){
+            $("#title1").text(title);
+            $("#no1").text(no);
+            $("#aspek1").text(aspek);
+            $("#hasil1").text(hasil);
+            $("#ket1").text(ket);
+            $("#modalKonsultasi").modal('show');
         }
 
         function getMonitoring(id, title, nilai, pres, ket){
@@ -532,31 +586,10 @@
             $("#myTable_filter input[type=search]").val('').trigger('keyup');
         });
 
-        function getSiswa() {
-            swal({
-                    title: "Tambahkan Peserta Didik ?",
-                    text: "Data peserta didik dari setiap lembaga akan ditambahkan !!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Iya, tambahkan !!",
-                    closeOnConfirm: false
-                },
-                function(){
-                    $.ajax({
-                        url: "{{ route('get.siswa') }}",
-                        type: "GET",
-                        dataType: "JSON",
-                        success: function (data) {
-                            swal('Success!', 'Data peserta dari lembaga berhasil ditambahkan.', 'success');
-                        },
-                        error: function () {
-                            swal('Error!', 'Terjadi suatu kesalahan! Silahkan refresh browser Anda.', 'error');
-                        }
-                    });
-                });
-
-            return false;
+        function sendSertifikat(id, email){
+            $("#formSertifikat input[name=id]").val(id);
+            $("#formSertifikat input[name=penerima]").val(email);
+            $("#sendSertifikat").modal('show');
         }
     </script>
 @endsection

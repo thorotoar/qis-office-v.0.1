@@ -80,7 +80,7 @@
                                                         @foreach($fileDok as $index => $value)
                                                             <li><input type="checkbox" id="cb{{$index +1}}" value="{{$value['id']}}" name="delete_file[]" />
                                                                 <label for="cb{{$index +1}}">
-                                                                    <img src="{{strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "jpg" || strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "jpeg"|| strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "png" || strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "gif" ? asset($value['upload_file']) :  asset('images/icon/file.png')}}"><br>
+                                                                    <img width="120px" src="{{strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "jpg" || strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "jpeg"|| strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "png" || strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "gif" ? asset($value['upload_file']) :  asset('images/icon/file.png')}}"><br>
                                                                     <small>{{substr(str_limit($value['title'], 18, '...'), 4)}}</small>
                                                                 </label>
                                                             </li>

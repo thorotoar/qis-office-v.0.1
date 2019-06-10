@@ -64,29 +64,17 @@
                         <table cellpadding="0" cellspacing="0" border="0" width="88%" style="width: 88% !important; min-width: 88%; max-width: 88%;">
                             <tr>
                                 <td align="left" valign="top">
-                                    <font face="'Source Sans Pro', sans-serif" color="#1a1a1a" style="font-size: 52px; line-height: 60px; font-weight: 300; letter-spacing: -1.5px;">
-                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #1a1a1a; font-size: 52px; line-height: 60px; font-weight: 300; letter-spacing: -1.5px;">Hey Vladimir,</span>
+                                    <font face="'Source Sans Pro', sans-serif" color="#1a1a1a" style="font-size: 34px; line-height: 60px; font-weight: 300; letter-spacing: -1.5px;">
+                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #1a1a1a; font-size: 34px; line-height: 60px; font-weight: 300; letter-spacing: -1.5px;">Assalamu'alaikum,</span>
                                     </font>
                                     <div style="height: 33px; line-height: 33px; font-size: 31px;">&nbsp;</div>
                                     <font face="'Source Sans Pro', sans-serif" color="#585858" style="font-size: 24px; line-height: 32px;">
-                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #585858; font-size: 24px; line-height: 32px;">Recently I was chatting with David Sherry, co-founder of Death to the Stock Photo, about his company’s email strategy. They’ve grown their business almost entirely with email (we’ll look at an example later in this post) and he offered some magical advice.</span>
+                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #585858; font-size: 22px; line-height: 32px;">Kami mempunyai sebuah untuk anda.</span>
                                     </font>
                                     <div style="height: 20px; line-height: 20px; font-size: 18px;">&nbsp;</div>
-                                    <font face="'Source Sans Pro', sans-serif" color="#585858" style="font-size: 24px; line-height: 32px;">
-                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #585858; font-size: 24px; line-height: 32px;">It’s simple, but seriously profound. He builds opportunities for small conversions into every email so that people get used to taking action. This can be as simple as “Follow me on Twitter” or as significant as “Upgrade your account.”</span>
+                                    <font face="'Source Sans Pro', sans-serif" color="#585858" style="font-size: 22px; line-height: 32px;">
+                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #585858; font-size: 24px; line-height: 32px;">{!! $data->isi_email !!}</span>
                                     </font>
-                                    <div style="height: 33px; line-height: 33px; font-size: 31px;">&nbsp;</div>
-                                    <table class="mob_btn" cellpadding="0" cellspacing="0" border="0" style="background: #27cbcc; border-radius: 4px;">
-                                        <tr>
-                                            <td align="center" valign="top">
-                                                <a href="#" target="_blank" style="display: block; border: 1px solid #27cbcc; border-radius: 4px; padding: 12px 23px; font-family: 'Source Sans Pro', Arial, Verdana, Tahoma, Geneva, sans-serif; color: #ffffff; font-size: 20px; line-height: 30px; text-decoration: none; white-space: nowrap; font-weight: 600;">
-                                                    <font face="'Source Sans Pro', sans-serif" color="#ffffff" style="font-size: 20px; line-height: 30px; text-decoration: none; white-space: nowrap; font-weight: 600;">
-                                                        <span style="font-family: 'Source Sans Pro', Arial, Verdana, Tahoma, Geneva, sans-serif; color: #ffffff; font-size: 20px; line-height: 30px; text-decoration: none; white-space: nowrap; font-weight: 600;">Read&nbsp;more</span>
-                                                    </font>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
                                     <div style="height: 75px; line-height: 75px; font-size: 73px;">&nbsp;</div>
                                 </td>
                             </tr>
@@ -112,7 +100,7 @@
                                                 <td align="center" valign="top">
                                                     <div style="height: 13px; line-height: 13px; font-size: 11px;">&nbsp;</div>
                                                     <div style="display: block; max-width: 50px;">
-                                                        <img src="img/rad.png" alt="img" width="50" border="0" style="display: block; width: 50px;" />
+                                                        {{--<img src="img/rad.png" alt="img" width="50" border="0" style="display: block; width: 50px;" />--}}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -124,11 +112,11 @@
                                                 <td class="mob_center" align="left" valign="top">
                                                     <div style="height: 13px; line-height: 13px; font-size: 11px;">&nbsp;</div>
                                                     <font face="'Source Sans Pro', sans-serif" color="#000000" style="font-size: 19px; line-height: 23px; font-weight: 600;">
-                                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 19px; line-height: 23px; font-weight: 600;">Jimmy Qudini</span>
+                                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #7f7f7f; font-size: 19px; line-height: 23px;">Hormat kami,</span>
                                                     </font>
                                                     <div style="height: 1px; line-height: 1px; font-size: 1px;">&nbsp;</div>
                                                     <font face="'Source Sans Pro', sans-serif" color="#7f7f7f" style="font-size: 19px; line-height: 23px;">
-                                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #7f7f7f; font-size: 19px; line-height: 23px;">Creative Director at Mailto</span>
+                                                        <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 19px; line-height: 23px; font-weight: 600;">Yayasan Quali International Surabaya</span>
                                                     </font>
                                                 </td>
                                                 <td width="18" style="width: 18px; max-width: 18px; min-width: 18px;">&nbsp;</td>
@@ -140,7 +128,7 @@
                                                 <td align="center" valign="top">
                                                     <div style="height: 13px; line-height: 13px; font-size: 11px;">&nbsp;</div>
                                                     <div style="display: block; max-width: 177px;">
-                                                        <img src="img/txt.png" alt="img" width="177" border="0" style="display: block; width: 177px; max-width: 100%;" />
+                                                        {{--<img src="img/txt.png" alt="img" width="177" border="0" style="display: block; width: 177px; max-width: 100%;" />--}}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -167,7 +155,7 @@
                                                 </font>
                                                 <div style="height: 3px; line-height: 3px; font-size: 1px;">&nbsp;</div>
                                                 <font face="'Source Sans Pro', sans-serif" color="#1a1a1a" style="font-size: 17px; line-height: 20px;">
-                                                    <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #1a1a1a; font-size: 17px; line-height: 20px;"><a href="#" target="_blank" style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #1a1a1a; font-size: 17px; line-height: 20px; text-decoration: none;">help@mailto.com</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" target="_blank" style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #1a1a1a; font-size: 17px; line-height: 20px; text-decoration: none;">1(800)232-90-26</a></span>
+                                                    <span style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #1a1a1a; font-size: 17px; line-height: 20px;"><a href="#" target="_blank" style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #1a1a1a; font-size: 17px; line-height: 20px; text-decoration: none;">qis-surabaya@gmail.com</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" target="_blank" style="font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #1a1a1a; font-size: 17px; line-height: 20px; text-decoration: none;">0851-0457-1548</a></span>
                                                 </font>
                                                 <div style="height: 35px; line-height: 35px; font-size: 33px;">&nbsp;</div>
                                                 <div style="height: 35px; line-height: 35px; font-size: 33px;">&nbsp;</div>

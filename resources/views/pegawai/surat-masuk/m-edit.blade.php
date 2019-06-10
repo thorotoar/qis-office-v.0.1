@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label for="status">Upload File Surat Masuk</label><b> (<i>{{$suratM->upload_file}}</i>)</b><input type="hidden" value="{{$suratM->upload_file}}" name="upload_file">
+                                                <label for="status">Upload File Surat Masuk</label><b> (<i>{{substr($suratM->upload_file, 21)}}</i>)</b><input type="hidden" value="{{$suratM->upload_file}}" name="upload_file">
                                                 <div>
                                                     <input type="file" name="upload_file_new" class="form-control">
                                                 </div>
@@ -111,6 +111,7 @@
     </div>
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
 
     <script>
         var fForm = $('#form-editSuratMasuk');

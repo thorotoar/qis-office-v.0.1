@@ -244,7 +244,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Nomor KKS </label>
-                                                <input type="text" class="form-control input-sm" name="no_kks" value="">
+                                                <input type="text" class="form-control input-sm" name="no_kks" value="" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Reg Akta Lahir </label>

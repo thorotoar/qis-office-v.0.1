@@ -35,8 +35,8 @@ class SuratKeluarEmailRaw extends Mailable
             ->from(env('MAIL_USERNAME'), 'QIS - Quali International Surabaya')
             ->subject($data->subjek)
             ->attachData($data->file_pdf, 'file_qis.pdf', [
-                'mime' => 'application/pdf',
+                'mime' => 'application/pdfapplication/pdf,application/msword,application/vnd.openxmlformats-officedocument.presentationml.presentation',
             ])
-            ->view('pegawai.surat-keluar.k-mail' ,compact('data'));
+            ->view('mail.m-personal' ,compact('data'));
     }
 }

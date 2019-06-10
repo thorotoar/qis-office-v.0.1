@@ -10,7 +10,7 @@
                 <h3 class="text-primary">Data Peserta Didik</h3> </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Tambah Data Peserta Didik</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Edit Data Peserta Didik</a></li>
                     <li class="breadcrumb-item active">Data Peserta Didik</li>
                 </ol>
             </div>
@@ -68,11 +68,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>NISN </label>
-                                                <input type="text" class="form-control input-sm" name="nisn" value="{{$peserta->nisn}}">
+                                                <input type="text" class="form-control input-sm" name="nisn" value="{{$peserta->nisn}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>NIK </label>
-                                                <input type="text" class="form-control input-sm" name="nik" value="{{$peserta->nik}}">
+                                                <input type="text" class="form-control input-sm" name="nik" value="{{$peserta->nik}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Tempat Lahir <span class="text-danger">*</span></label>
@@ -122,13 +122,19 @@
                                                 <label for="kebutuhan">Kebutuhan Khusus </label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="kebutuhan" name="kebutuhan">
+                                                        @if($peserta->kebutuhan_id != null)
+                                                            <option value="" disabled>Pilih Kebutuhan Khusus</option>
+                                                            @foreach ($kebutuhan as $kebutuhans)
+                                                                <option value="{{$kebutuhans->id}}"
+                                                                        @if($kebutuhans->id == $peserta->kebutuhan_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$kebutuhans->nama_kebutuhan}}</option>
+                                                            @endforeach
+                                                        @endif
                                                         <option value="" disabled selected>Pilih Kebutuhan Khusus</option>
-                                                        @foreach($kebutuhan as $kebutuhans)
-                                                            <option value="{{$kebutuhans->id}}"
-                                                                    @if($kebutuhans->id == $peserta->kebutuhan_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$kebutuhans->nama_kebutuhan}}</option>
+                                                        @foreach ($kebutuhan as $kebutuhans)
+                                                            <option value="{{$kebutuhans->id}}">{{$kebutuhans->nama_kebutuhan}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -139,11 +145,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>RT </label>
-                                                <input type="text" class="form-control input-sm" name="rt" value="{{$peserta->rt}}">
+                                                <input type="text" class="form-control input-sm" name="rt" value="{{$peserta->rt}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>RW </label>
-                                                <input type="text" class="form-control input-sm" name="rw" value="{{$peserta->rw}}">
+                                                <input type="text" class="form-control input-sm" name="rw" value="{{$peserta->rw}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Nama Dusun </label>
@@ -157,14 +163,21 @@
                                                 <label for="provinsi">Provinsi <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="provinsi" name="provinsi" required>
-                                                        <option value="" disabled >Pilih Provinsi</option>
-                                                        @foreach($provinsi as $provinsis)
-                                                            <option value="{{$provinsis->id}}"
-                                                                    @if($provinsis->id == $peserta->provinsi_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$provinsis->nama_provinsi}}</option>
+                                                        @if($peserta->provinsi_id != null)
+                                                            <option value="" disabled >Pilih Provinsi</option>
+                                                            @foreach($provinsi as $provinsis)
+                                                                <option value="{{$provinsis->id}}"
+                                                                        @if($provinsis->id == $peserta->provinsi_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$provinsis->nama_provinsi}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->provinsi_id == null))
+                                                        <option value="" disabled selected>Pilih Provinsi</option>
+                                                        @foreach($provinsi as $key => $provinsis)
+                                                            <option value="{{$provinsis->id}}"> {{$provinsis->nama_provinsi}}</option>
                                                         @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -172,14 +185,18 @@
                                                 <label for="kabupaten">Kabupaten <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="kabupaten" name="kabupaten" required>
-                                                        <option value="" disabled >Pilih Kabupaten</option>
-                                                        @foreach ($kabupaten as $kabupatens)
-                                                            <option value="{{$kabupatens->id}}"
-                                                                    @if($kabupatens->id == $peserta->kabupaten_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$kabupatens->nama_kabupaten}}</option>
-                                                        @endforeach
+                                                        @if($peserta->kabupaten_id != null)
+                                                            <option value="" disabled >Pilih Kabupaten</option>
+                                                            @foreach ($kabupaten as $kabupatens)
+                                                                <option value="{{$kabupatens->id}}"
+                                                                        @if($kabupatens->id == $peserta->kabupaten_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$kabupatens->nama_kabupaten}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->kabupaten_id == null)
+                                                            <option value="" disabled selected>Pilih Kabupaten</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -187,14 +204,18 @@
                                                 <label for="kecamatan">Kecamatan <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="kecamatan" name="kecamatan" required>
-                                                        <option value="" disabled >Pilih Kecamatan</option>
-                                                        @foreach ($kecamatan as $kecamatans)
-                                                            <option value="{{$kecamatans->id}}"
-                                                                    @if($kecamatans->id == $peserta->kecamatan_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$kecamatans->nama_kecamatan}}</option>
-                                                        @endforeach
+                                                        @if($peserta->kecamatan_id != null)
+                                                            <option value="" disabled >Pilih Kecamatan</option>
+                                                            @foreach ($kecamatan as $kecamatans)
+                                                                <option value="{{$kecamatans->id}}"
+                                                                        @if($kecamatans->id == $peserta->kecamatan_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$kecamatans->nama_kecamatan}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->kecamatan_id != null)
+                                                            <option value="" disabled selected>Pilih Kecamatan</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -211,7 +232,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Kode Pos </label>
-                                                <input type="text" class="form-control input-sm" name="kode_pos" value="{{$peserta->kode_pos}}">
+                                                <input type="text" class="form-control input-sm" name="kode_pos" value="{{$peserta->kode_pos}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Jenis Tinggal </label>
@@ -221,42 +242,54 @@
                                                 <label for="negara">Alat Transportasi <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="negara" name="transportasi" required>
-                                                        <option value="" disabled selected>Pilih Alat Transportasi</option>
-                                                        @foreach ($transportasi as $transportasis)
-                                                            <option value="{{$transportasis->id}}"
-                                                                    @if($transportasis->id == $peserta->transportasi_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$transportasis->nama_transportasi}}</option>
-                                                        @endforeach
+                                                        @if($peserta->transportasi_id != null)
+                                                            <option value="" disabled>Pilih Alat Transportasi</option>
+                                                            @foreach ($transportasi as $transportasis)
+                                                                <option value="{{$transportasis->id}}"
+                                                                        @if($transportasis->id == $peserta->transportasi_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$transportasis->nama_transportasi}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->transportasi_id == null)
+                                                            <option value="" disabled selected>Pilih Alat Transportasi</option>
+                                                            @foreach ($transportasi as $transportasis)
+                                                                <option value="{{$transportasis->id}}">{{$transportasis->nama_transportasi}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Anak Keberapa </label>
-                                                <input type="text" class="form-control input-sm" name="anak_ke" value="{{$peserta->anak_ke}}">
+                                                <input type="text" class="form-control input-sm" name="anak_ke" value="{{$peserta->anak_ke}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Nomor Telpon Rumah </label>
-                                                <input type="text" class="form-control input-sm" name="telpon_rumah" value="{{$peserta->telpon_rumah}}">
+                                                <input type="text" class="form-control input-sm" name="telpon_rumah" value="{{$peserta->telpon_rumah}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Nomor Telpon Selular </label>
-                                                <input type="text" class="form-control input-sm" name="telpon_selular" value="{{$peserta->telpon_selular}}">
+                                                <input type="text" class="form-control input-sm" name="telpon_selular" value="{{$peserta->telpon_selular}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Email </label>
-                                                <input type="text" class="form-control input-sm" name="email" value="{{$peserta->email}}">
+                                                <input type="email" class="form-control input-sm" name="email" value="{{$peserta->email}}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="jenis-kelamin">Penerima KPS <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="jenis-kelamin" name="kps" required>
-                                                        <option value="" disabled >Pilih</option>
                                                         @if($peserta->kps == 'Ya')
+                                                            <option value="" disabled >Pilih</option>
                                                             <option value="Ya" selected>Ya</option>
                                                             <option value="Tidak">Tidak</option>
+                                                        @elseif($peserta->kps == null)
+                                                            <option value="" disabled selected>Pilih</option>
+                                                            <option value="Ya">Ya</option>
+                                                            <option value="Tidak">Tidak</option>
                                                         @elseif($peserta->kps == 'Tidak')
+                                                            <option value="" disabled >Pilih</option>
                                                             <option value="Ya" >Ya</option>
                                                             <option value="Tidak" selected>Tidak</option>
                                                         @endif
@@ -265,19 +298,24 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Nomor KPS </label>
-                                                <input type="text" class="form-control input-sm" name="no_kps" value="{{$peserta->no_kps}}">
+                                                <input type="text" class="form-control input-sm" name="no_kps" value="{{$peserta->no_kps}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label for="jenis-kelamin">Layak PIP <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="jenis-kelamin" name="pip" required>
-                                                        <option value="" disabled>Pilih</option>
                                                         @if($peserta->pip == 'Layak')
+                                                            <option value="" disabled>Pilih</option>
                                                             <option value="Layak" selected>Layak</option>
                                                             <option value="Tidak Layak">Tidak Layak</option>
                                                         @elseif($peserta->pip == 'Tidak Layak')
+                                                            <option value="" disabled>Pilih</option>
                                                             <option value="Layak">Layak</option>
                                                             <option value="Tidak Layak" selected>Tidak Layak</option>
+                                                        @elseif($peserta->pip == null)
+                                                            <option value="" disabled selected>Pilih</option>
+                                                            <option value="Layak">Layak</option>
+                                                            <option value="Tidak Layak">Tidak Layak</option>
                                                         @endif
                                                     </select>
                                                 </div>
@@ -286,20 +324,25 @@
                                                 <label for="jenis-kelamin">Penerima KIP <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="jenis-kelamin" name="kip" required>
-                                                        <option value="" disabled>Pilih</option>
                                                         @if($peserta->kip == 'Ya')
+                                                            <option value="" disabled>Pilih</option>
                                                             <option value="Ya" selected>Ya</option>
                                                             <option value="Tidak">Tidak</option>
-                                                        @elseif($peserta->kps == 'Tidak')
+                                                        @elseif($peserta->kip == 'Tidak')
+                                                            <option value="" disabled>Pilih</option>
                                                             <option value="Ya" >Ya</option>
                                                             <option value="Tidak" selected>Tidak</option>
+                                                        @elseif($peserta->kip == null)
+                                                            <option value="" disabled selected>Pilih</option>
+                                                            <option value="Ya">Ya</option>
+                                                            <option value="Tidak">Tidak</option>
                                                         @endif
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Nomor KKS </label>
-                                                <input type="text" class="form-control input-sm" name="no_kks" value="{{$peserta->no_kks}}">
+                                                <input type="text" class="form-control input-sm" name="no_kks" value="{{$peserta->no_kks}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Reg Akta Lahir </label>
@@ -308,14 +351,14 @@
                                             <div class="form-group">
                                                 <label for="negara">Lembaga <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control form-control-sm custom-select" id="negara" name="lembaga" required>
-                                                        <option value="" disabled>Pilih Lembaga</option>
-                                                        @foreach ($lembaga as $lembagas)
-                                                            <option value="{{$lembagas->id}}"
-                                                                    @if($lembagas->id == $peserta->lembaga_id)
+                                                    <select class="form-control form-control-sm custom-select" id="lembaga" name="lembaga" required>
+                                                        <option readonly="true" disabled>Pilih Jenis</option>
+                                                        @foreach ($lembaga as $value)
+                                                            <option value="{{$value->id}}"
+                                                                    @if($value->id == $peserta->lembaga_id)
                                                                     selected
                                                                     @endif
-                                                            >{{$lembagas->nama_lembaga}}</option>
+                                                            >{{$value->nama_lembaga}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -331,12 +374,12 @@
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="status" name="status" required>
                                                         <option value="" disabled>Pilih Status</option>
-                                                        @if($peserta->status == 'aktif')
-                                                            <option value="aktif" selected>Aktif</option>
-                                                            <option value="lulus">Tidak Aktif</option>
-                                                        @elseif($peserta->status == 'lulus')
-                                                            <option value="aktif">Aktif</option>
-                                                            <option value="lulus" selected>Tidak Aktif</option>
+                                                        @if($peserta->status == 'Aktif')
+                                                            <option value="Aktif" selected>Aktif</option>
+                                                            <option value="Tidak Aktif">Tidak Aktif</option>
+                                                        @elseif($peserta->status == 'Tidak Aktif')
+                                                            <option value="Aktif">Aktif</option>
+                                                            <option value="Tidak Aktif" selected>Tidak Aktif</option>
                                                         @endif
                                                     </select>
                                                 </div>
@@ -359,7 +402,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>NIK Ayah </label>
-                                                <input type="text" class="form-control input-sm" name="nik_ayah" value="{{$peserta->nik_ayah}}">
+                                                <input type="text" class="form-control input-sm" name="nik_ayah" value="{{$peserta->nik_ayah}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Tahun Lahir Ayah </label>
@@ -369,14 +412,21 @@
                                                 <label for="jenjang-ayah">Jenjang Pendidikan Ayah </label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="jenjang-ayah" name="jenjang_ayah" >
-                                                        <option value="" disabled>Pilih Jenjang Pendidikan Ayah</option>
-                                                        @foreach ($jenjang as $jenjangs)
-                                                            <option value="{{$jenjangs->id}}"
-                                                                    @if($jenjangs->id == $peserta->jenjang_ayah_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$jenjangs->nama_jenjang}}</option>
-                                                        @endforeach
+                                                        @if($peserta->jenjang_ayah_id != null)
+                                                            <option value="" disabled>Pilih Jenjang Pendidikan Ayah</option>
+                                                            @foreach ($jenjang as $jenjangs)
+                                                                <option value="{{$jenjangs->id}}"
+                                                                        @if($jenjangs->id == $peserta->jenjang_ayah_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$jenjangs->nama_jenjang}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->jenjang_ayah_id == null)
+                                                            <option value="" disabled>Pilih Jenjang Pendidikan Ayah</option>
+                                                            @foreach ($jenjang as $jenjangs)
+                                                                <option value="{{$jenjangs->id}}">{{$jenjangs->nama_jenjang}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -390,14 +440,21 @@
                                                 <label for="penghasilan-ayah">Penghasilan Ayah </label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="penghasilan-ayah" name="penghasilan_ayah" >
-                                                        <option value="" disabled>Pilih Penghasilan Ayah</option>
-                                                        @foreach ($penghasilan as $penghasilans)
-                                                            <option value="{{$penghasilans->id}}"
-                                                                    @if($penghasilans->id == $peserta->penghasilan_ayah_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$penghasilans->jumlah_penghasilan}}</option>
-                                                        @endforeach
+                                                        @if($peserta->jenjang_ayah_id != null)
+                                                            <option value="" disabled>Pilih Penghasilan Ayah</option>
+                                                            @foreach ($penghasilan as $penghasilans)
+                                                                <option value="{{$penghasilans->id}}"
+                                                                        @if($penghasilans->id == $peserta->penghasilan_ayah_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$penghasilans->jumlah_penghasilan}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->jenjang_ayah_id == null)
+                                                            <option value="" disabled>Pilih Penghasilan Ayah</option>
+                                                            @foreach ($penghasilan as $penghasilans)
+                                                                <option value="{{$penghasilans->id}}">{{$penghasilans->jumlah_penghasilan}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -405,14 +462,21 @@
                                                 <label for="kebutuhan-ayah">Kebutuhan Khusus Ayah </label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="kebutuhan-ayah" name="kebutuhan_ayah" >
-                                                        <option value="" disabled>Pilih Kebutuhan Khusus Ayah</option>
-                                                        @foreach ($kebutuhan as $kebutuhans)
-                                                            <option value="{{$kebutuhans->id}}"
-                                                                    @if($kebutuhans->id == $peserta->kebutuhan_ayah_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$kebutuhans->nama_kebutuhan}}</option>
-                                                        @endforeach
+                                                        @if($peserta->kebutuhan_ayah_id != null)
+                                                                <option value="" disabled>Pilih Kebutuhan Khusus Ayah</option>
+                                                            @foreach ($kebutuhan as $kebutuhans)
+                                                                <option value="{{$kebutuhans->id}}"
+                                                                        @if($kebutuhans->id == $peserta->kebutuhan_ayah_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$kebutuhans->nama_kebutuhan}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->kebutuhan_ayah_id == null)
+                                                            <option value="" disabled selected>Pilih Kebutuhan Khusus Ayah</option>
+                                                            @foreach ($kebutuhan as $kebutuhans)
+                                                                <option value="{{$kebutuhans->id}}">{{$kebutuhans->nama_kebutuhan}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -434,7 +498,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>NIK Ibu </label>
-                                                <input type="text" class="form-control input-sm" name="nik_ibu" value="{{$peserta->nik_ibu}}">
+                                                <input type="text" class="form-control input-sm" name="nik_ibu" value="{{$peserta->nik_ibu}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Tahun Lahir Ibu </label>
@@ -444,14 +508,21 @@
                                                 <label for="jenjang-ibu">Jenjang Pendidikan Ibu </label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="jenjang-ibu" name="jenjang_ibu" >
-                                                        <option value="" disabled>Pilih Jenjang Pendidikan Ibu</option>
-                                                        @foreach ($jenjang as $jenjangs)
-                                                            <option value="{{$jenjangs->id}}"
-                                                                    @if($jenjangs->id == $peserta->jenjang_ibu_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$jenjangs->nama_jenjang}}</option>
-                                                        @endforeach
+                                                        @if($peserta->jenjang_ibu_id != null)
+                                                            <option value="" disabled>Pilih Jenjang Pendidikan Ibu</option>
+                                                            @foreach ($jenjang as $jenjangs)
+                                                                <option value="{{$jenjangs->id}}"
+                                                                        @if($jenjangs->id == $peserta->jenjang_ibu_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$jenjangs->nama_jenjang}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->jenjang_ibu_id == null)
+                                                            <option value="" disabled>Pilih Jenjang Pendidikan Ibu</option>
+                                                            @foreach ($jenjang as $jenjangs)
+                                                                <option value="{{$jenjangs->id}}">{{$jenjangs->nama_jenjang}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -465,14 +536,21 @@
                                                 <label for="penghasilan-ibu">Penghasilan Ibu </label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="penghasilan-ibu" name="penghasilan_ibu" >
-                                                        <option value="" disabled>Pilih Penghasilan Ibu</option>
-                                                        @foreach ($penghasilan as $penghasilans)
-                                                            <option value="{{$penghasilans->id}}"
-                                                                    @if($penghasilans->id == $peserta->penghasilan_ibu_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$penghasilans->jumlah_penghasilan}}</option>
-                                                        @endforeach
+                                                        @if($peserta->jenjang_ibu_id != null)
+                                                            <option value="" disabled>Pilih Penghasilan Ibu</option>
+                                                            @foreach ($penghasilan as $penghasilans)
+                                                                <option value="{{$penghasilans->id}}"
+                                                                        @if($penghasilans->id == $peserta->penghasilan_ibu_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$penghasilans->jumlah_penghasilan}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->jenjang_ibu_id == null)
+                                                            <option value="" disabled>Pilih Penghasilan Ibu</option>
+                                                            @foreach ($penghasilan as $penghasilans)
+                                                                <option value="{{$penghasilans->id}}">{{$penghasilans->jumlah_penghasilan}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -481,13 +559,21 @@
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="kebutuhan-ibu" name="kebutuhan_ibu" >
                                                         <option value="" disabled>Pilih Kebutuhan Khusus Ibu</option>
-                                                        @foreach ($kebutuhan as $kebutuhans)
-                                                            <option value="{{$kebutuhans->id}}"
-                                                                    @if($kebutuhans->id == $peserta->kebutuhan_ibu_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$kebutuhans->nama_kebutuhan}}</option>
-                                                        @endforeach
+                                                        @if($peserta->kebutuhan_ibu_id != null)
+                                                            <option value="" disabled>Pilih Kebutuhan Khusus Ibu</option>
+                                                            @foreach ($kebutuhan as $kebutuhans)
+                                                                <option value="{{$kebutuhans->id}}"
+                                                                        @if($kebutuhans->id == $peserta->kebutuhan_ibu_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$kebutuhans->nama_kebutuhan}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->kebutuhan_ibu_id == null)
+                                                            <option value="" disabled selected>Pilih Kebutuhan Khusus Ibu</option>
+                                                            @foreach ($kebutuhan as $kebutuhans)
+                                                                <option value="{{$kebutuhans->id}}">{{$kebutuhans->nama_kebutuhan}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -509,7 +595,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>NIK Wali </label>
-                                                <input type="text" class="form-control input-sm" name="nik_wali" value="{{$peserta->nik_wali}}">
+                                                <input type="text" class="form-control input-sm" name="nik_wali" value="{{$peserta->nik_wali}}" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Tahun Lahir Wali </label>
@@ -520,15 +606,22 @@
                                             <div class="form-group">
                                                 <label for="jenjang-wali">Jenjang Pendidikan Wali </label>
                                                 <div>
-                                                    <select class="form-control form-control-sm custom-select" id="jenjang-wali" name="jenjang_wali" >
-                                                        <option value="" disabled>Pilih Jenjang Pendidikan Wali</option>
-                                                        @foreach ($jenjang as $jenjangs)
-                                                            <option value="{{$jenjangs->id}}"
-                                                                    @if($jenjangs->id == $peserta->jenjang_wali_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$jenjangs->nama_jenjang}}</option>
-                                                        @endforeach
+                                                    <select class="form-control form-control-sm custom-select" id="jenjang-wali" name="jenjang_wali">
+                                                        @if($peserta->jenjang_wali_id != null)
+                                                            <option value="" disabled>Pilih Jenjang Pendidikan Wali</option>
+                                                            @foreach ($jenjang as $jenjangs)
+                                                                <option value="{{$jenjangs->id}}"
+                                                                        @if($jenjangs->id == $peserta->jenjang_wali_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$jenjangs->nama_jenjang}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->jenjang_wali_id == null)
+                                                            <option value="" disabled>Pilih Jenjang Pendidikan Wali</option>
+                                                            @foreach ($jenjang as $jenjangs)
+                                                                <option value="{{$jenjangs->id}}">{{$jenjangs->nama_jenjang}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -540,14 +633,21 @@
                                                 <label for="penghasilan-wali">Penghasilan Wali </label>
                                                 <div>
                                                     <select class="form-control form-control-sm custom-select" id="penghasilan-wali" name="penghasilan_wali" >
-                                                        <option value="" disabled>Pilih Penghasilan Wali</option>
-                                                        @foreach ($penghasilan as $penghasilans)
-                                                            <option value="{{$penghasilans->id}}"
-                                                                    @if($penghasilans->id == $peserta->penghasilan_wali_id)
-                                                                    selected
-                                                                    @endif
-                                                            >{{$penghasilans->jumlah_penghasilan}}</option>
-                                                        @endforeach
+                                                        @if($peserta->jenjang_wali_id != null)
+                                                            <option value="" disabled>Pilih Penghasilan Wali</option>
+                                                            @foreach ($penghasilan as $penghasilans)
+                                                                <option value="{{$penghasilans->id}}"
+                                                                        @if($penghasilans->id == $peserta->penghasilan_wali_id)
+                                                                        selected
+                                                                        @endif
+                                                                >{{$penghasilans->jumlah_penghasilan}}</option>
+                                                            @endforeach
+                                                        @elseif($peserta->jenjang_wali_id == null)
+                                                            <option value="" disabled>Pilih Penghasilan Wali</option>
+                                                            @foreach ($penghasilan as $penghasilans)
+                                                                <option value="{{$penghasilans->id}}">{{$penghasilans->jumlah_penghasilan}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -583,6 +683,40 @@
     <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
 
     <script>
+        $('#provinsi').on('change', function(e){
+            console.log(e);
+            console.log('waw');
+            var provinsi_id = e.target.value;
+            $.get('/pegawai/peserta-didik/kabupaten?provinsi_id=' + provinsi_id,function(data) {
+                console.log(data);
+                $('#kabupaten').empty();
+                $('#kabupaten').append('<option disabled selected>Pilih Kabupaten</option>');
+
+                $('#kecamatan').empty();
+                $('#kecamatan').append('<option disabled selected>Pilih Kecamatan</option>');
+
+                $.each(data, function(index, kabupatenObj){
+                    $('#kabupaten').append('<option value="'+ kabupatenObj.id +'">'+ kabupatenObj.nama_kabupaten +'</option>');
+                })
+            });
+        });
+
+        $('#kabupaten').on('change', function(e){
+            console.log(e);
+            console.log('waw');
+            var provinsi_id = e.target.value;
+            $.get('/pegawai/peserta-didik/kecamatan?kabupaten_id=' + provinsi_id,function(data) {
+                console.log(data);
+
+                $('#kecamatan').empty();
+                $('#kecamatan').append('<option disabled selected>Pilih Kecamatan</option>');
+
+                $.each(data, function(index, kecamatanObj){
+                    $('#kecamatan').append('<option value="'+ kecamatanObj.id +'">'+ kecamatanObj.nama_kecamatan +'</option>');
+                })
+            });
+        });
+
         var fForm = $('#form-editPeserta');
         var fConfirm = $('button#editPeserta');
 

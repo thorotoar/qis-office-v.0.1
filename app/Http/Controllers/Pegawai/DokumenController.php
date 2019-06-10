@@ -4,11 +4,14 @@ namespace App\Http\Controllers\pegawai;
 
 use App\Dokumen;
 use App\FileDokumen;
+use App\Mail\DokumenEmail;
+use App\Mail\DokumenEmailRaw;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use Mail;
 
 class DokumenController extends Controller
 {
@@ -80,7 +83,7 @@ class DokumenController extends Controller
         }
 
 
-        return redirect()->route('d-home')->with('sukses','File '. $nama . ' berhasil ditambahkan.');
+        return redirect()->route('d-home')->with('sukses','File '. "<b>" . $nama . "</b>" . ' berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -129,7 +132,7 @@ class DokumenController extends Controller
             }
         }
 
-        return redirect()->route('d-home')->with('edit', 'Dokumen ' . $dokumen->nama_dokumen . ' berhasil diubah.');
+        return redirect()->route('d-home')->with('edit', 'Dokumen ' . "<b>" . $dokumen->nama_dokumen . "</b>" . ' berhasil diubah.');
 //        return back()->with('edit', 'Dokumen berhasil diubah.');
     }
 
@@ -142,6 +145,21 @@ class DokumenController extends Controller
             File::delete($file);
             $dok->delete();
         }
-        return back()->with('hapus', 'Data '. $dok->nama_dokumen . ' berhasil dihapus.');
+        return back()->with('hapus', 'Data '. "<b>" . $dok->nama_dokumen . "</b>" . ' berhasil dihapus.');
+    }
+    public function attach(Request $request){
+        $d = Dokumen::find($request->id);
+        $fd = FileDokumen::where('dokumen_id', $d->id)->get()->toArray();
+//        dd($fd['upload_file']);
+
+        Mail::send(new DokumenEmail($request, $fd['upload_file']));
+
+        return back()->with('send', 'Dokumen Berhasil Terkirim');
+    }
+
+    public  function send(Request $request){
+        Mail::send(new DokumenEmailRaw($request));
+
+        return back()->with('send', 'File Berhasil Terkirim');
     }
 }

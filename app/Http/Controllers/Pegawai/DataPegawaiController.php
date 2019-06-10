@@ -23,13 +23,20 @@ use PDF;
 
 class DataPegawaiController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
 
+        $this->uriQIS = env('QIS_URI');
         $this->uriSIMPADI = env('SIMPADI_URI');
         $this->uriSIMDEPAD = env('SIMDEPAD_URI');
+
+        $this->clientQIS = new Client([
+            'base_uri' => $this->uriQIS,
+            'defaults' => [
+                'exceptions' => false
+            ]
+        ]);
 
         $this->clientSIMPADI = new Client([
             'base_uri' => $this->uriSIMPADI,
@@ -159,7 +166,7 @@ class DataPegawaiController extends Controller
         }
 
 //        return redirect()->route('d-p-tambah-r')->with('pendidikan','Lanjutkan dengan mengisi riwayat pendidikan');
-        return redirect()->route('d-pegawai')->with('pegawai','Data ' . $pegawai->nama . ' pegawai berhasil ditambahkan.');
+        return redirect()->route('d-pegawai')->with('pegawai','Data ' . "<b>" . $pegawai->nama . "</b>" . ' pegawai berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -259,7 +266,7 @@ class DataPegawaiController extends Controller
 //        $id = Pegawai::find($id);
 
 //        return redirect()->route('d-p-edit-r',compact('id'))->with('pendidikan', 'Lanjutkan dengan mengisi riwayat pendidikan.'); //Lanjutkan dengan mengisi riwayat pendidikan.
-        return redirect()->route('d-pegawai')->with('update_r', 'Data ' . $pegawai->nama . ' berhasil diupdate.');
+        return redirect()->route('d-pegawai')->with('update_r', 'Data ' . "<b>" . $pegawai->nama . "</b>" . ' berhasil diupdate.');
     }
 
     public function destroy($id){
@@ -269,7 +276,7 @@ class DataPegawaiController extends Controller
         File::delete($file);
         $ser->delete();
 
-        return back()->with('destroy', 'Data ' . $ser->nama . ' terpilih berhasil dihapus.');
+        return back()->with('destroy', 'Data ' . "<b>" . $ser->nama . "</b>" . ' terpilih berhasil dihapus.');
     }
 
     public function print(Request $request){
@@ -444,6 +451,110 @@ class DataPegawaiController extends Controller
             }
 
             return redirect()->route('d-pegawai')->with('sukses', 'Data pegawai ' . "<b>" . 'Sanggar ABK' . "</b>" . ' berhasil ditambahkan.');
+        } catch (ConnectException $e) {
+            return $e->getResponse();
+        }
+    }
+
+    public function getPegawaiQIS(){
+        try{
+            $response2 = $this->clientQIS->get($this->uriQIS . '/api/pegawai')->getBody()->getContents();
+            $response2 = json_decode($response2, true);
+
+            foreach ($response2 as $row){
+                $jabatan = Jabatan::where('nama_jabatan', $row['role']['nama'])->where('lembaga_id', 2)->first();
+                $negara = Kewarganegaraan::where('nama_negara', 'Indonesia')->first();
+
+                $check = Pegawai::where('nik', $row['profile']['nik'])->where('nip', $row['profile']['nip'])->where('nama', $row['nama_user'])->where('alamat', $row['alamat'])
+                    ->where('tempat_lahir', $row['tempat_lahir'])->where('tgl_lahir', strftime("%d %B %Y", strtotime($row['tgl_lahir'])))
+                    ->where('kelamin', $row['kelamin'])->where('agama_id', 1)->where('kewarganegaraan_id', $negara->id)->where('telpon', $row['telpon'])
+                    ->where('email', $row['email_user'])->where('status_pernikahan', $row['profile']['status_pernikahan'])->where('nuptk', $row['profile']['nuptk'])
+                    ->where('no_rek', $row['profile']['no_rek'])
+                    ->where('bank_id', $row['bank']['nama_bank'] != null ? Bank::where('nama_bank', $row['bank']['nama_bank'])->first()->id : null)
+                    ->where('kcp_bank', $row['profile']['kcp_bank'])->where('pasangan', $row['profile']['pasangan'])
+                    ->where('pekerjaan_pasangan', $row['profile']['pekerjaan_pasangan'])
+                    ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['profile']['tgl_masuk'])))
+                    ->where('status_pekerjaan', $row['status'])->where('jabatan_id', $jabatan->id)
+                    ->where('jenjang_id', $row['edu']['nama_jenjang'] != null ? Jenjang::where('nama_jenjang', $row['edu']['nama_jenjang'])->first()->id : null)
+                    ->where('jurusan_id', $row['jurusan']['nama_jurusan_pendidikan'] != null ? JurusanPendidikan::where('nama_jurusan_pendidikan', $row['jurusan']['nama_jurusan_pendidikan'])->first()->id : null)
+                    ->where('instansi', $row['profile']['instansi'])->where('thn_lulus', $row['profile']['thn_lulus'])->where('lembaga_id', 2)
+                    ->where('created_by', Auth::user()->nama_user)->count();
+
+                $checkJ = Jabatan::where('nama_jabatan', $row['role']['nama'])->where('lembaga_id', 2)->count();
+
+                if(!$check && !$checkJ){
+                    Jabatan::create([
+                        'nama_jabatan' => $row['role']['nama'],
+                        'lembaga_id' => 2,
+                        'created_by' => Auth::user()->nama_user,
+                    ]);
+
+                    Pegawai::create([
+                        'user_id' => Auth::user()->id,
+                        'nik' => $row['profile']['nik'],
+                        'nip' => $row['profile']['nip'],
+                        'nama' => $row['nama_user'],
+                        'alamat' => $row['alamat'],
+                        'tempat_lahir' => $row['tempat_lahir'],
+                        'tgl_lahir' => strftime("%d %B %Y", strtotime($row['tgl_lahir'])),
+                        'kelamin' => $row['kelamin'],
+                        'agama_id' => 1,
+                        'kewarganegaraan_id' => $negara->id,
+                        'telpon' => $row['telpon'],
+                        'email' => $row['email_user'],
+                        'status_pernikahan' => $row['profile']['status_pernikahan'],
+                        'nuptk' => $row['profile']['nuptk'],
+                        'no_rek' => $row['profile']['no_rek'],
+                        'bank_id' => $row['bank']['nama_bank'] != null ? Bank::where('nama_bank', $row['bank']['nama_bank'])->first()->id : null,
+                        'kcp_bank' => $row['profile']['kcp_bank'],
+                        'pasangan' => $row['profile']['pasangan'],
+                        'pekerjaan_pasangan' => $row['profile']['pekerjaan_pasangan'],
+                        'tgl_masuk' => strftime("%d %B %Y", strtotime($row['profile']['tgl_masuk'])),
+                        'status_pekerjaan' => $row['status'],
+                        'jabatan_id' => $jabatan->id,
+                        'jenjang_id' => $row['edu']['nama_jenjang'] != null ? Jenjang::where('nama_jenjang', $row['edu']['nama_jenjang'])->first()->id : null,
+                        'jurusan_id' => $row['jurusan']['nama_jurusan_pendidikan'] != null ? JurusanPendidikan::where('nama_jurusan_pendidikan', $row['jurusan']['nama_jurusan_pendidikan'])->first()->id : null,
+                        'instansi' => $row['profile']['instansi'],
+                        'thn_lulus' => $row['profile']['thn_lulus'],
+                        'lembaga_id' => 2,
+                        'created_by' => Auth::user()->nama_user,
+                    ]);
+
+                } elseif(!$check && $checkJ) {
+                    Pegawai::create([
+                        'user_id' => Auth::user()->id,
+                        'nik' => $row['profile']['nik'],
+                        'nip' => $row['profile']['nip'],
+                        'nama' => $row['nama_user'],
+                        'alamat' => $row['alamat'],
+                        'tempat_lahir' => $row['tempat_lahir'],
+                        'tgl_lahir' => strftime("%d %B %Y", strtotime($row['tgl_lahir'])),
+                        'kelamin' => $row['kelamin'],
+                        'agama_id' => 1,
+                        'kewarganegaraan_id' => $negara->id,
+                        'telpon' => $row['telpon'],
+                        'email' => $row['email_user'],
+                        'status_pernikahan' => $row['profile']['status_pernikahan'],
+                        'nuptk' => $row['profile']['nuptk'],
+                        'no_rek' => $row['profile']['no_rek'],
+                        'bank_id' => $row['bank']['nama_bank'] != null ? Bank::where('nama_bank', $row['bank']['nama_bank'])->first()->id : null,
+                        'kcp_bank' => $row['profile']['kcp_bank'],
+                        'pasangan' => $row['profile']['pasangan'],
+                        'pekerjaan_pasangan' => $row['profile']['pekerjaan_pasangan'],
+                        'tgl_masuk' => strftime("%d %B %Y", strtotime($row['profile']['tgl_masuk'])),
+                        'status_pekerjaan' => $row['status'],
+                        'jabatan_id' => $jabatan->id,
+                        'jenjang_id' => $row['edu']['nama_jenjang'] != null ? Jenjang::where('nama_jenjang', $row['edu']['nama_jenjang'])->first()->id : null,
+                        'jurusan_id' => $row['jurusan']['nama_jurusan_pendidikan'] != null ? JurusanPendidikan::where('nama_jurusan_pendidikan', $row['jurusan']['nama_jurusan_pendidikan'])->first()->id : null,
+                        'instansi' => $row['profile']['instansi'],
+                        'thn_lulus' => $row['profile']['thn_lulus'],
+                        'lembaga_id' => 2,
+                        'created_by' => Auth::user()->nama_user,
+                    ]);
+                }
+            }
+
+            return redirect()->route('d-pegawai')->with('sukses', 'Data pegawai ' . "<b>" . 'QIS English' . "</b>" . ' berhasil ditambahkan.');
         } catch (ConnectException $e) {
             return $e->getResponse();
         }

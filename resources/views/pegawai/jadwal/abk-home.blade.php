@@ -50,25 +50,11 @@
                                 <div class="card col-md-12 ">
                                     <div class="button-list">
                                         <div class="row form-group">
-                                            <div class="col-md-5">
-                                                <label for="kebutuhan">Filter Kebutuhan Khusus</label>
-                                                <select class="form-control custom-select form-control-sm" id="kebutuhan"
-                                                        name="kebutuhan" readonly>
-                                                    <option readonly selected>filter kebutuhan khusus...</option>
-                                                    @foreach(\App\KebutuhanKhusus::all() as $kebt)
-                                                        <option value="{{$kebt->nama_kebutuhan}}"
-                                                                readonly>{{$kebt->nama_kebutuhan}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label for="status">Filter Status</label>
-                                                <select class="form-control custom-select form-control-sm" id="status"
-                                                        name="status" readonly>
-                                                    <option readonly selected>filter status peserta didik..</option>
-                                                    <option value="aktif" readonly>Aktif</option>
-                                                    <option value="tidak aktif" readonly>Tidak Aktif</option>
-                                                </select>
+                                            <div class="col-md-10">
+                                                <label for="status">Filter Tanggal Dicatat</label>
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control input-sm datepicker" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" id="tanggal" readonly>
+                                                </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="refresh" style="height: 70%"></label>
@@ -138,6 +124,7 @@
     @include('pegawai.jadwal.abk-show')
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
 
     <script>
         function lihatJadwal(id, title){
@@ -164,7 +151,7 @@
         function getJadwalABK() {
             swal({
                 title: "Tambahkan Jadwal Peserta Didik ?",
-                text: "Data jadwal peserta didik dari setiap lembaga akan ditambahkan !!",
+                text: "Data jadwal Sanggar ABK akan ditambahkan !!",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -194,11 +181,7 @@
             })
         }
 
-        $("#kebutuhan").on("change", function () {
-            $("#myTable_filter input[type=search]").val($(this).val()).trigger('keyup');
-        });
-
-        $("#status").on("change", function () {
+        $("#tanggal").on("change", function () {
             $("#myTable_filter input[type=search]").val($(this).val()).trigger('keyup');
         });
 
@@ -206,6 +189,12 @@
             $('#kebutuhan').prop('selectedIndex', 0);
             $('#status').prop('selectedIndex', 0);
             $("#myTable_filter input[type=search]").val('').trigger('keyup');
+        });
+
+        $('.datepicker').datepicker({
+            format: "dd MM yyyy",
+            todayBtn: 'linked',
+            autoclose: true
         });
     </script>
 @endsection

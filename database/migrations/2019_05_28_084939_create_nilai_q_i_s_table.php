@@ -17,6 +17,15 @@ class CreateNilaiQISTable extends Migration
             $table->increments('id');
             $table->integer('peserta_id')->unsigned()->nullable();
             $table->foreign('peserta_id')->references('id')->on('peserta_didiks')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->string('nomor_nilai')->nullable();
+            $table->boolean('isLulus')->default(false);
+            $table->string('tgl_dicatat')->nullable();
+            $table->string('program')->nullable();
+            $table->string('nilai_grammar')->nullable();
+            $table->string('nilai_comprehension')->nullable();
+            $table->string('nilai_conversation')->nullable();
+            $table->text('keterangan')->nullable();
+            $table->string('attach')->nullable();
             $table->timestamps();
         });
     }

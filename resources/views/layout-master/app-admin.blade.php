@@ -14,6 +14,10 @@
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('css/lib/dropzone/dropzone.css')}}" rel="stylesheet">
     <link href="{{asset('css/lib/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/lib/datepicker/bootstrap-datepicker3.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/jquery-ui.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('timepicker/wickedpicker.min.css')}}">
+    <link href="{{asset('icons/font-awesome/css/all.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{asset('css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
     <link href="{{asset('css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />
@@ -23,12 +27,6 @@
     <link href="{{asset('css/lib/sweetalert/sweetalert.css')}}" rel="stylesheet">
     {{--yearpicker--}}
     <link href="{{asset('css/yearpicker.css')}}" rel="stylesheet">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
-    <!--[if lt IE 9]>
-    <script src="https:https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https:https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -96,21 +94,25 @@
                     <li class="nav-label">Work</li>
                     <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope-square"></i><span class="hide-menu">Kelola Surat</span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="{{route('surat-masuk-admin')}}"><i class="fa fa-envelope-open"></i> Surat Masuk</a></li>
-                            <li><a href="{{route('surat-keluar-admin')}}"><i class="fa fa-envelope"></i> Surat Keluar</a></li>
+                            <li><a href="{{route('a-surm-home')}}"><i class="fa fa-envelope-open"></i> Surat Masuk</a></li>
+                            <li><a href="{{route('a-surk-home')}}"><i class="fa fa-envelope"></i> Surat Keluar</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a class="has-arrow  " href=#" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kelola Peserta Didik</span></a>
+                        <a class="has-arrow  " href="{{route('ap-home')}}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kelola Peserta Didik</span></a>
                     </li>
                     <li>
-                        <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a>
+                        <a class="has-arrow  " href="{{route('ad-pegawai')}}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a>
+                    </li>
+                    <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Kelola Jadwal Pelajaran</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="{{route('aj.qis')}}"> Quali International Surabaya</a></li>
+                            <li><a href="{{route('aj.mdc')}}"> Muslim Day Care</a></li>
+                            <li><a href="{{route('aj.abk')}}"> Sanggar ABK</a></li>
+                        </ul>
                     </li>
                     <li>
-                        <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Kelola Kurikulum</span></a>
-                    </li>
-                    <li>
-                        <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a>
+                        <a class="has-arrow  " href="{{route('ad-home')}}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a>
                     </li>
                     <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-file-text"></i><span class="hide-menu">Master Setup</span></a>
                         <ul aria-expanded="false" class="collapse">
@@ -139,6 +141,7 @@
 <!-- End Wrapper -->
 <!-- All Jquery -->
 <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('js/jquery.inputmask.bundle.js')}}"></script>
 <!-- Bootstrap tether Core JavaScript -->
 <script src="{{asset('js/lib/bootstrap/js/popper.min.js')}}"></script>
 <script src="{{asset('js/lib/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -149,7 +152,6 @@
 <!--stickey kit -->
 <script src="{{asset('js/lib/sticky-kit-master/dist/sticky-kit.min.js')}}"></script>
 <!--Custom JavaScript -->
-
 <script src="{{asset('js/lib/owl-carousel/owl.carousel.min.js')}}"></script>
 <script src="{{asset('js/lib/owl-carousel/owl.carousel-init.js')}}"></script>
 
@@ -159,10 +161,7 @@
 {{--sweatalert--}}
 <script src="{{asset('js/lib/sweetalert/sweetalert.min.js')}}"></script>
 <!-- scripit init-->
-{{--<script src="{{asset('js/lib/sweetalert/sweetalert.init.js')}}"></script>--}}
-
-{{--yearpicker--}}
-<script src="{{asset('js/yearpicker.js')}}"></script>
+<script src="{{asset('js/lib/sweetalert/sweetalert.init.js')}}"></script>
 
 {{--dropzone--}}
 <script src="{{asset('js/lib/dropzone/dropzone.js')}}"></script>
@@ -177,18 +176,6 @@
 <script src="{{asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js')}}"></script>
 <script src="{{asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('js/lib/datatables/datatables-init.js')}}"></script>
-
-{{--textarea--}}
-<script src="{{asset('tinymce/tinymce.min.js')}}"></script>
-<script type="text/javascript">
-    function addForm() {
-        save_method = "add";
-        $('input[name=_method]').val('POST');
-        $('#modal-form').modal('show');
-        $('#modal-form form')[0].reset();
-        $('.modal-title').text('Add Contact');
-    }
-</script>
 </body>
 
 </html>

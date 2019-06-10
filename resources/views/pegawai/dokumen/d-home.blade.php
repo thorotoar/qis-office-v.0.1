@@ -21,17 +21,22 @@
             @if(session()->has('sukses'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('sukses')}}
+                    {!! session('sukses') !!}
                 </div>
             @elseif(session()->has('edit'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('edit')}}
+                    {!! session('edit') !!}
                 </div>
             @elseif(session()->has('hapus'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('hapus')}}
+                    {!! session('hapus') !!}
+                </div>
+            @elseif(session()->has('send'))
+                <div class="alert alert-info alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {!! session('send') !!}
                 </div>
             @endif
             <!-- Start Page Content -->
@@ -98,7 +103,7 @@
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-dokumen-edit" data-toggle="tooltip" data-placement="top" title="Edit">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print" onclick="sendDokumen('{{$value->id}}')">
                                                         <i class="fa fa-send"></i> Kirim
                                                     </button>
                                                     <button onclick="deleteDataDokumen('{{$value->id}}')" type="submit" class="btn btn-sm btn-rounded btn-danger btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
@@ -120,6 +125,7 @@
         </div>
         <!-- End Container fluid  -->
     </div>
+    @include('pegawai.dokumen.d-send')
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
@@ -163,6 +169,11 @@
             $('#from_surat').val('');
             $("#myTable_filter input[type=search]").val('').trigger('keyup');
         });
+
+        function sendDokumen(id){
+            $("#formDokumen input[name=id]").val(id);
+            $("#sendDokumen").modal('show');
+        }
 
     </script>
 @endsection

@@ -23,7 +23,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{session()->get('pegawai')}}
+                            {!! session('pegawai') !!}
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{session()->get('destroy')}}
+                            {!! session('destroy') !!}
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{session()->get('pendidikan')}}
+                            {!! session('pendidikan') !!}
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{session()->get('update_r')}}
+                            {!! session('update_r') !!}
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                                         <i class="fa fa-sync"></i></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="">Quali International Surabaya</a></li>
+                                        <li><a href="{{route('get.pegawai.qis')}}">Quali International Surabaya</a></li>
                                         <li><a href="{{route('get.pegawai')}}">Muslim Day Care</a></li>
                                         <li><a href="{{route('get.pegawai.abk')}}">Sanggar ABK</a></li>
                                     </ul>

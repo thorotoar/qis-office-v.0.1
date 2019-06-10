@@ -10,8 +10,10 @@ use App\KebutuhanKhusus;
 use App\Kecamatan;
 use App\Kewarganegaraan;
 use App\Lembaga;
+use App\Mail\SertifikatEmail;
 use App\NilaiABK;
 use App\NilaiDC;
+use App\NilaiQIS;
 use App\Pegawai;
 use App\Penghasilan;
 use App\PesertaDidik;
@@ -25,18 +27,26 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use PDF;
+use Mail;
 
 class PesertaController extends Controller
 {
 
     protected $clientSIMDEPAD, $clientSIMPADI, $uriSIMDEPAD, $uriSIMPADI;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
 
+        $this->uriQIS = env('QIS_URI');
         $this->uriSIMPADI = env('SIMPADI_URI');
         $this->uriSIMDEPAD = env('SIMDEPAD_URI');
+
+        $this->clientQIS = new Client([
+            'base_uri' => $this->uriQIS,
+            'defaults' => [
+                'exceptions' => false
+            ]
+        ]);
 
         $this->clientSIMPADI = new Client([
             'base_uri' => $this->uriSIMPADI,
@@ -53,16 +63,13 @@ class PesertaController extends Controller
         ]);
     }
 
-    public function index()
-    {
-
+    public function index(){
         $pesertaDidik = PesertaDidik::orderBy('created_at')->get();
 
         return view('pegawai.peserta.p-home', compact('pesertaDidik'));
     }
 
-    public function create()
-    {
+    public function create(){
         $penghasilan = Penghasilan::all();
         $jenjang = Jenjang::all();
         $kebutuhan = KebutuhanKhusus::all();
@@ -74,23 +81,19 @@ class PesertaController extends Controller
         return view('pegawai.peserta.p-tambah', compact('penghasilan', 'jenjang', 'kebutuhan', 'provinsi', 'negara', 'agama', 'transportasi', 'lembaga'));
     }
 
-    public function kabupaten()
-    {
+    public function kabupaten(){
         $provinsi_id = Input::get('provinsi_id');
         $provinsi = Kabupaten::where('provinsi_id', '=', $provinsi_id)->get();
         return response()->json($provinsi);
     }
 
-    public function kecamatan()
-    {
+    public function kecamatan(){
         $kabupaten_id = Input::get('kabupaten_id');
         $kabupaten = Kecamatan::where('kabupaten_id', '=', $kabupaten_id)->get();
         return response()->json($kabupaten);
     }
 
-    public function store(Request $request)
-    {
-
+    public function store(Request $request){
         $request->validate([
             'nik' => 'nullable|numeric',
             'nik_ayah' => 'nullable|numeric',
@@ -208,12 +211,10 @@ class PesertaController extends Controller
 
         $nama = $request->nama;
 
-        return redirect()->route('p-home')->with('sukses', 'Peserta Didik ' . $nama . ' berhasil ditambahkan.');
+        return redirect()->route('p-home')->with('sukses', 'Peserta Didik ' . "<b>" . $nama . "</b>" . ' berhasil ditambahkan.');
     }
 
-    public function edit(Request $request)
-    {
-
+    public function edit(Request $request){
         $peserta = PesertaDidik::find($request->id);
 
         $penghasilan = Penghasilan::all();
@@ -228,7 +229,6 @@ class PesertaController extends Controller
         $lembaga = Lembaga::all();
         return view('pegawai.peserta.p-edit', compact('penghasilan', 'jenjang', 'kebutuhan', 'provinsi', 'negara', 'agama', 'transportasi', 'lembaga', 'peserta', 'kabupaten', 'kecamatan'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -354,31 +354,37 @@ class PesertaController extends Controller
         }
         $nama = $request->nama;
 
-        return redirect()->route('p-home')->with('edit', 'Data Peserta Didik ' . $nama . ' berhasil diubah.');
+        return redirect()->route('p-home')->with('edit', 'Data Peserta Didik ' . "<b> ". $nama . "</b>" . ' berhasil diubah.');
+//        return redirect()->route('p-home')->with('edit', 'Data Peserta Didik ' . $nama . ' berhasil diubah.');
     }
 
-    public function destroy(Request $request, $id)
-    {
-
+    public function destroy($id){
         $ser = PesertaDidik::find($id);
+        $nilai = NilaiQIS::where('peserta_id', $ser->id)->first();
+//        dd($nilai->attach);
+
         $file = $ser->foto;
-        File::delete($file);
+
+        if (!$nilai){
+            File::delete($file);
+        }else{
+            File::delete($file);
+            File::delete('file-sertifikat/'.$nilai->attach);
+        }
+
         $ser->delete();
 
-        return back()->with('destroy', $ser->nama . ' berhasil dihapus.');
+        return back()->with('destroy', 'Data ' . "<b>" . $ser->nama . "</b>" . ' berhasil dihapus.');
     }
 
-    public function print(Request $request)
-    {
-
+    public function print(Request $request){
         $data = PesertaDidik::find($request->id);
         //dd($data);
         //$pdf = PDF::loadView("pegawai.data-pegawai.d-p-print", compact('data'));
         return view('pegawai.peserta.p-print', compact('data'));
     }
 
-    public function print_all()
-    {
+    public function print_all(){
         $data = PesertaDidik::all();
         //dd($data);
         $pdf = PDF::loadView("pegawai.peserta.p-print-all", compact('data'));
@@ -386,8 +392,38 @@ class PesertaController extends Controller
         return $pdf->stream('daftar_peserta.pdf');
     }
 
-    public function lihatNilai($id)
-    {
+    public function attach(Request $request){
+        $nilai = NilaiQIS::find($request->id);
+//        dd($nilai);
+
+        Mail::send(new SertifikatEmail($request, $nilai->attach));
+
+        return back()->with('send', 'Sertifikat Berhasil Terkirim');
+    }
+
+    public  function printNilai(Request $request){
+        $sis = PesertaDidik::find($request->id);
+
+        if ($sis->lembaga_id == 2){
+            $nilai = NilaiQIS::where('peserta_id', $sis->id)->first();
+
+            $pdf = PDF::setPaper('Legal', 'landscape');
+            $pdf->loadView("pegawai.peserta.nilai.p-sertif", compact('nilai'));
+            return $pdf->stream(str_replace(' ', '_', str_random(2) . '' . 'sertif_' . $sis->nama . '.pdf'));
+
+        } elseif ($sis->lembaga_id == 3){
+            $nilai = NilaiDC::where('peserta_id', $sis->id)->first();
+
+            return view('pegawai.peserta.nilai.p-p-print', compact('sis', 'nilai'));
+
+        } elseif ($sis->lembaga_id == 4){
+            $nilai = NilaiABK::where('peserta_id', $sis->id)->first();
+
+            return view('pegawai.peserta.nilai.p-p-print', compact('sis', 'nilai'));
+        }
+    }
+
+    public function lihatNilai($id){
         $peserta = PesertaDidik::find($id);
 //        dd($peserta);
 
@@ -632,6 +668,158 @@ class PesertaController extends Controller
             }
 
             return redirect()->route('p-home')->with('sukses', 'Data peserta '. "<b>" . 'Sanggar ABK' . "</b>" .' berhasil ditambahkan.');
+
+        }catch (ConnectException $e) {
+            return $e->getResponse();
+        }
+    }
+
+    public function getSiswaQIS(){
+        try{
+            $response2 = $this->clientQIS->get($this->uriQIS . '/api/peserta')->getBody()->getContents();
+            $response2 = json_decode($response2, true);
+
+            foreach ($response2 as $row){
+                $kebutuhan = KebutuhanKhusus::where('nama_kebutuhan', $row['dis']['nama_kebutuhan'])->first();
+                $negara = Kewarganegaraan::where('nama_negara', 'Indonesia')->first();
+                $prov = Provinsi::where('nama_provinsi', $row['prov']['nama_provinsi'])->first();
+                $kab = Kabupaten::where('nama_kabupaten', $row['kab']['nama_kabupaten'])->first();
+                $kec = Kecamatan::where('nama_kecamatan', $row['kec']['nama_kecamatan'])->first();
+
+                $check = PesertaDidik::where('nama', $row['nama_user'])->where('kelamin', $row['kelamin'])->where('nisn', $row['profile']['nisn'])
+                    ->where('nik', $row['profile']['nik'])->where('tempat_lahir', $row['tempat_lahir'])
+                    ->where('tgl_lahir', strftime("%d %B %Y", strtotime($row['tgl_lahir'])))->where('agama_id', 1)->where('kewarganegaraan_id', $negara->id)
+                    ->where('kebutuhan_id', $row['dis']['nama_kebutuhan'] != null ? $kebutuhan->id : null)->where('alamat', $row['alamat'])
+                    ->where('rt', $row['profile']['rt'])->where('rw', $row['profile']['rw'])->where('nama_dusun', $row['profile']['nama_dusun'])
+                    ->where('desa', $row['profile']['desa'])->where('provinsi_id', $prov->id)->where('kabupaten_id', $kab->id)->where('kecamatan_id', $kec->id)
+                    ->where('kode_pos', $row['profile']['kode_pos'])->where('anak_ke', $row['profile']['anak_ke'])->where('telpon_selular', $row['telpon'])
+                    ->where('email', $row['email_user'])
+                    ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['profile']['tgl_masuk'])))->where('status', $row['status'])->where('lembaga_id', 2)
+                    ->where('created_by', Auth::user()->nama_user);
+
+                $checK = PesertaDidik::where('nama_ayah', $row['profile']['nama_ayah'])->where('nik_ayah', $row['profile']['nik_ayah'])
+                    ->where('tahun_lahir_ayah', $row['profile']['tahun_lahir_ayah'])
+                    ->where('jenjang_ayah_id', Jenjang::where('nama_jenjang', $row['jenA']['nama_jenjang'])->first()->id)
+                    ->where('pekerjaan_ayah', $row['profile']['pekerjaan_ayah'])
+                    ->where('penghasilan_ayah_id', Penghasilan::where('jumlah_penghasilan', $row['pengA']['jumlah_penghasilan'])->first()->id)
+                    ->where('nama_ibu', $row['profile']['nama_ibu'])->where('nik_ibu', $row['profile']['nik_ibu'])
+                    ->where('tahun_lahir_ibu', $row['profile']['tahun_lahir_ibu'])
+                    ->where('jenjang_ibu_id', Jenjang::where('nama_jenjang', $row['jenI']['nama_jenjang'])->first()->id)
+                    ->where('pekerjaan_ibu', $row['profile']['tahun_lahir_ibu'])
+                    ->where('penghasilan_ibu_id', Penghasilan::where('jumlah_penghasilan', $row['pengI']['jumlah_penghasilan'])->first()->id)
+                    ->where('nama_wali', $row['profile']['nama_wali'])->where('nik_wali', $row['profile']['nik_wali'])
+                    ->where('tahun_lahir_wali', $row['profile']['tahun_lahir_wali'])
+                    ->where('jenjang_wali_id', Jenjang::where('nama_jenjang', $row['jenW']['nama_jenjang'])->first()->id)
+                    ->where('pekerjaan_wali', $row['profile']['pekerjaan_wali'])
+                    ->where('penghasilan_wali_id', Penghasilan::where('jumlah_penghasilan', $row['pengW']['jumlah_penghasilan'])->first()->id);
+
+                if (!$check->count() && !$checK->count()) {
+                    $peserta = PesertaDidik::create([
+                        'user_id' => Auth::user()->id,
+                        'nama' => $row['nama_user'],
+                        'kelamin' => $row['kelamin'],
+                        'nisn' => $row['profile']['nisn'],
+                        'nik' => $row['profile']['nik'],
+                        'tempat_lahir' => $row['tempat_lahir'],
+                        'tgl_lahir' => strftime("%d %B %Y", strtotime($row['tgl_lahir'])),
+                        'agama_id' => 1,
+                        'kewarganegaraan_id' => $negara->id,
+                        'kebutuhan_id' => $row['dis']['nama_kebutuhan'] != null ? $kebutuhan->id : null,
+                        'alamat' => $row['alamat'],
+                        'rt' => $row['profile']['rt'],
+                        'rw' => $row['profile']['rw'],
+                        'nama_dusun' => $row['profile']['nama_dusun'],
+                        'desa' => $row['profile']['desa'],
+                        'provinsi_id' => $prov->id,
+                        'kabupaten_id' => $kab->id,
+                        'kecamatan_id' => $kec->id,
+                        'kode_pos' => $row['profile']['kode_pos'],
+                        'anak_ke' => $row['profile']['anak_ke'],
+                        'telpon_selular' => $row['telpon'],
+                        'email' => $row['email_user'],
+                        'nama_ayah' => $row['profile']['nama_ayah'],
+                        'nik_ayah' => $row['profile']['nik_ayah'],
+                        'tahun_lahir_ayah' => $row['profile']['tahun_lahir_ayah'],
+                        'jenjang_ayah_id' => Jenjang::where('nama_jenjang', $row['jenA']['nama_jenjang'])->first()->id,
+                        'pekerjaan_ayah' => $row['profile']['pekerjaan_ayah'],
+                        'penghasilan_ayah_id' => Penghasilan::where('jumlah_penghasilan', $row['pengA']['jumlah_penghasilan'])->first()->id,
+                        'nama_ibu' => $row['profile']['nama_ibu'],
+                        'nik_ibu' => $row['profile']['nik_ibu'],
+                        'tahun_lahir_ibu' => $row['profile']['tahun_lahir_ibu'],
+                        'jenjang_ibu_id' => Jenjang::where('nama_jenjang', $row['jenI']['nama_jenjang'])->first()->id,
+                        'pekerjaan_ibu' => $row['profile']['pekerjaan_ibu'],
+                        'penghasilan_ibu_id' => Penghasilan::where('jumlah_penghasilan', $row['pengI']['jumlah_penghasilan'])->first()->id,
+                        'nama_wali' => $row['profile']['nama_wali'],
+                        'nik_wali' => $row['profile']['nik_wali'],
+                        'tahun_lahir_wali' => $row['profile']['tahun_lahir_wali'],
+                        'jenjang_wali_id' => Jenjang::where('nama_jenjang', $row['jenW']['nama_jenjang'])->first()->id,
+                        'pekerjaan_wali' => $row['profile']['pekerjaan_wali'],
+                        'penghasilan_wali_id' => Penghasilan::where('jumlah_penghasilan', $row['pengW']['jumlah_penghasilan'])->first()->id,
+                        'tgl_masuk' => strftime("%d %B %Y", strtotime($row['profile']['tgl_masuk'])),
+                        'status' => $row['status'],
+                        'isFull' => false,
+                        'lembaga_id' => 2,
+                        'created_by' => Auth::user()->nama_user,
+                    ]);
+                } else{
+                    $peserta = $check->first();
+                }
+
+                if ($row['nilai'] != null){
+                    $checkN = NilaiQIS::where('nomor_nilai', $row['nilai']['nomor_nilai'])->count();
+                    $checkL = NilaiQIS::where('nomor_nilai', $row['nilai']['nomor_nilai'])->where('isLulus', false)->count();
+
+                    if (!$checkN){
+                        $nilai = NilaiQIS::create([
+                            'peserta_id' => $peserta->id,
+                            'nomor_nilai' => $row['nilai']['nomor_nilai'],
+                            'isLulus' => $row['nilai']['isLulus'] == true ? true : false,
+                            'tgl_dicatat' => strftime("%d %B %Y", strtotime($row['nilai']['tgl_dicatat'])),
+                            'program' => $row['prog']['nama_program'],
+                            'nilai_grammar' => $row['nilai']['nilai_grammar'],
+                            'nilai_comprehension' => $row['nilai']['nilai_comprehension'],
+                            'nilai_conversation' => $row['nilai']['nilai_conversation'],
+                            'keterangan' => $row['nilai']['keterangan'],
+                        ]);
+
+//                        dd($peserta->nama);
+
+                        if($row['nilai']['isLulus'] == true){
+                            $name = str_replace(' ', '_', str_random(2) . '' . 'ser_' . $peserta->nama);
+
+                            $pdf = PDF::loadView("pegawai.peserta.nilai.p-sertif", compact('nilai'));
+                            $pdf->setPaper('Legal', 'landscape');
+                            $pdf->save('file-sertifikat/'. $name .'.pdf');
+
+                            $nilai->update([
+                                'attach' => $name.'.pdf',
+                            ]);
+                        }
+                    }
+
+                    if ($checkL && $row['nilai']['isLulus'] == true){
+                        $nilai = NilaiQIS::where('nomor_nilai', $row['nilai']['nomor_nilai'])->first();
+
+                        $nilai->update([
+                            'isLulus' => $row['nilai']['isLulus']
+                        ]);
+
+                        if($nilai->isLulus == true){
+                            $name = str_replace(' ', '_', str_random(2) . '' . 'ser_' . $peserta->nama);
+
+                            $pdf = PDF::loadView("pegawai.peserta.nilai.p-sertif", compact('nilai'));
+                            $pdf->setPaper('Legal', 'landscape');
+                            $pdf->save('file-sertifikat/'. $name .'.pdf');
+
+                            $nilai->update([
+                                'attach' => $name.'.pdf',
+                            ]);
+                        }
+                    }
+                }
+            }
+
+            return redirect()->route('p-home')->with('sukses', 'Data peserta '. "<b>" . 'QIS English' . "</b>" .' berhasil ditambahkan.');
 
         }catch (ConnectException $e) {
             return $e->getResponse();

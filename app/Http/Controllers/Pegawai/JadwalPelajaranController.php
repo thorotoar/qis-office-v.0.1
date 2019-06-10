@@ -21,8 +21,16 @@ class JadwalPelajaranController extends Controller
     {
         $this->middleware('auth');
 
+        $this->uriQIS = env('QIS_URI');
         $this->uriSIMPADI = env('SIMPADI_URI');
         $this->uriSIMDEPAD = env('SIMDEPAD_URI');
+
+        $this->clientQIS = new Client([
+            'base_uri' => $this->uriQIS,
+            'defaults' => [
+                'exceptions' => false
+            ]
+        ]);
 
         $this->clientSIMPADI = new Client([
             'base_uri' => $this->uriSIMPADI,
@@ -40,7 +48,9 @@ class JadwalPelajaranController extends Controller
     }
 
     public function indexQIS(){
-
+        $peg = JadwalPelajaran::where('lembaga_id', 2)->orderBy('created_at')->get();
+        $lemb = Lembaga::where('id', 2)->first();
+        return view('pegawai.jadwal.qis-home', compact('peg', 'lemb'));
     }
 
     public function indexMDC(){
@@ -178,56 +188,110 @@ class JadwalPelajaranController extends Controller
     }
 
     public function getJadwalABK(){
+    try {
+        $response1 = $this->clientSIMDEPAD->get($this->uriSIMDEPAD . '/api/jadwal')->getBody()->getContents();
+        $response1 = json_decode($response1, true);
 
+        foreach ($response1 as $row){
+            $check = JadwalPelajaran::where('nama_jadwal', $row['name'])->where('tgl_dicatat', strftime("%d %B %Y", strtotime(now())))
+                ->where('lembaga_id', 4)->count();
+
+            if (!$check){
+                $jadwal = JadwalPelajaran::create([
+                    'nama_jadwal' => $row['name'],
+                    'tgl_dicatat' => strftime("%d %B %Y", strtotime(now())),
+                    'lembaga_id' => 4,
+                    'created_by' => Auth::user()->nama_user,
+                ]);
+            } else {
+                $jadwal = $check->first();
+            }
+
+            if ($row['sis'] != null){
+                foreach ($row['sis'] as $val){
+                    $nama = PesertaDidik::where('nama', $val['name'])->first();
+                    $nama->update([
+                        'jadwal_id' => $jadwal->id
+                    ]);
+                }
+            }
+
+            if($row['sche'] != null){
+                $it = new \MultipleIterator();
+                $it->attachIterator(new \ArrayIterator($row['day']));
+                $it->attachIterator(new \ArrayIterator($row['sche']));
+                $it->attachIterator(new \ArrayIterator($row['act']));
+
+                foreach ($it as $index => $item){
+                    Jadwal::create([
+                        'jadwal_id' => $jadwal->id,
+                        'hari' => $item[0]['ind'],
+                        'waktu_mulai' => $item[1]['time_start'],
+                        'waktu_akhir' => $item[1]['time_end'],
+                        'kegiatan' => $item[2]['name'],
+                        'keterangan' => $item[2]['summary'],
+                        'created_by' => Auth::user()->nama_user,
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('jadwal.abk')->with('sukses',  'Data jadwal ' . "<b>" . 'Sanggar ABK' . "</b>" . ' berhasil ditambahkan.');
+
+    } catch (ConnectException $e) {
+        return $e->getResponse();
+    }
+}
+
+    public function getJadwalQIS(){
         try {
-            $response1 = $this->clientSIMDEPAD->get($this->uriSIMDEPAD . '/api/jadwal')->getBody()->getContents();
-            $response1 = json_decode($response1, true);
+            $response2 = $this->clientQIS->get($this->uriQIS. '/api/jadwal')->getBody()->getContents();
+            $response2 = json_decode($response2, true);
 
-            foreach ($response1 as $row){
-                $check = JadwalPelajaran::where('nama_jadwal', $row['name'])->where('tgl_dicatat', strftime("%d %B %Y", strtotime(now())))
-                    ->where('lembaga_id', 4)->count();
+            foreach ($response2 as $row){
+                $check = JadwalPelajaran::where('nama_jadwal', $row['nama_jadwal'])->where('tgl_dicatat', strftime("%d %B %Y", strtotime($row['tgl_dicatat'])))
+                    ->where('lembaga_id', 2)->count();
 
                 if (!$check){
                     $jadwal = JadwalPelajaran::create([
-                        'nama_jadwal' => $row['name'],
-                        'tgl_dicatat' => strftime("%d %B %Y", strtotime(now())),
-                        'lembaga_id' => 4,
+                        'nama_jadwal' => $row['nama_jadwal'],
+                        'tgl_dicatat' => strftime("%d %B %Y", strtotime($row['tgl_dicatat'])),
+                        'lembaga_id' => 2,
                         'created_by' => Auth::user()->nama_user,
                     ]);
                 } else {
                     $jadwal = $check->first();
                 }
 
-                if ($row['sis'] != null){
-                    foreach ($row['sis'] as $val){
-                        $nama = PesertaDidik::where('nama', $val['name'])->first();
+                if ($row['user'] != null){
+                    foreach ($row['user'] as $val){
+                        $nama = PesertaDidik::where('nama', $val['nama_user'])->first();
                         $nama->update([
                             'jadwal_id' => $jadwal->id
                         ]);
                     }
                 }
 
-                if($row['sche'] != null){
+                if($row['jad'] != null){
                     $it = new \MultipleIterator();
-                    $it->attachIterator(new \ArrayIterator($row['day']));
-                    $it->attachIterator(new \ArrayIterator($row['sche']));
-                    $it->attachIterator(new \ArrayIterator($row['act']));
+                    $it->attachIterator(new \ArrayIterator($row['jad']));
+                    $it->attachIterator(new \ArrayIterator($row['hari']));
 
                     foreach ($it as $index => $item){
                         Jadwal::create([
                             'jadwal_id' => $jadwal->id,
-                            'hari' => $item[0]['ind'],
-                            'waktu_mulai' => $item[1]['time_start'],
-                            'waktu_akhir' => $item[1]['time_end'],
-                            'kegiatan' => $item[2]['name'],
-                            'keterangan' => $item[2]['summary'],
+                            'hari' => $item[1]['nama_hari'],
+                            'waktu_mulai' => $item[0]['waktu_mulai'],
+                            'waktu_akhir' => $item[0]['waktu_akhir'],
+                            'kegiatan' => $item[0]['kegiatan'],
+                            'keterangan' => $item[0]['keterangan'],
                             'created_by' => Auth::user()->nama_user,
                         ]);
                     }
                 }
             }
 
-            return redirect()->route('jadwal.abk')->with('sukses',  'Data jadwal ' . "<b>" . 'Sanggar ABK' . "</b>" . ' berhasil ditambahkan.');
+            return redirect()->route('jadwal.qis')->with('sukses',  'Data jadwal ' . "<b>" . 'QIS English' . "</b>" . ' berhasil ditambahkan.');
 
         } catch (ConnectException $e) {
             return $e->getResponse();

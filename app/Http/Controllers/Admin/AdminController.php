@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Dokumen;
 use App\Http\Controllers\Controller;
+use App\JadwalPelajaran;
 use App\Pegawai;
+use App\PesertaDidik;
+use App\SuratKeluar;
+use App\SuratMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,10 +21,19 @@ class AdminController extends Controller
     }
 
     public function index(Request $request){
-        $pegawaiView = Pegawai::all()->count();
-        $pegawaiShow = Pegawai::find($request->id);
+        $pegawai= Pegawai::all()->count();
+        $dokumen = Dokumen::all()->count();
+        $pQIS = PesertaDidik::where('lembaga_id', [2])->count();
+        $pABK = PesertaDidik::where('lembaga_id', [3])->count();
+        $pMDC = PesertaDidik::where('lembaga_id', [4])->count();
+        $sMasuk = SuratMasuk::all()->count();
+        $sKeluar = SuratKeluar::all()->count();
+        $jQIS = JadwalPelajaran::where('lembaga_id', 2)->count();
+        $jMDC = JadwalPelajaran::where('lembaga_id', 3)->count();
+        $jABK = JadwalPelajaran::where('lembaga_id', 4)->count();
 
-        return view('admin.admin-home',compact('pegawaiView', 'pegawaiShow'));
+        $pegawaiShow = Pegawai::find($request->id);
+        return view('admin.admin-home', compact('pegawai', 'dokumen', 'pQIS', 'pABK', 'pMDC', 'sMasuk', 'sKeluar', 'jQIS', 'jMDC', 'jABK', 'pegawaiShow'));
     }
 
     public function changePassAdmin(){

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Pegawai;
 
-
-use App\Jabatan;
 Use App\JenisSurat;
 use App\Mail\SuratKeluarEmail;
 use App\Mail\SuratKeluarEmailRaw;
@@ -57,8 +55,6 @@ class SuratKeluarController extends Controller
         }else{
             $nomorSurat = '';
         }
-
-//        dd($nomorSurat);
 
         $sk = SuratKeluar::create([
             'user_id' => Auth::user()->id,
@@ -126,8 +122,6 @@ class SuratKeluarController extends Controller
     }
 
     public function update(Request $request){
-//        dd($request->all());
-
         $sk = SuratKeluar::find($request->id);
         $jenisur = JenisSurat::where('id', $sk->jenis_id)->firstOrFail();
 
@@ -153,7 +147,7 @@ class SuratKeluarController extends Controller
         }
 
         if (input::has('isi')){
-            File::delete('images/file-surat/'.$sk->attach);
+            File::delete('file-surat/'.$sk->attach);
             $filename = $jenisur->nama_jenis_surat.substr($sk->no_surat, 0, 3);
             $name = str_replace(' ', '_', str_random(2) . '' . $filename);
 
@@ -172,7 +166,7 @@ class SuratKeluarController extends Controller
             ]);
         }
 
-        return redirect()->route('surk-home')->with('sukses', $jenisur->nama_jenis_surat.'_'.substr($sk->no_surat, 0, 3). ' berhasil ditambahkan.');
+        return redirect()->route('surk-home')->with('sukses', "<b>" . $jenisur->nama_jenis_surat.'_'.substr($sk->no_surat, 0, 3). "</b>" . ' berhasil ditambahkan.');
     }
 
     public function attach(Request $request){
@@ -237,7 +231,7 @@ class SuratKeluarController extends Controller
 
         $jenis = JenisSurat::where('id', $surK->jenis_id)->firstOrFail();
 
-        return redirect()->route('surk-home')->with('hapus', 'Data ' . $jenis['nama_jenis_surat'] . '_' . substr($surK->no_surat, 0, 3) . ' terpilih berhasil dihapus.');
+        return redirect()->route('surk-home')->with('hapus', 'Data ' . "<b>" . $jenis['nama_jenis_surat'] . '_' . substr($surK->no_surat, 0, 3) . "</b>" . ' terpilih berhasil dihapus.');
     }
 
 //    public function searchJabatan($Q){

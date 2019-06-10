@@ -21,22 +21,22 @@
             @if(session()->has('sukses'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('sukses')}}
+                    {!! session('sukses') !!}
                 </div>
             @elseif(session()->has('edit'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('edit')}}
+                    {!! session('edit') !!}
                 </div>
             @elseif(session()->has('hapus'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('hapus')}}
+                    {!! session('hapus') !!}
                 </div>
             @elseif(session()->has('send'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('send')}}
+                    {!! session('send') !!}
                 </div>
         @endif
         <!-- Start Page Content -->
@@ -111,7 +111,7 @@
                                                 <div class="table-data-feature">
                                                     <form id="form-deleteSuratP-{{$value->id}}" class="form-group pull-left" action="" method="post" hidden>
                                                         {{csrf_field()}} {{method_field('DELETE')}}
-                                                        onclick="return confirm('Hapus data terpilih?')"
+                                                        {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-suratMasuk-edit" data-toggle="tooltip"
                                                             data-placement="top" title="Edit">

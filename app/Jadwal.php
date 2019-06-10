@@ -14,6 +14,7 @@ class Jadwal extends Model
 
     //"$guarded" kolom yang tidak dapat diisi secara manual
     protected $guarded = ['id'];
+
     public function jadwalPelajaran(){
         return $this->belongsTo(JadwalPelajaran::class, 'jadwal_id');
     }

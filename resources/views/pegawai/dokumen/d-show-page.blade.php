@@ -64,7 +64,7 @@
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Tanggal Dicatat :</small><br>
-                                                <strong>{{$dokumen->tgl_dicatat == null ? '-' : $dokumen->tgl_dicatat}}</strong>
+                                                <strong>{{$dokumen->tgl_dicatat == null ? '-' : strftime("%d %B %Y", strtotime($dokumen->tgl_dicatat))}}</strong>
                                             </h6>
                                             <h6 class="h6-responsive">
                                                 <small class="green-text">Keterangan :</small><br>

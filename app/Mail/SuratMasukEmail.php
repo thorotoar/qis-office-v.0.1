@@ -37,6 +37,6 @@ class SuratMasukEmail extends Mailable
             ->from(env('MAIL_USERNAME'), 'QIS - Quali International Surabaya')
             ->subject($data->subjek)
             ->attach(public_path('file-surat-masuk/'. substr($this->file, '17')))
-            ->view('pegawai.surat-keluar.k-mail' ,compact('data'));
+            ->view('mail.m-personal' ,compact('data'));
     }
 }

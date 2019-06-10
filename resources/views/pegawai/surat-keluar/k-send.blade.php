@@ -75,7 +75,7 @@
                                         <textarea class="form-control isi" name="isi_email" cols="30" rows="5"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label>Subjek </label>
+                                        <label>File </label>
                                         <input class="form-control" type="file" name="file_pdf">
                                     </div>
                                 </div>

@@ -28,7 +28,6 @@ class CreateNilaiABKsTable extends Migration
             $table->string('prestasi')->nullable();
             $table->string('keterangan')->nullable();
             $table->text('evaluasi')->nullable();
-
             $table->timestamps();
         });
     }

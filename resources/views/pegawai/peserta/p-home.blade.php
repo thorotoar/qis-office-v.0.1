@@ -34,7 +34,7 @@
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
-                            {{session()->get('destroy')}}
+                            {!! session('destroy') !!}
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
-                            {{session()->get('edit')}}
+                            {!! session('edit') !!}
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                                         Tambah Peserta Didik <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="">Quali International Surabaya</a></li>
+                                        <li><a href="{{route('get.siswa.qis')}}">Quali International Surabaya</a></li>
                                         <li><a href="{{route('get.siswa')}}">Muslim Day Care</a></li>
                                         <li><a href="{{route('get.siswa.abk')}}">Sanggar ABK</a></li>
                                     </ul>
@@ -122,6 +122,30 @@
                                     <tbody>
                                     @foreach( $pesertaDidik as $index => $value)
                                         @php
+                                        $check = \App\PesertaDidik::where('id', $value->id)->where('nama', '!=', null)
+                                        ->where('nik', '!=', null)->where('nisn', '!=', null)->where('tempat_lahir', '!=', null)->where('kelamin', '!=', null)
+                                        ->where('agama_id', '!=', null)->where('telpon_selular', '!=', null)->where('email', '!=', null)
+                                        ->where('kewarganegaraan_id', '!=', null)->where('alamat', '!=', null)->where('rt', '!=', null)-> where('rw', '!=', null)
+                                        ->where('nama_dusun', '!=', null)->where('desa', '!=', null)->where('provinsi_id', '!=', null)
+                                        ->where('kabupaten_id', '!=', null)->where('kecamatan_id', '!=', null)->where('kode_pos', '!=', null)
+                                        ->where('jenis_tinggal', '!=', null)->where('transportasi_id', '!=', null)->where('anak_ke', '!=', null)
+                                        ->where('kps', '!=', null)->where('pip', '!=', null)->where('kip', '!=', null)->where('no_kks', '!=', null)
+                                        ->where('reg_akta', '!=', null)->where('lembaga_id', '!=', null)->where('nama_ayah', '!=', null)->where('nik_ayah', '!=', null)
+                                        ->where('tahun_lahir_ayah', '!=', null)->where('jenjang_ayah_id', '!=', null)->where('pekerjaan_ayah', '!=', null)
+                                        ->where('penghasilan_ayah_id', '!=', null)->where('nama_wali', '!=', null)->where('nik_wali', '!=', null)
+                                        ->where('tahun_lahir_wali', '!=', null)->where('jenjang_wali_id', '!=', null)->where('pekerjaan_wali', '!=', null)
+                                        ->where('penghasilan_wali_id', '!=', null)->where('nama_ibu', '!=', null)->where('nik_ibu', '!=', null)
+                                        ->where('tahun_lahir_ibu', '!=', null)->where('jenjang_ibu_id', '!=', null)->where('pekerjaan_ibu', '!=', null)
+                                        ->where('penghasilan_ibu_id', '!=', null)->first();
+
+                                        $checkA = \App\PesertaDidik::where('id', $value->id)->where('nama_ayah', '!=', null)->where('nik_ayah', '!=', null)
+                                        ->where('tahun_lahir_ayah', '!=', null)->where('jenjang_ayah_id', '!=', null)->where('pekerjaan_ayah', '!=', null)
+                                        ->where('penghasilan_ayah_id', '!=', null)->where('nama_wali', '!=', null)->where('nik_wali', '!=', null)
+                                        ->where('tahun_lahir_wali', '!=', null)->where('jenjang_wali_id', '!=', null)->where('pekerjaan_wali', '!=', null)
+                                        ->where('penghasilan_wali_id', '!=', null)->where('nama_ibu', '!=', null)->where('nik_ibu', '!=', null)
+                                        ->where('tahun_lahir_ibu', '!=', null)->where('jenjang_ibu_id', '!=', null)->where('pekerjaan_ibu', '!=', null)
+                                        ->where('penghasilan_ibu_id', '!=', null)->first();
+
                                         $img = $value->foto == null ? asset('images/icon/no.png') : asset($value->foto);
                                         $nama = $value->nama;
                                         $full = $value->isFull == false ? 'Belum Lengkap' : 'Lengkap';
@@ -133,19 +157,19 @@
                                         $telp = $value->telpon_rumah == null ? '-' : $value->telpon_rumah;
                                         $hp = $value->telpon_selular == null ? '-' : $value->telpon_selular;
                                         $email = $value->email == null ? '-' : $value->email;
-                                        $negara = $value->kewarganegaraan == null ? '-' : $value->kewarganegaraan->nama_negara;
-                                        $kebutuhan = $value->kebutuhanKhusus == null ? '-' : $value->kebutuhanKhusus->nama_kebutuhan;
+                                        $negara = $value->kewarganegaraan_id == null ? '-' : $value->kewarganegaraan->nama_negara;
+                                        $kebutuhan = $value->kebutuhan_id == null ? '-' : $value->kebutuhanKhusus->nama_kebutuhan;
                                         $alamat = $value->alamat;
                                         $rt = $value->rt == null ? '-' : $value->rt;
                                         $rw = $value->rw == null ? '-' : $value->rw;
                                         $dusun = $value->nama_dusun == null ? '-' : $value->nama_dusun;
                                         $desa = $value->desa;
-                                        $provinsi = $value->provinsi == null ? '-' : $value->provinsi->nama_provinsi;
-                                        $kabupaten = $value->kabupaten == null ? '-' : $value->kabupaten->nama_kabupaten;
-                                        $kecamatan = $value->kecamatan == null ? '-' : $value->kecamatan->nama_kecamatan;
+                                        $provinsi = $value->provinsi_id == null ? '-' : $value->provinsi->nama_provinsi;
+                                        $kabupaten = $value->kabupaten_id == null ? '-' : $value->kabupaten->nama_kabupaten;
+                                        $kecamatan = $value->kecamatan_id == null ? '-' : $value->kecamatan->nama_kecamatan;
                                         $kodePos = $value->kode_pos == null ? '-' : $value->kode_pos;
                                         $jenisTinggal = $value->jenis_tinggal == null ? '-' : $value->jenis_tinggal;
-                                        $trans = $value->transportasiPD == null ? '-' : $value->transportasiPD->nama_transportasi;
+                                        $trans = $value->transportasi_id == null ? '-' : $value->transportasiPD->nama_transportasi;
                                         $anak = $value->anak_ke == null ? '-' : $value->anak_ke;
                                         $kps = $value->kps;
                                         $noKps = $value->no_kps == null ? '-' : $value->no_kps;
@@ -153,29 +177,29 @@
                                         $kip = $value->kip;
                                         $kks = $value->no_kks == null ? '-' : $value->no_kks;
                                         $akta = $value->reg_akta == null ? '-' : $value->reg_akta;
-                                        $lembaga = $value->lembaga != "" ? $value->lembaga->nama_lembaga : '-';
+                                        $lembaga = $value->lembaga_id != "" ? $value->lembaga->nama_lembaga : '-';
                                         $namaAyah = $value->nama_ayah == null ? '-' : $value->nama_ayah;
                                         $nikAyah = $value->nik_ayah == null ? '-' : $value->nik_ayah;
                                         $lahirAyah = $value->tahun_lahir_ayah == null ? '-' : $value->tahun_lahir_ayah;
-                                        $jejangAyah = $value->jenjangPendidikanA == null ? '-' : $value->jenjangPendidikanA->nama_jenjang;
+                                        $jejangAyah = $value->jenjang_ayah_id == null ? '-' : $value->jenjangPendidikanA->nama_jenjang;
                                         $pekerjaanAyah = $value->pekerjaan_ayah == null ? '-' : $value->pekerjaan_ayah;
-                                        $penghasilanAyah = $value->penghasilanA == null ? '-' : $value->penghasilanA->jumlah_penghasilan;
-                                        $kebutuhanAyah = $value->kebutuhanKhususA == null ? '-' : $value->kebutuhanKhususA->nama_kebutuhan;
+                                        $penghasilanAyah = $value->penghasilan_ayah_id == null ? '-' : $value->penghasilanA->jumlah_penghasilan;
+                                        $kebutuhanAyah = $value->kebutuhan_ayahh_id == null ? '-' : $value->kebutuhanKhususA->nama_kebutuhan;
 
                                         $namaIbu = $value->nama_ibu == null ? '-' : $value->nama_ibu;
                                         $nikIbu = $value->nik_ibu == null ? '-' : $value->nik_ibu;
                                         $lahirIbu = $value->tahun_lahir_ibu == null ? '-' : $value->tahun_lahir_ibu;
-                                        $jejangIbu = $value->jenjangPendidikanI == null ? '-' : $value->jenjangPendidikanI->nama_jenjang;
+                                        $jejangIbu = $value->jenjang_ibu_id == null ? '-' : $value->jenjangPendidikanI->nama_jenjang;
                                         $pekerjaanIbu = $value->pekerjaan_ibu == null ? '-' : $value->pekerjaan_ibu;
-                                        $penghasilanIbu = $value->penghasilanI == null ? '-' : $value->penghasilanI->jumlah_penghasilan;
-                                        $kebutuhanIbu = $value->kebutuhanKhususI == null ? '-' : $value->kebutuhanKhususI->nama_kebutuhan;
+                                        $penghasilanIbu = $value->penghasilan_ibu_id == null ? '-' : $value->penghasilanI->jumlah_penghasilan;
+                                        $kebutuhanIbu = $value->kebutuhan_ibu_id == null ? '-' : $value->kebutuhanKhususI->nama_kebutuhan;
 
                                         $namaWali = $value->nama_wali == null ? '-' : $value->nama_wali;
                                         $nikWali = $value->nik_wali == null ? '-' : $value->nik_wali;
                                         $lahirWali = $value->tahun_lahir_wali == null ? '-' : $value->tahun_lahir_wali;
-                                        $jejangWali = $value->jenjangPendidikanW == null ? '-' : $value->jenjangPendidikanW->nama_jenjang;
+                                        $jejangWali = $value->jenjang_wali_id == null ? '-' : $value->jenjangPendidikanW->nama_jenjang;
                                         $pekerjaanWali = $value->pekerjaan_wali == null ? '-' : $value->pekerjaan_wali;
-                                        $penghasilanWali = $value->penghasilanW == null ? '-' : $value->penghasilanW->jumlah_penghasilan;
+                                        $penghasilanWali = $value->penghasilan_wali_id == null ? '-' : $value->penghasilanW->jumlah_penghasilan;
 
                                         $created = $value->created_by == null ? '-' : $value->created_by;
                                         $updated = $value->updated_by == null ? '-' : $value->updated_by;
@@ -189,7 +213,13 @@
                                                 @else
                                                     <img src="{{asset($value->foto)}}" width="84" height="112">
                                                 @endif</th>
-                                            <th>{{ $value->nama }}&nbsp;<button class="btn btn-sm btn-outline-danger btn-flat btn-rounded disabled" disabled>{{ $value->isFull == false ? 'Belum Lengkap' : 'Lengkap' }}</button></th>
+                                            <th>{{ $value->nama }}&nbsp;<button class="btn btn-sm btn-outline-danger btn-flat btn-rounded disabled" disabled>
+                                                    @if(!$check)
+                                                        Tidak Lengkap
+                                                    @else
+                                                        Lengkap
+                                                    @endif
+                                                </button></th>
                                             <th>{{ $value->kelamin }}</th>
                                             <th>{{ $value->tempat_lahir }}, {{ $value->tgl_lahir }}</th>
                                             <th>{{ $value->lembaga != "" ? $value->lembaga->nama_lembaga : '-'}}</th>
@@ -201,13 +231,15 @@
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat"
-                                                            data-placement="top" title="Lihat" onclick="lihatPeserta('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$full}}', '{{$nik}}', '{{$nisn}}', '{{$ttl}}',
-                                                            '{{$kelamin}}', '{{$agama}}', '{{$telp}}', '{{$hp}}', '{{$email}}', '{{$negara}}', '{{$kebutuhan}}', '{{$alamat}}',
-                                                            '{{$rt}}', '{{$rw}}', '{{$dusun}}', '{{$desa}}', '{{$provinsi}}', '{{$kabupaten}}', '{{$kecamatan}}', '{{$kodePos}}', '{{$jenisTinggal}}',
-                                                            '{{$trans}}', '{{$anak}}', '{{$kps}}', '{{$noKps}}', '{{$pip}}', '{{$kip}}', '{{$kks}}', '{{$akta}}', '{{$lembaga}}',
-                                                            '{{$namaAyah}}' , '{{$nikAyah}}' , '{{$lahirAyah}}' , '{{$jejangAyah}}' , '{{$pekerjaanAyah}}' , '{{$penghasilanAyah}}' , '{{$kebutuhanAyah}}',
-                                                            '{{$namaIbu}}' , '{{$nikIbu}}' , '{{$lahirIbu}}' , '{{$jejangIbu}}' , '{{$pekerjaanIbu}}' , '{{$penghasilanIbu}}' , '{{$kebutuhanIbu}}',
-                                                            '{{$namaWali}}' , '{{$nikWali}}' , '{{$lahirWali}}' , '{{$jejangWali}}' , '{{$pekerjaanWali}}' , '{{$penghasilanWali}}', '{{$created}}', '{{$updated}}')">
+                                                            data-placement="top" title="Lihat" onclick="lihatPeserta('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$full}}',
+                                                            '{{$nik}}', '{{$nisn}}', '{{$ttl}}', '{{$kelamin}}', '{{$agama}}', '{{$telp}}', '{{$hp}}', '{{$email}}',
+                                                            '{{$negara}}', '{{$kebutuhan}}', '{{$alamat}}','{{$rt}}', '{{$rw}}', '{{$dusun}}', '{{$desa}}', '{{$provinsi}}',
+                                                            '{{$kabupaten}}', '{{$kecamatan}}', '{{$kodePos}}', '{{$jenisTinggal}}', '{{$trans}}', '{{$anak}}', '{{$kps}}',
+                                                            '{{$noKps}}', '{{$pip}}', '{{$kip}}', '{{$kks}}', '{{$akta}}', '{{$lembaga}}', '{{$namaAyah}}' , '{{$nikAyah}}' ,
+                                                            '{{$lahirAyah}}' , '{{$jejangAyah}}' , '{{$pekerjaanAyah}}' , '{{$penghasilanAyah}}' , '{{$kebutuhanAyah}}',
+                                                            '{{$namaIbu}}' , '{{$nikIbu}}' , '{{$lahirIbu}}' , '{{$jejangIbu}}' , '{{$pekerjaanIbu}}' , '{{$penghasilanIbu}}',
+                                                            '{{$kebutuhanIbu}}', '{{$namaWali}}' , '{{$nikWali}}' , '{{$lahirWali}}' , '{{$jejangWali}}' ,
+                                                            '{{$pekerjaanWali}}', '{{$penghasilanWali}}', '{{$created}}', '{{$updated}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
                                                     <button type="button" data-id="{{$value->id}}"
@@ -216,11 +248,22 @@
                                                             data-placement="top" title="Edit">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
-                                                    <button type="button" data-id="{{$value->id}}"
-                                                            class="btn btn-sm btn-rounded btn-primary btn-flat sweet-print"
-                                                            data-toggle="tooltip" data-placement="top" title="Print">
-                                                        <i class="fa fa-print"></i> Print
-                                                    </button>
+                                                    @if($value->lembaga_id == 2)
+                                                        <button data-id="{{$value->id}}"
+                                                                class="btn btn-sm btn-rounded btn-primary btn-flat sweet-print"
+                                                                data-toggle="tooltip" data-placement="top" title="Print">
+                                                            <i class="fa fa-print"></i> Print
+                                                        </button>
+                                                    @elseif($value->lembaga_id == 3 || $value->lembaga_id == 4)<div class="btn-group">
+                                                            <button type="button" class="btn btn-sm btn-rounded btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                                                                <i class="fa fa-print"></i> Print <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                <li><a href="{{route('p-print', ['id' => $value->id])}}">Data Peserta</a></li>
+                                                                <li><a href="{{route('p-n-print', ['id' => $value->id])}}">Nilai Peserta</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    @endif
                                                     <button onclick="deleteDataPeserta('{{$value->id}}')" type="submit"
                                                             class="btn btn-sm btn-rounded btn-danger btn-flat"
                                                             data-toggle="tooltip" data-placement="top" title="Delete">
@@ -316,21 +359,7 @@
         var body = $('body');
         body.on('click', '.sweet-peserta-edit', function () {
             id = $(this).data('id');
-            swal({
-                title: "Edit data terpilih?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Iya",
-                cancelButtonText: "Tidak",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            }, function (isConfirm) {
-
-                if (isConfirm) {
-                    window.location = '{{route('p-edit')}}' + '?id=' + id;
-                }
-            })
+            window.location = '{{route('p-edit')}}' + '?id=' + id;
         });
 
         body.on('click', '.sweet-print', function () {

@@ -74,7 +74,7 @@ class SuratMasukController extends Controller
         }
 
 
-        return redirect()->route('surm-home')->with('sukses','Surat masuk ' .  $suratM->no_surat . ' berhasil ditambahkan.');
+        return redirect()->route('surm-home')->with('sukses','Surat masuk ' . "<b>" . $suratM->no_surat . "</b>" . ' berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -84,9 +84,7 @@ class SuratMasukController extends Controller
         return view('pegawai.surat-masuk.m-edit', compact('suratM'));
     }
 
-
     public function update(Request $request, $id){
-
         $suratM = SuratMasuk::find($id);
         //dd($pegawai);
         $suratM->update([
@@ -111,7 +109,7 @@ class SuratMasukController extends Controller
             ]);
         }
 
-        return redirect()->route('surm-home')->with('edit', 'Surat masuk ' . $suratM->no_surat . ' berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+        return redirect()->route('surm-home')->with('edit', 'Surat masuk ' . "<b>" . $suratM->no_surat . "</b>" . ' berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
     }
 
     public function attach(Request $request){
@@ -143,7 +141,7 @@ class SuratMasukController extends Controller
         File::delete($file);
         $surM->delete();
 
-        return redirect()->route('surm-home')->with('hapus', 'Surat masuk ' . $surM->no_surat . ' berhasil dihapus.');
+        return redirect()->route('surm-home')->with('hapus', 'Surat masuk ' . "<b>" . $surM->no_surat . "</b>" . ' berhasil dihapus.');
     }
 
     public function print(Request $request){
