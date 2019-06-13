@@ -77,13 +77,14 @@
                                                                         $email = \App\PesertaDidik::where('id', $value->peserta_id)->first()->email;
                                                                         @endphp
                                                                         <tr>
+                                                                            <th>{{$value->tgl_dicatat}}</th>
                                                                             <th>{{$value->nilai_grammar}}</th>
                                                                             <th>{{$value->nilai_comprehension}}</th>
                                                                             <th>{{$value->nilai_conversation}}</th>
                                                                             <th>
                                                                                 <button data-id="{{$id}}" class="btn btn-sm btn-rounded btn-primary btn-flat ser-print"
                                                                                         data-toggle="modal" data-placement="top"
-                                                                                        title="Cetak Sertifikan" @if($value->isLulus == false)
+                                                                                        title="Lihat Sertifikan" @if($value->isLulus == false)
                                                                                         disabled @endif>
                                                                                 <i class="fa fa-search"></i> Lihat Sertifikat
                                                                                 </button>
@@ -499,6 +500,13 @@
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
     <script>
+        var id;
+        var body = $('body');
+
+        body.on('click', '.ser-print', function () {
+            id = $(this).data('id');
+            window.location = '{{route('ap-n-print')}}' + '?id=' + id;
+        });
         function getLihatNilai(id, title, no, kode, ins, res, nilai, ket){
             $("#title").text(title);
             $("#no").text(no);

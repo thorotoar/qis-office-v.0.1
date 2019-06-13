@@ -26,7 +26,7 @@
             @elseif(session()->has('edit'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('edit')}}
+                    {!! session('edit') !!}
                 </div>
             @elseif(session()->has('hapus'))
                 <div class="alert alert-info alert-dismissible fade show">
@@ -45,7 +45,7 @@
                                     {{--<i class="fa fa-plus"></i>&nbsp;Tambah Jadwal</a>--}}
                                 <button href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getJadwalMdc()"><i
                                             class="fa fa-refresh"></i>&nbsp;Tambah Jadwal</button>
-                                <a class="btn btn-primary btn-flat" href="{{route('mdc-print-all', ['lembaga' => 3])}}">
+                                <a class="btn btn-primary btn-flat" href="{{route('j-print-all', ['id' => 3])}}">
                                     <i class="fa fa-print"></i>&nbsp;Print All</a>
                                 <div class="card col-md-12 ">
                                     <div class="button-list">
@@ -93,10 +93,10 @@
                                                             onclick="lihatJadwal('{{$value->id}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
-                                                    <a href="{{route('mdc-edit', ['id' => $value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                    <i class="fa fa-edit"></i> Edit
-                                                    </a>
-                                                    <a href="{{route('mdc-print', ['id' => $value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-print"
+                                                    {{--<a href="{{route('mdc-edit', ['id' => $value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">--}}
+                                                    {{--<i class="fa fa-edit"></i> Edit--}}
+                                                    {{--</a>--}}
+                                                    <a href="{{route('j-print', ['id' => $value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-print"
                                                             data-toggle="tooltip" data-placement="top" title="Print">
                                                         <i class="fa fa-print"></i> Print
                                                     </a>
@@ -173,7 +173,7 @@
                 closeOnConfirm: false,
                 closeOnCancel: true
             }, function(){
-                $("#form-deleteSuratMasuk-" + id).attr("action", "{{route('mdc-hapus', ["id" => ""])}}/" + id).submit()
+                $("#form-deleteSuratMasuk-" + id).attr("action", "{{route('j-hapus', ["id" => ""])}}/" + id).submit()
             })
         }
 

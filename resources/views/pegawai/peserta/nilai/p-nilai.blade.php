@@ -77,6 +77,7 @@
                                                                         $email = \App\PesertaDidik::where('id', $value->peserta_id)->first()->email;
                                                                         @endphp
                                                                         <tr>
+                                                                            <th>{{$value->tgl_dicatat}}</th>
                                                                             <th>{{$value->nilai_grammar}}</th>
                                                                             <th>{{$value->nilai_comprehension}}</th>
                                                                             <th>{{$value->nilai_conversation}}</th>
@@ -504,6 +505,7 @@
     @include('pegawai.peserta.nilai.p-send')
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('tinymce/tinymce.min.js')}}"></script>
 
     <script>
         var id;
@@ -591,5 +593,45 @@
             $("#formSertifikat input[name=penerima]").val(email);
             $("#sendSertifikat").modal('show');
         }
+
+        var editor_config;
+        $(function () {
+            editor_config = {
+                branding: false,
+                path_absolute: '{{url('/')}}',
+                selector: '.isi',
+                height: 100,
+                themes: 'modern',
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor textcolor',
+                    'searchreplace visualblocks code',
+                    'insertdatetime media table contextmenu paste code help wordcount'
+                ],
+                toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                relative_urls: false,
+                file_browser_callback: function (field_name, url, type, win) {
+                    var x = window.innerWidth || document.documentElement.clientWidth ||
+                        document.getElementsByTagName('body')[0].clientWidth,
+                        y = window.innerHeight || document.documentElement.clientHeight ||
+                            document.getElementsByTagName('body')[0].clientHeight,
+                        cmsURL = editor_config.path_absolute + 'filemanager?field_name=' + field_name;
+                    if (type == 'image') {
+                        cmsURL = cmsURL + '&type=Images';
+                    } else {
+                        cmsURL = cmsURL + '&type=Files';
+                    }
+
+                    tinyMCE.activeEditor.windowManager.open({
+                        file: cmsURL,
+                        title: 'File Manager',
+                        width: x * 0.8,
+                        height: y * 0.8,
+                        resizable: 'yes',
+                        close_previous: 'no'
+                    });
+                }
+            };
+            tinymce.init(editor_config);
+        });
     </script>
 @endsection

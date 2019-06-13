@@ -49,7 +49,7 @@ class JenisSuratController extends Controller
             'created_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('jsm-home')->with('sukses',$js->nama_jenis_surat .' berhasil ditambahkan.');
+        return redirect()->route('jsm-home')->with('sukses', "<b>" . $js->nama_jenis_surat . "</b>" .' berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -78,14 +78,15 @@ class JenisSuratController extends Controller
             'template_konten' => $request->isi,
             'updated_by' => Auth::user()->nama_user,
         ]);
-        return redirect()->route('jsm-home')->with('edit', $jSurat->nama_jenis_surat .' berhasil diubah.');
+        return redirect()->route('jsm-home')->with('edit', "<b>" . $jSurat->nama_jenis_surat . "</b>" .' berhasil diubah.');
 
     }
 
     public function destroy($id){
-        $js = JenisSurat::destroy($id);
+        $js = JenisSurat::find($id);
+        $js->delete();
 
-        return redirect()->route('jsm-home')->with('hapus', $js->nama_jenis_surat . ' berhasil dihapus.');
+        return redirect()->route('jsm-home')->with('hapus', "<b>" . $js->nama_jenis_surat . "</b>" . ' berhasil dihapus.');
 
     }
 }

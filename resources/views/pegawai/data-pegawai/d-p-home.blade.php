@@ -238,21 +238,7 @@
         var body = $('body');
         body.on('click','.sweet-pegawai-edit',function () {
             id=$(this).data('id');
-            swal({
-                title: "Edit data terpilih?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Iya",
-                cancelButtonText: "Tidak",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            },function (isConfirm){
-
-                if (isConfirm){
-                    window.location='{{route('d-p-edit')}}'+'?id='+id;
-                }
-            })
+            window.location='{{route('d-p-edit')}}'+'?id='+id;
         });
 
         function lihatPegawai(id, img, nama, nik, nip, ttl, kelamin, agama, telp, email, negara, status, alamat, noRek, bank, kcpBank, nikA,

@@ -83,7 +83,7 @@
             </div>
         </div>
         <!-- footer -->
-        <footer class="footer"> © 2018 Quali International Surabaya | OFFICE Website</footer>
+        <footer class="footer"> © {{date(now()->format('Y'))}} Quali International Surabaya</footer>
         <!-- End footer -->
     </div>
 </div>

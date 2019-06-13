@@ -214,6 +214,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
             'uses' => 'AdminPesertaController@lihatNilai',
             'as' => 'ap-nilai'
         ]);
+
+        Route::get('/nilai-peserta-print', [
+            'uses' => 'AdminPesertaController@printNilai',
+            'as' => 'ap-n-print'
+        ]);
     });
 
     Route::group(['prefix' => 'dokumen'], function (){
@@ -326,9 +331,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
             'as' => 'jm-hapus'
         ]);
 
-        Route::get('/jabatan-import', [
-            'uses' => 'JabatanController@getJabatan',
-            'as' => 'get.jabatan'
+        Route::get('/jabatan-qis-import', [
+            'uses' => 'JabatanController@getJabatanQIS',
+            'as' => 'get.jabatan.qis'
+        ]);
+
+        Route::get('/jabatan-mdc-import', [
+            'uses' => 'JabatanController@getJabatanMDC',
+            'as' => 'get.jabatan.mdc'
+        ]);
+
+        Route::get('/jabatan-abk-import', [
+            'uses' => 'JabatanController@getJabatanABK',
+            'as' => 'get.jabatan.abk'
         ]);
     });
 
@@ -545,6 +560,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
         ]);
     });
 
+    Route::group(['prefix' => 'manajemen-template-sertifikat'], function (){
+
+        Route::get('/', [
+            'uses' => 'SertifikatController@index',
+            'as' => 'ts-home'
+        ]);
+
+        Route::get('/manajemen-template-sertifikat-tambah', [
+            'uses' => 'SertifikatController@create',
+            'as' => 'ts-tambah'
+        ]);
+
+        Route::post('/tambah-template-sertifikat', [
+            'uses' => 'SertifikatController@store',
+            'as' => 'ts-tambah-selesai'
+        ]);
+    });
+
 });
 
 Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => 'pegawai'], function (){
@@ -716,9 +749,9 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'mdc-update'
         ]);
 
-        Route::delete('/hapus-jadwal-mdc/{id}', [
-            'uses' => 'JadwalPelajaranController@destroyMdc',
-            'as' => 'mdc-hapus'
+        Route::delete('/hapus-jadwal/{id}', [
+            'uses' => 'JadwalPelajaranController@destroy',
+            'as' => 'j-hapus'
         ]);
 
         Route::delete('/hapus-jadwal-mdc-/{id}', [
@@ -746,14 +779,14 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'get.jadwal.qis',
         ]);
 
-        Route::get('/jadwal-mdc-print', [
+        Route::get('/jadwal-print', [
             'uses' => 'JadwalPelajaranController@print',
-            'as' => 'mdc-print'
+            'as' => 'j-print'
         ]);
 
-        Route::get('/jadwal-mdc-print-all', [
+        Route::get('/jadwal-print-all', [
             'uses' => 'JadwalPelajaranController@print_all',
-            'as' => 'mdc-print-all'
+            'as' => 'j-print-all'
         ]);
 
         Route::get('/modal-jadwal-mdc/{id}', [
@@ -989,6 +1022,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         Route::post('/dokumen-kirim-raw', [
             'uses' => 'DokumenController@send',
             'as' => 'd-raw'
+        ]);
+
+        Route::get('/dokumen-print-all', [
+            'uses' => 'DokumenController@print_all',
+            'as' => 'd-print-all'
         ]);
     });
 

@@ -66,7 +66,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Lahir <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_lahir" value="{{ $pegawai->tgl_lahir  }}" placeholder="tanggal/bulan/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tanggal_lahir" value="{{ $pegawai->tgl_lahir  }}" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<buttjenjon class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></buttjenjon>
                                                     </div>
@@ -331,7 +331,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Masuk <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_masuk" value="{{ $pegawai->tgl_masuk  }}" placeholder="tanggal/bulan/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tanggal_masuk" value="{{ $pegawai->tgl_masuk  }}" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -373,7 +373,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Selesai Bekerja</label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_selesai" value="{{ $pegawai->tgl_selesai  }}" placeholder="tanggal/bulan/tahun">
+                                                    <input autocomplete="off" type="text" class="form-control" name="tanggal_selesai" value="{{ $pegawai->tgl_selesai  }}" placeholder="tanggal/bulan/tahun">
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>

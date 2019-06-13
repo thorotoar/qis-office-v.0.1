@@ -59,10 +59,16 @@
                                                         <option value="" disabled readonly="" selected>Pilih Template Surat</option>
                                                         @if($jSurat->template_surat == 'Template 1')
                                                             <option value="Template 1" selected>Template 1 -- Header Lengkap</option>
-                                                            <option value="Template 2">Template 2 -- Header Tengah</option>
+                                                            <option value="Template 2">Template 2 -- Header Judul dan Nomor Surat</option>
+                                                            <option value="Template 3">Template 3 -- Header Tanpa Alamat Tujuan</option>
                                                         @elseif($jSurat->template_surat == 'Template 2')
                                                             <option value="Template 1">Template 1 -- Header Lengkap</option>
-                                                            <option value="Template 2" selected>Template 2 -- Header Tengah</option>
+                                                            <option value="Template 2" selected>Template 2 -- Header Judul dan Nomor Surat</option>
+                                                            <option value="Template 3">Template 3 -- Header Tanpa Alamat Tujuan</option>
+                                                        @elseif($jSurat->template_surat == 'Template 3')
+                                                            <option value="Template 1">Template 1 -- Header Lengkap</option>
+                                                            <option value="Template 2">Template 2 -- Header Judul dan Nomor Surat</option>
+                                                            <option value="Template 3" selected>Template 3 -- Header Tanpa Alamat Tujuan</option>
                                                         @endif
                                                     </select>
                                                 </div>

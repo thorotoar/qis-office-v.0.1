@@ -67,10 +67,8 @@ class DataPegawaiController extends Controller
         $kewarganegaraan = Kewarganegaraan::all();
         $agama = Agama::all();
         $bank = Bank::all();
-        $lembaga = Lembaga::where('id', '!=', [1])->get();
-        $lemb = Lembaga::where('id', '=', [1])->firstOrFail();
-        $jabaya = Jabatan::where('lembaga_id', '=', 1)->get();
-        $jenjang = Jenjang::whereIn('id', [8,9,10,11,12,13,14,15,16,17,18,19,20])->get();
+        $lembaga = Lembaga::all();
+        $jenjang = Jenjang::whereIn('id', [7,8,9,10,11,12,13,14,15,16,17,18,19])->get();
         $jurusan = JurusanPendidikan::all();
 
 
@@ -145,7 +143,6 @@ class DataPegawaiController extends Controller
           'tgl_masuk' => $request->tanggal_masuk,
           'tgl_selesai' => $request->tanggal_selesai,
           'no_sk' => $request->no_sk,
-          'jabatan_yayasan_id' => $request->jabatanY,
           'jabatan_id' => $request->jabatan,
           'lembaga_id' => $request->lembaga,
           'jenjang_id' => $request->jenjang,

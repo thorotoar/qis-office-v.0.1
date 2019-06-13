@@ -48,7 +48,7 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Perihal <span class="text-danger">*</span></label>
-                                                        <input class="form-control input-sm" type="Text" value="Penagihan" name="perihal" required>
+                                                        <input class="form-control input-sm" type="Text" name="perihal" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
@@ -61,7 +61,7 @@
                                                     <div class="form-group">
                                                         <label>Tanggal Surat Keluar <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
-                                                            <input type="text" class="form-control input-sm" name="tgl_keluar" placeholder="bulan/tanggal/tahun" required>
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_keluar" placeholder="bulan/tanggal/tahun" required>
                                                             <div class="input-group-addon">
                                                                 &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                             </div>
@@ -72,7 +72,7 @@
                                                     <div class="form-group">
                                                         <label>Tanggal Dicatat <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
-                                                            <input type="text" class="form-control input-sm" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" required>
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" required>
                                                             <div class="input-group-addon">
                                                                 &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                             </div>
@@ -92,7 +92,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Alamat Tujuan </label>
-                                                        <textarea class="form-control input-sm" name="alamat_tujuan" placeholder="">Jl. Raden Rahmat 55 Sendangduwur</textarea>
+                                                        <textarea class="form-control input-sm" name="alamat_tujuan" placeholder=""></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Kota Tujuan </label>
@@ -117,7 +117,7 @@
                                                     <div class="form-group">
                                                         <label>Tanggal Surat Keluar <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
-                                                            <input type="text" class="form-control input-sm" name="tgl_keluar" placeholder="bulan/tanggal/tahun" required>
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_keluar" placeholder="bulan/tanggal/tahun" required>
                                                             <div class="input-group-addon">
                                                                 &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                             </div>
@@ -128,7 +128,61 @@
                                                     <div class="form-group">
                                                         <label>Tanggal Dicatat <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
-                                                            <input type="text" class="form-control input-sm" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" required>
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" required>
+                                                            <div class="input-group-addon">
+                                                                &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @elseif($jenis->template_surat == 'Template 3')
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label>Nomor Surat <span class="text-danger">*</span></label>
+                                                        <div class="input-group">
+                                                            <input class="form-control input-sm" id="noSurat" type="Text" name="no_surat" style="width: 10%" value="{{ $no_urut }}" placeholder="nomor urut surat..." required>
+                                                            <input class="form-control input-sm" id="kodeSurat" type="Text" name="kode_surat" style="width: 20%" value="{{ $jenis->kode_surat }}" placeholder="kode surat..">
+                                                            <input class="form-control input-sm" id="kodeLembaga" type="Text" name="kode_lembaga" style="width: 20%" value="{{ $jenis->lembaga->kode_lembaga }}" placeholder="kode lembaga/instansi.." required>
+                                                            <input class="form-control input-sm" id="kodeJabatan" type="Text" name="kode_jabatan" style="width: 20%" value="" placeholder="kode jabatan..">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label>Lampiran </label>
+                                                        <input class="form-control input-sm" type="Text" name="lampiran">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Perihal <span class="text-danger">*</span></label>
+                                                        <input class="form-control input-sm" type="Text" name="perihal" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label>Tempat <span class="text-danger">*</span></label>
+                                                        <input class="form-control input-sm" type="Text" value="Surabaya" name="tempat" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Tanggal Surat Keluar <span class="text-danger">*</span></label>
+                                                        <div class="input-group date datepicker">
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_keluar" placeholder="bulan/tanggal/tahun" required>
+                                                            <div class="input-group-addon">
+                                                                &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Tanggal Dicatat <span class="text-danger">*</span></label>
+                                                        <div class="input-group date datepicker">
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" required>
                                                             <div class="input-group-addon">
                                                                 &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                             </div>

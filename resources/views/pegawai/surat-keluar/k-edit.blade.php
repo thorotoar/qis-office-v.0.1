@@ -56,7 +56,7 @@
                                                     <div class="form-group">
                                                         <label>Tanggal Keluar <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
-                                                            <input type="text" class="form-control input-sm" name="tgl_keluar" value="{{ $sk->tgl_keluar }}" placeholder="bulan/tanggal/tahun" required>
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_keluar" value="{{ $sk->tgl_keluar }}" placeholder="bulan/tanggal/tahun" required>
                                                             <div class="input-group-addon">
                                                                 &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                             </div>
@@ -67,7 +67,7 @@
                                                     <div class="form-group">
                                                         <label>Tanggal Dicatat <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
-                                                            <input type="text" class="form-control input-sm" name="tgl_dicatat" value="{{ $sk->tgl_dicatat }}" placeholder="bulan/tanggal/tahun" required>
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_dicatat" value="{{ $sk->tgl_dicatat }}" placeholder="bulan/tanggal/tahun" required>
                                                             <div class="input-group-addon">
                                                                 &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                             </div>
@@ -107,7 +107,7 @@
                                                     <div class="form-group">
                                                         <label>Tanggal Surat Keluar <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
-                                                            <input type="text" class="form-control input-sm" name="tgl_keluar" value="{{ $sk->tgl_keluar }}" placeholder="bulan/tanggal/tahun" required>
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_keluar" value="{{ $sk->tgl_keluar }}" placeholder="bulan/tanggal/tahun" required>
                                                             <div class="input-group-addon">
                                                                 &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                             </div>
@@ -118,7 +118,56 @@
                                                     <div class="form-group">
                                                         <label>Tanggal Dicatat <span class="text-danger">*</span></label>
                                                         <div class="input-group date datepicker">
-                                                            <input type="text" class="form-control input-sm" name="tgl_dicatat" value="{{ $sk->tgl_dicatat }}" placeholder="bulan/tanggal/tahun" required>
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_dicatat" value="{{ $sk->tgl_dicatat }}" placeholder="bulan/tanggal/tahun" required>
+                                                            <div class="input-group-addon">
+                                                                &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @elseif($sk->jenisSurat->template_surat == 'Template 3')
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Nomor Surat <span class="text-danger">*</span></label>
+                                                        <input class="form-control input-sm" type="Text" name="no_surat" value="{{ $sk->no_surat }}" placeholder="nomor surat..." required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Lampiran </label>
+                                                        <input class="form-control input-sm" type="Text" value="{{ $sk->lampiran }}" name="lampiran">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Perihal <span class="text-danger">*</span></label>
+                                                        <input class="form-control input-sm" type="Text" value="{{ $sk->perihal }}" name="perihal" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Tempat <span class="text-danger">*</span></label>
+                                                        <input class="form-control input-sm" type="Text" value="{{ $sk->tempat }}" name="tempat" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Tanggal Keluar <span class="text-danger">*</span></label>
+                                                        <div class="input-group date datepicker">
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_keluar" value="{{ $sk->tgl_keluar }}" placeholder="bulan/tanggal/tahun" required>
+                                                            <div class="input-group-addon">
+                                                                &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Tanggal Dicatat <span class="text-danger">*</span></label>
+                                                        <div class="input-group date datepicker">
+                                                            <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_dicatat" value="{{ $sk->tgl_dicatat }}" placeholder="bulan/tanggal/tahun" required>
                                                             <div class="input-group-addon">
                                                                 &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                             </div>

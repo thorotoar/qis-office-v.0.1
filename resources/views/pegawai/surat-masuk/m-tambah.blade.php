@@ -18,6 +18,18 @@
         <!-- End Bread crumb -->
         <!-- Container fluid  -->
         <div class="container-fluid">
+            @if(count($errors)>0)
+                @foreach($errors->all() as $error)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-info alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{ $error }}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
             <!-- Start Page Content -->
             <div class="row">
                 <div class="col-lg-12">
@@ -36,7 +48,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Diterima <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tgl_diterima" placeholder="bulan/tanggal/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tgl_diterima" placeholder="bulan/tanggal/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -57,7 +69,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Dicatat <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>

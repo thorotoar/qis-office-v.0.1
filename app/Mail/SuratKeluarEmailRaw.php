@@ -10,16 +10,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class SuratKeluarEmailRaw extends Mailable
 {
     use Queueable, SerializesModels;
-    public $request;
+    public $request, $files;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($request)
+    public function __construct($request, $files)
     {
         $this->request = $request;
+        $this->files = $files;
     }
 
     /**
@@ -30,13 +31,17 @@ class SuratKeluarEmailRaw extends Mailable
     public function build()
     {
         $data = $this->request;
-        return $this
-            ->to($data->penerima)
+        $files = $this->files;
+
+        $message = $this->to($data->penerima)
             ->from(env('MAIL_USERNAME'), 'QIS - Quali International Surabaya')
             ->subject($data->subjek)
-            ->attachData($data->file_pdf, 'file_qis.pdf', [
-                'mime' => 'application/pdfapplication/pdf,application/msword,application/vnd.openxmlformats-officedocument.presentationml.presentation',
-            ])
             ->view('mail.m-personal' ,compact('data'));
+
+        foreach ($files as $index => $file){
+            $message->attach(public_path('file-surat/'.$file));
+        }
+
+        return $message;
     }
 }

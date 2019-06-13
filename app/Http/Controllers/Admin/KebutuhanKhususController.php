@@ -27,8 +27,10 @@ class KebutuhanKhususController extends Controller
             'kebutuhan' => 'required|unique:kebutuhan_khususes,nama_kebutuhan',
             'kode' => 'required|unique:kebutuhan_khususes,kode_kebutuhan',
         ],[
-            'kebutuhan.unique' => 'Kebutuhan khusus yang anda tambahkan sudah tersedia, masukan nama kebutuhan khusus lain!.',
-            'kode.unique' => 'Kode kebutuhan khusus yang anda tambahkan sudah tersedia, masukan kode kebutuhan khusus lain!.',
+            'kebutuhan.required' => 'Kolom ' . "<b>" . 'nama kebutuhan' . "</b>" .  ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'kebutuhan.unique' => 'Nama kebutuhan yang anda tambahkan ' . "<b>" . 'sudah tersedia,' . "</b>" .  ' masukan kebutuhan lain!.',
+            'kode.required' => 'Kolom ' . "<b>" . 'kode' . "</b>" .  ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'kode.unique' => 'Kode yang anda tambahkan ' . "<b>" . 'sudah tersedia,' . "</b>" .  ' masukan kode lain!.'
         ]);
 
         $kk = KebutuhanKhusus::create([
@@ -36,7 +38,7 @@ class KebutuhanKhususController extends Controller
             'nama_kebutuhan' => $request->kebutuhan,
             'created_by' => Auth::user()->nama_user,
         ]);
-        return redirect()->route('keb-home')->with('sukses','Kebutuhan khusus ' . $kk->nama_kebutuhan . ' baru berhasil ditambahkan.');
+        return redirect()->route('keb-home')->with('sukses','Kebutuhan khusus ' . "<b>" . $kk->nama_kebutuhan . "</b>" . ' baru berhasil ditambahkan.');
     }
 
     public function show($id){
@@ -54,8 +56,10 @@ class KebutuhanKhususController extends Controller
             'kebutuhan' => "required|unique:kebutuhan_khususes,nama_kebutuhan, $id",
             'kode' => "required|unique:kebutuhan_khususes,kode_kebutuhan,$id",
         ],[
-            'kebutuhan.unique' => 'Kebutuhan khusus yang anda tambahkan sudah tersedia, masukan nama kebutuhan khusus lain!.',
-            'kode.unique' => 'Kode kebutuhan khusus yang anda tambahkan sudah tersedia, masukan kode kebutuhan khusus lain!.',
+            'kebutuhan.required' => 'Kolom ' . "<b>" . 'nama kebutuhan' . "</b>" .  ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'kebutuhan.unique' => 'Nama kebutuhan yang anda tambahkan ' . "<b>" . 'sudah tersedia,' . "</b>" .  ' masukan kebutuhan lain!.',
+            'kode.required' => 'Kolom ' . "<b>" . 'kode' . "</b>" .  ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'kode.unique' => 'Kode yang anda tambahkan ' . "<b>" . 'sudah tersedia,' . "</b>" .  ' masukan kode lain!.'
         ]);
 
         $kk = KebutuhanKhusus::find($id);
@@ -65,13 +69,13 @@ class KebutuhanKhususController extends Controller
             'updated_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('keb-home')->with('edit','Kebutuhan khusus ' . $kk->nama_kebutuhan . ' berhasil diubah.');
+        return redirect()->route('keb-home')->with('edit','Kebutuhan khusus ' . "<b>" . $kk->nama_kebutuhan . "</b>" . ' berhasil diubah.');
     }
 
     public function destroy($id){
         $kk = KebutuhanKhusus::find($id);
         $kk->delete();
 
-        return redirect()->route('keb-home')->with('hapus','Kebutuhan khusus ' . $kk->nama_kebutuhan . ' berhasil dihapus.');
+        return redirect()->route('keb-home')->with('hapus','Kebutuhan khusus ' . "<b>" . $kk->nama_kebutuhan . "</b>" . ' berhasil dihapus.');
     }
 }

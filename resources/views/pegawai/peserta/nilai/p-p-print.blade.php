@@ -305,7 +305,6 @@
                     </div>
                 </div>
             </div>
-            @if($nilai->isEvaluasi == true)
             <div class="row">
                 <div class="col-lg-12">
                     <h6 class="h2-responsive product-name">
@@ -325,7 +324,7 @@
                             @foreach(App\NilaiABK::where('peserta_id', $sis->id)->where('isEvaluasi', true)->get() as $index => $value)
                                 <tr>
                                     <td>{{$value->tgl_evaluasi}}</td>
-                                    <td>{{$value->evaluasi}}</td>
+                                    <td>{!! $value->evaluasi !!}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -333,7 +332,6 @@
                     </div>
                 </div>
             </div>
-            @endif
         </div>
     </div>
 @endif

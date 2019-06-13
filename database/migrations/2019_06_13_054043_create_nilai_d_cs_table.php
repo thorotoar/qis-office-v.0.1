@@ -26,7 +26,6 @@ class CreateNilaiDCsTable extends Migration
             $table->string('respon')->nullable();
             $table->string('nilai_hasil')->nullable();
             $table->string('keterangan')->nullable();
-
             $table->timestamps();
         });
     }

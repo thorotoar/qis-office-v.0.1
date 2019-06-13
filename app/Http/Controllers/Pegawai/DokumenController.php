@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Mail;
+use PDF;
 
 class DokumenController extends Controller
 {
@@ -147,19 +148,40 @@ class DokumenController extends Controller
         }
         return back()->with('hapus', 'Data '. "<b>" . $dok->nama_dokumen . "</b>" . ' berhasil dihapus.');
     }
+
     public function attach(Request $request){
         $d = Dokumen::find($request->id);
         $fd = FileDokumen::where('dokumen_id', $d->id)->get()->toArray();
 //        dd($fd['upload_file']);
 
-        Mail::send(new DokumenEmail($request, $fd['upload_file']));
+        Mail::send(new DokumenEmail($request, $fd));
 
-        return back()->with('send', 'Dokumen Berhasil Terkirim');
+        return back()->with('send', 'Dokumen ' . "<b>" . $d->nama_dokumen . "</b>" . ' berhasil terkirim');
     }
 
     public  function send(Request $request){
-        Mail::send(new DokumenEmailRaw($request));
+        $files = [];
+        foreach ($request->file('file_pdf') as $i=>$file){
+            $name = $file->getClientOriginalName();
+            $file->move('file-dokumen/', $name);
+
+            $files[$i] = $name;
+        }
+
+        Mail::send(new DokumenEmailRaw($request, $files));
+
+        foreach ($files as $file){
+            File::delete('file-dokumen/' . $file);
+        }
 
         return back()->with('send', 'File Berhasil Terkirim');
+    }
+
+    public function print_all(){
+        $data = Dokumen::all();
+        //dd($data);
+        $pdf = PDF::loadView("pegawai.dokumen.d-print-all", compact('data'));
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream('daftar_dokumen.pdf');
     }
 }

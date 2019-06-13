@@ -88,7 +88,7 @@ class PesertaDidik extends Model
     }
 
     public function nilaiQIS(){
-        return $this->hasOne(NilaiQIS::class);
+        return $this->hasOne(NilaiQIS::class, 'peserta_id');
     }
 
     public function nilaiDC(){

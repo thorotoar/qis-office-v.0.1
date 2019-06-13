@@ -10,7 +10,7 @@
                 <h3 class="text-primary">Surat Masuk</h3> </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Tambah Surat Masuk</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Edit Surat Masuk</a></li>
                     <li class="breadcrumb-item active">Surat Masuk</li>
                 </ol>
             </div>
@@ -48,7 +48,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Diterima <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control"  name="tgl_diterima" value="{{$suratM->tgl_diterima}}" placeholder="bulan/tanggal/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control"  name="tgl_diterima" value="{{$suratM->tgl_diterima}}" placeholder="bulan/tanggal/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -69,7 +69,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Dicatat <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tgl_dicatat" value="{{$suratM->tgl_dicatat}}" placeholder="bulan/tanggal/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tgl_dicatat" value="{{$suratM->tgl_dicatat}}" placeholder="bulan/tanggal/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>

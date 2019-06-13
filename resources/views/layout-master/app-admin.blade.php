@@ -23,6 +23,70 @@
     <link href="{{asset('css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />
     <link href="{{asset('css/helper.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    {{--multiple-checkbox--}}
+    <style>
+        .multipl-image-checkbox ul {
+            list-style-type: none;
+        }
+
+        .multipl-image-checkbox  li {
+            display: inline-block;
+        }
+
+        .multipl-image-checkbox  input[type="checkbox"][id^="cb"] {
+            display: none;
+        }
+
+        .multipl-image-checkbox  label {
+            border: 1px solid #fff;
+            padding: 10px;
+            display: block;
+            position: relative;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .multipl-image-checkbox  label:before {
+            background-color: white;
+            color: white;
+            content: " ";
+            display: block;
+            border-radius: 50%;
+            border: 1px solid grey;
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            line-height: 28px;
+            transition-duration: 0.4s;
+            transform: scale(0);
+        }
+
+        .multipl-image-checkbox  label img {
+            height: 100px;
+            width: 100px;
+            transition-duration: 0.2s;
+            transform-origin: 50% 50%;
+        }
+
+        .multipl-image-checkbox :checked + label {
+            border-color: #ddd;
+        }
+
+        .multipl-image-checkbox  :checked + label:before {
+            content: "✓";
+            background-color: grey;
+            transform: scale(1);
+        }
+
+        .multipl-image-checkbox :checked + label img {
+            transform: scale(0.9);
+            box-shadow: 0 0 5px #333;
+            z-index: -1;
+        }
+    </style>
     {{--sweatalert--}}
     <link href="{{asset('css/lib/sweetalert/sweetalert.css')}}" rel="stylesheet">
     {{--yearpicker--}}
@@ -123,6 +187,7 @@
                             <li><a href="{{route('jur-home')}}"><i class="fa fa-graduation-cap"></i> Jurusan Pendidikan</a></li>
                             <li><a href="{{route('keb-home')}}"><i class="fa fa-wheelchair"></i> Kebutuhan Khusus</a></li>
                             <li><a href="{{route('tran-home')}}"><i class="fa fa-bicycle"></i> Transportasi</a></li>
+                            <li><a href="{{route('ts-home')}}"><i class="fa fa-certificate"></i> Sertifikat</a></li>
                             {{--<li><a href="{{route('lem-home')}}">Lembaga</a></li>--}}
                         </ul>
                     </li>

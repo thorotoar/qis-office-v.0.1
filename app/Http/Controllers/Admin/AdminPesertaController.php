@@ -179,6 +179,30 @@ class AdminPesertaController extends Controller
         return redirect()->route('ap-home')->with('edit', 'Data Peserta Didik ' . "<b>" . $nama . "</b>" . ' berhasil diubah.');
     }
 
+    public function lihatNilai($id){
+        $peserta = PesertaDidik::find($id);
+//        dd($peserta);
+
+        $lemb = Lembaga::where('id', $peserta->lembaga_id)->first();
+
+        return view('admin.a-peserta.nilai.ap-nilai', compact('peserta', 'lemb'));
+    }
+
+    public  function printNilai(Request $request){
+        $sis = PesertaDidik::find($request->id);
+
+        if ($sis->lembaga_id == 2){
+            $nilai = NilaiQIS::where('peserta_id', $sis->id)->first();
+
+            $pdf = PDF::setPaper('Legal', 'landscape');
+            $pdf->loadView("admin.a-peserta.nilai.ap-sertif", compact('nilai'));
+            return $pdf->stream(str_replace(' ', '_', str_random(2) . '' . 'sertif_' . $sis->nama . '.pdf'));
+
+        } else{
+            return view('pegawai.peserta.nilai.p-p-print', compact('sis', 'nilai'));
+        }
+    }
+
     public function destroy($id){
         $ser = PesertaDidik::find($id);
         $nilai = NilaiQIS::where('peserta_id', $ser->id)->first();

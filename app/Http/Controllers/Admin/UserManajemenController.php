@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 class UserManajemenController extends Controller
 {
@@ -30,7 +31,12 @@ class UserManajemenController extends Controller
             'password' => 'required|min:6',
             'cpassword' => 'required_with:password|same:password|min:6',
         ],[
-            'username.unique' => 'Username yang anda tambahkan sudah tersedia, masukan username lain!.',
+            'username.required' => 'Username ' . "<b>" . ' belum terisi, ' . "</b>" . 'silahkan isi terlebih dahulu!.',
+            'username.unique' => 'Username yang anda tambahkan' . "</b>" . ' sudah tersedia, ' . "<b>" . 'masukan username lain!.',
+            'password.required' => 'Password ' . "<b>" . ' belum terisi, ' . "</b>" . 'silahkan isi terlebih dahulu!.',
+            'password.min' => 'Password yang anda masukan' . "<b>" . ' kurang ' . "</b>" . 'dari 6 karakter!.',
+            'cpassword.required_with' => 'Confirm Password ' . "<b>" . ' belum terisi, ' . "</b>" . 'silahkan isi terlebih dahulu!.',
+            'cpassword.same' => "<b>" . 'Password ' . "</b>" . ' dan ' . "<b>" . 'Confirm Password ' . "</b>" . ' harus sama',
         ]);
 
         $employee = Pegawai::find($request->id_pegawai);
@@ -41,7 +47,7 @@ class UserManajemenController extends Controller
             'password' => bcrypt($request->password),
             'password_a' => $request->password,
             'email_user' => $employee->email,
-            'foto' => $employee->foto,
+            'foto_user' => $employee->foto,
             'type' => $request->hak_akses,
             'created_by' => Auth::user()->nama_user,
         ]);
@@ -51,7 +57,7 @@ class UserManajemenController extends Controller
             'status_user' => $user->type,
         ]);
 
-        return redirect()->route('um-home')->with('sukses', $user->nama_user . ' berhasil ditambahkan sebagai ' . $user->type . ' dengan username ' . $user->username . '.');
+        return redirect()->route('um-home')->with('sukses', "<b>" . $user->nama_user . "</b>" . ' berhasil ditambahkan sebagai ' . "<b>" . $user->type . "</b>" . ' dengan username ' . "<b>" . $user->username . "</b>" . '.');
     }
 
     public function edit(Request $request){
@@ -61,13 +67,17 @@ class UserManajemenController extends Controller
     }
 
     public function update(Request $request, $id){
-
         $request->validate([
             'username' => "required|unique:users,username,$id",
-            'password' => 'required|min:6|required_with:cpassword|same:cpassword',
-            'cpassword' => 'required|min:6',
+            'password' => 'required|min:6',
+            'cpassword' => 'required_with:password|same:password|min:6',
         ],[
-            'username.unique' => 'Username yang anda tambahkan sudah tersedia, masukan username lain!.',
+            'username.required' => 'Username ' . "<b>" . ' belum terisi, ' . "</b>" . 'silahkan isi terlebih dahulu!.',
+            'username.unique' => 'Username yang anda tambahkan' . "</b>" . ' sudah tersedia, ' . "<b>" . 'masukan username lain!.',
+            'password.required' => 'Password ' . "<b>" . ' belum terisi, ' . "</b>" . 'silahkan isi terlebih dahulu!.',
+            'password.min' => 'Password yang anda masukan' . "<b>" . ' kurang ' . "</b>" . 'dari 6 karakter!.',
+            'cpassword.required_with' => 'Confirm Password ' . "<b>" . ' belum terisi, ' . "</b>" . 'silahkan isi terlebih dahulu!.',
+            'cpassword.same' => "<b>" . 'Password ' . "</b>" . ' dan ' . "<b>" . 'Confirm Password ' . "</b>" . ' harus sama',
         ]);
 
         $employee = Pegawai::find($request->id_pegawai);
@@ -90,7 +100,7 @@ class UserManajemenController extends Controller
         ]);
 
         //dd($user->email);
-        return redirect()->route('um-home')->with('edit','Username ' . $user->username . ' berhasil diubah.');
+        return redirect()->route('um-home')->with('edit','Username ' . "<b>" . $user->username . "</b>" . ' berhasil diubah.');
 
     }
 
@@ -98,7 +108,7 @@ class UserManajemenController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->route('um-home')->with('hapus','Username ' . $user->username . ' berhasil dihapus.');
+        return redirect()->route('um-home')->with('hapus','Username ' . "<b>" . $user->username . "</b>" . ' berhasil dihapus.');
 
     }
 }

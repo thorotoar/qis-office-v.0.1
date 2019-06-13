@@ -26,14 +26,15 @@ class TransportasiController extends Controller
         $request->validate([
             'transportasi' => 'required|unique:transportasis,nama_transportasi',
         ],[
-            'transportasi.unique' => 'Jenis transportasi yang anda tambahkan sudah tersedia, masukan jenis transportasi lain!.',
+            'transportasi.required' => 'Kolom ' . "<b>" . 'jenis transportasi' . "</b>" .  ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'transportasi.unique' => 'Jenis transportasi yang anda tambahkan ' . "<b>" . 'sudah tersedia,' . "</b>" .  ' masukan jenis transportasi lain!.',
         ]);
 
         $tran = Transportasi::create([
             'nama_transportasi' => $request->transportasi,
             'created_by' => Auth::user()->nama_user,
         ]);
-        return redirect()->route('tran-home')->with('sukses', 'Jenis tranportasi ' . $tran->nama_transportasi . ' berhasil ditambahkan.');
+        return redirect()->route('tran-home')->with('sukses', 'Jenis tranportasi ' . "<b>" . $tran->nama_transportasi . "</b>" . ' berhasil ditambahkan.');
     }
 
     public function show($id){
@@ -50,7 +51,8 @@ class TransportasiController extends Controller
         $request->validate([
             'transportasi' => "required|unique:transportasis,nama_transportasi,$id",
         ],[
-            'transportasi.unique' => 'Jenis transportasi yang anda tambahkan sudah tersedia, masukan jenis transportasi lain!.',
+            'transportasi.required' => 'Kolom ' . "<b>" . 'jenis transportasi' . "</b>" .  ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'transportasi.unique' => 'Jenis transportasi yang anda tambahkan ' . "<b>" . 'sudah tersedia,' . "</b>" .  ' masukan jenis transportasi lain!.',
         ]);
 
         $tran = Transportasi::find($id);
@@ -59,13 +61,13 @@ class TransportasiController extends Controller
             'updated_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('tran-home')->with('edit','Jenis tranportasi ' . $tran->nama_transportasi . ' berhasil diubah.');
+        return redirect()->route('tran-home')->with('edit','Jenis tranportasi ' . "<b>" . $tran->nama_transportasi . "</b>" . ' berhasil diubah.');
     }
 
     public function destroy($id){
         $tran = Transportasi::find($id);
         $tran->delete();
 
-        return redirect()->route('tran-home')->with('hapus','Jenis tranportasi ' . $tran->nama_transportasi . ' berhasil dihapus.');
+        return redirect()->route('tran-home')->with('hapus','Jenis tranportasi ' . "<b>" . $tran->nama_transportasi . "</b>" . ' berhasil dihapus.');
     }
 }

@@ -18,25 +18,25 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <h5 class="h5-responsive">
                                     <small class="green-text">Username :</small><br>
                                     <strong id="uname"></strong>
                                 </h5>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <h5 class="h5-responsive">
                                     <small class="green-text">E-mail :</small><br>
                                     <strong id="emailU"></strong>
                                 </h5>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <h5 class="h5-responsive">
                                     <small class="green-text">Dimasukkan oleh :</small><br>
                                     <strong id="createdU"></strong>
                                 </h5>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <h5 class="h5-responsive">
                                     <small class="green-text">Diubah oleh :</small><br>
                                     <strong id="updatedU"></strong>

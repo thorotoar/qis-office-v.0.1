@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dokumen extends Model
 {
-    //"$table" pengenalan table
     protected $table = 'dokumens';
 
     //"$primaryKey" kolom pengenalan primary key tabel

@@ -76,14 +76,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label>File </label>
-                                        <input class="form-control" type="file" name="file_pdf">
+                                        <input class="form-control" type="file" name="file_pdf[]" multiple>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <hr>
                                         <button type="submit" class="btn btn-primary btn-sm">Kirim</button>
                                         <button type="reset" class="btn btn-primary btn-sm">Clear</button>
                                         <button type="button" class="btn btn-dark btn-sm" data-dismiss="modal">Close</button>

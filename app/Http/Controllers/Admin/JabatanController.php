@@ -16,6 +16,7 @@ class JabatanController extends Controller
     {
         $this->middleware('auth');
 
+        $this->uriQIS = env('QIS_URI');
         $this->uriSIMPADI = env('SIMPADI_URI');
         $this->uriSIMDEPAD = env('SIMDEPAD_URI');
 
@@ -28,6 +29,13 @@ class JabatanController extends Controller
 
         $this->clientSIMDEPAD = new Client([
             'base_uri' => $this->uriSIMDEPAD,
+            'defaults' => [
+                'exceptions' => false
+            ]
+        ]);
+
+        $this->clientQIS = new Client([
+            'base_uri' => $this->uriQIS,
             'defaults' => [
                 'exceptions' => false
             ]
@@ -60,7 +68,7 @@ class JabatanController extends Controller
             'nama_jabatan' => $request->jabatan,
             'created_by' => Auth::user()->nama_user,
         ]);
-        return redirect()->route('jm-home')->with('sukses', 'Jabatan ' . $jb->nama_jabatan . ' berhasil ditambahkan.');
+        return redirect()->route('jm-home')->with('sukses', 'Jabatan ' . "<b>" . $jb->nama_jabatan . "</b>" . ' berhasil ditambahkan.');
     }
 
     public function show($id)
@@ -95,7 +103,7 @@ class JabatanController extends Controller
             'updated_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('jm-home')->with('edit','Jabatan ' . $jabatan->nama_jabatan . ' berhasil diubah.');
+        return redirect()->route('jm-home')->with('edit','Jabatan ' . "<b>" . $jabatan->nama_jabatan . "</b>" . ' berhasil diubah.');
     }
 
     public function destroy($id)
@@ -103,14 +111,37 @@ class JabatanController extends Controller
         $jabatan = Jabatan::find($id);
         $jabatan->delete();
 
-        return redirect()->route('jm-home')->with('hapus','Jabatan ' . $jabatan->nama_jabatan . ' berhasil dihapus.');
+        return redirect()->route('jm-home')->with('hapus','Jabatan ' . "<b>" . $jabatan->nama_jabatan . "</b>" . ' berhasil dihapus.');
     }
 
-    public function getJabatan(){
+    public function getJabatanQIS(){
         try {
-            $response = $this->clientSIMPADI->get($this->uriSIMPADI . '/api/role')->getBody()->getContents();
+            $response = $this->clientQIS->get($this->uriQIS . '/api/role')->getBody()->getContents();
             $response = json_decode($response, true);
             foreach ($response as $row){
+                $check = Jabatan::where('nama_jabatan', $row['nama'])->where('lembaga_id', 2)->count();
+
+                if(!$check){
+                    Jabatan::create([
+                        'nama_jabatan' => $row['nama'],
+                        'lembaga_id' => 2,
+                        'created_by' => Auth::user()->nama_user,
+                    ]);
+                }
+            }
+
+            return redirect()->route('jm-home')->with('sukses', 'Data jabatan dari ' . "<b>" . 'QIS English' . "</b>" . ' lain berhasil ditambahkan.');
+
+        } catch (ConnectException $e) {
+            return $e->getResponse();
+        }
+    }
+
+    public function getJabatanMDC(){
+        try {
+            $response1 = $this->clientSIMPADI->get($this->uriSIMPADI . '/api/role')->getBody()->getContents();
+            $response1 = json_decode($response1, true);
+            foreach ($response1 as $row){
                 $check = Jabatan::where('nama_jabatan', $row['nama'])->where('lembaga_id', 3)->count();
 
                 if(!$check){
@@ -122,7 +153,30 @@ class JabatanController extends Controller
                 }
             }
 
-            return redirect()->route('jm-home')->with('sukses', 'Data jabatan dari lembaga berhasil ditambahkan.');
+            return redirect()->route('jm-home')->with('sukses', 'Data jabatan dari ' . "<b>" . 'Muslim Day Care' . "</b>" . ' lain berhasil ditambahkan.');
+
+        } catch (ConnectException $e) {
+            return $e->getResponse();
+        }
+    }
+
+    public function getJabatanABK(){
+        try {
+            $response2 = $this->clientSIMDEPAD->get($this->uriSIMDEPAD. '/api/role')->getBody()->getContents();
+            $response2 = json_decode($response2, true);
+            foreach ($response2 as $row){
+                $check = Jabatan::where('nama_jabatan', $row['ind'])->where('lembaga_id', 4)->count();
+
+                if(!$check){
+                    Jabatan::create([
+                        'nama_jabatan' => $row['ind'],
+                        'lembaga_id' => 4,
+                        'created_by' => Auth::user()->nama_user,
+                    ]);
+                }
+            }
+
+            return redirect()->route('jm-home')->with('sukses', 'Data jabatan dari ' . "<b>" . 'Sanggar ABK' . "</b>" . ' lain berhasil ditambahkan.');
 
         } catch (ConnectException $e) {
             return $e->getResponse();

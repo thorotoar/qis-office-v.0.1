@@ -24,7 +24,7 @@
                         <div class="col-lg-12">
                             <div class="alert alert-info alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                {{ $error }}
+                                {!! $error !!}
                             </div>
                         </div>
                     </div>
@@ -41,16 +41,16 @@
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="jenjang">Nama Jenjang <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="jenjang" name="jenjang" placeholder="Masukkan jenjang..">
+                                            <input type="text" class="form-control" id="jenjang" name="jenjang" placeholder="Masukkan jenjang.." required>
                                         </div>
                                     </div>
-                                </form>
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
                                         <button type="submit" class="btn btn-primary" id="add">Submit</button>
                                         <a href="{{route('jen-home')}}" class="btn btn-dark">Cancel</a>
                                     </div>
                                 </div>
+                                </form>
                             </div>
 
                         </div>
@@ -67,20 +67,20 @@
         var fForm = $('#form-add');
         var fConfirm = $('button#add');
 
-        fConfirm.on('click', function(){
-            swal({
-                    title: "Tambahkan jenis surat?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Iya",
-                    cancelButtonText: "Tidak",
-                    closeOnConfirm: false,
-                    closeOnCancel: true
-                },
-                function(){
-                    fForm.submit();
-                });
-        })
+        // fConfirm.on('click', function(){
+        //     swal({
+        //             title: "Tambahkan jenis surat?",
+        //             type: "warning",
+        //             showCancelButton: true,
+        //             confirmButtonColor: "#DD6B55",
+        //             confirmButtonText: "Iya",
+        //             cancelButtonText: "Tidak",
+        //             closeOnConfirm: false,
+        //             closeOnCancel: true
+        //         },
+        //         function(){
+        //             fForm.submit();
+        //         });
+        // })
     </script>
 @endsection

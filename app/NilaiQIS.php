@@ -16,6 +16,6 @@ class NilaiQIS extends Model
     protected $guarded = ['id'];
 
     public function pesertaDidikQIS(){
-        return $this->belongsTo(PesertaDidik::class, 'peserta_didik_id');
+        return $this->belongsTo(PesertaDidik::class, 'peserta_id');
     }
 }

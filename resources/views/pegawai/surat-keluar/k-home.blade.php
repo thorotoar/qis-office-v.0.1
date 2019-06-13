@@ -182,7 +182,7 @@
                 branding: false,
                 path_absolute: '{{url('/')}}',
                 selector: '.isi',
-                height: 250,
+                height: 100,
                 themes: 'modern',
                 plugins: [
                     'advlist autolink lists link image charmap print preview anchor textcolor',

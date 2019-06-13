@@ -116,9 +116,9 @@
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print" onclick="sendSurat('{{$value->id}}')">
                                                         <i class="fa fa-send"></i> Kirim
                                                     </button>
-                                                    <a href="{{route('surm-print', ['id' => $value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
-                                                        <i class="fa fa-print"></i> Print
-                                                    </a>
+                                                    {{--<a href="{{route('surm-print', ['id' => $value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">--}}
+                                                        {{--<i class="fa fa-print"></i> Print--}}
+                                                    {{--</a>--}}
                                                     <a href="/{{ $value->upload_file }}" download="{{ substr($value->upload_file, '17') }}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Download">
                                                         <i class="fa fa-download"></i> Download
                                                     </a>
@@ -206,7 +206,7 @@
                 branding: false,
                 path_absolute: '{{url('/')}}',
                 selector: '.isi',
-                height: 250,
+                height: 100,
                 themes: 'modern',
                 plugins: [
                     'advlist autolink lists link image charmap print preview anchor textcolor',

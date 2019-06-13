@@ -24,17 +24,17 @@
                     @if(session()->has('sukses'))
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{session()->get('sukses')}}
+                            {!! session('sukses') !!}
                         </div>
                     @elseif(session()->has('edit'))
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{session()->get('edit')}}
+                            {!! session('edit') !!}
                         </div>
                     @elseif(session()->has('hapus'))
                         <div class="alert alert-info alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{session()->get('hapus')}}
+                            {!! session('hapus') !!}
                         </div>
                     @endif
                     <div class="card">
@@ -103,21 +103,7 @@
         var id;
         $('body').on('click','.sweet-jenjang-edit',function () {
             id=$(this).data('id');
-            swal({
-                title: "Edit data terpilih?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Iya",
-                cancelButtonText: "Tidak",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            },function (isConfirm){
-
-                if (isConfirm){
-                  window.location='{{route('jen-edit')}}'+'?id='+id;
-                }
-            })
+            window.location='{{route('jen-edit')}}'+'?id='+id;
         });
 
         function lihatJenjang(id, namaJen, created, updated) {

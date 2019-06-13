@@ -55,7 +55,7 @@ class CreatePegawaisTable extends Migration
             $table->foreign('jabatan_id')->references('id')->on('jabatans')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->string('status_user')->nullable();
             $table->integer('jenjang_id')->unsigned()->nullable();
-            $table->foreign('jenjang_id')->references('id')->on('jenjangs');
+            $table->foreign('jenjang_id')->references('id')->on('jenjangs')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->integer('jurusan_id')->unsigned()->nullable();
             $table->foreign('jurusan_id')->references('id')->on('jurusan_pendidikans')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->string('instansi')->nullable();

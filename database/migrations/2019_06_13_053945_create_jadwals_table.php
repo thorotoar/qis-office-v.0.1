@@ -23,8 +23,6 @@ class CreateJadwalsTable extends Migration
             $table->string('kegiatan')->nullable();
             $table->string('ruangan')->nullable();
             $table->string('keterangan')->nullable();
-            $table->string('created_by')->nullable();
-            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

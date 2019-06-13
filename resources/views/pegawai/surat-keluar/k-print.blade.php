@@ -1,6 +1,6 @@
 @extends('pegawai.surat-keluar.k-head')
 @section('rincian')
-    @if( $sk->jenisSurat->template_surat == 'Template 1' )
+    @if( $sk->jenisSurat->template_surat == 'Template 1' || $sk->jenisSurat->template_surat == 'Template 3' )
         <div class="letter_head">
             <table>
                 <tr>

@@ -1,0 +1,124 @@
+StartFontMetrics 4.1
+Notice Converted by PHP-font-lib
+Comment https://github.com/PhenX/php-font-lib
+EncodingScheme FontSpecific
+Copyright Copyright (c) 2014 by Ion Lucin. All rights reserved.
+FontName Slim Joe
+FontSubfamily Regular
+UniqueID IonLucin: Slim Joe: 2014
+FullName SlimJoe
+Version 1.000
+PostScriptName SlimJoe
+Trademark Slim Joe is a trademark of Ion Lucin.
+Manufacturer Ion Lucin
+Designer Ion Lucin
+Description Copyright (c) 2014 by Ion Lucin. All rights reserved.
+FontVendorURL https://www.behance.net/ionL
+FontDesignerURL https://www.behance.net/ionL
+Weight Medium
+ItalicAngle 0
+IsFixedPitch false
+UnderlineThickness 50
+UnderlinePosition -75
+FontHeightOffset 200
+Ascender 750
+Descender -250
+FontBBox 5 -60 1120 809
+StartCharMetrics 92
+U 0 ; WX 0 ; N uni0000 ; G 1
+U 13 ; WX 500 ; N uni000d ; G 2
+U 32 ; WX 500 ; N uni0020 ; G 3
+U 33 ; WX 300 ; N uni0021 ; G 51
+U 36 ; WX 833 ; N uni0024 ; G 37
+U 37 ; WX 833 ; N uni0025 ; G 38
+U 38 ; WX 833 ; N uni0026 ; G 41
+U 40 ; WX 470 ; N uni0028 ; G 29
+U 41 ; WX 470 ; N uni0029 ; G 30
+U 43 ; WX 650 ; N uni002b ; G 42
+U 44 ; WX 250 ; N uni002c ; G 56
+U 45 ; WX 461 ; N uni002d ; G 43
+U 46 ; WX 250 ; N uni002e ; G 55
+U 47 ; WX 570 ; N uni002f ; G 39
+U 48 ; WX 584 ; N uni0030 ; G 32
+U 49 ; WX 450 ; N uni0031 ; G 49
+U 50 ; WX 584 ; N uni0032 ; G 31
+U 51 ; WX 584 ; N uni0033 ; G 25
+U 52 ; WX 584 ; N uni0034 ; G 13
+U 53 ; WX 584 ; N uni0035 ; G 20
+U 54 ; WX 584 ; N uni0036 ; G 35
+U 55 ; WX 584 ; N uni0037 ; G 15
+U 56 ; WX 584 ; N uni0038 ; G 23
+U 57 ; WX 584 ; N uni0039 ; G 26
+U 58 ; WX 268 ; N uni003a ; G 54
+U 59 ; WX 268 ; N uni003b ; G 53
+U 61 ; WX 650 ; N uni003d ; G 44
+U 63 ; WX 550 ; N uni003f ; G 33
+U 65 ; WX 756 ; N uni0041 ; G 12
+U 66 ; WX 736 ; N uni0042 ; G 14
+U 67 ; WX 773 ; N uni0043 ; G 11
+U 68 ; WX 815 ; N uni0044 ; G 8
+U 69 ; WX 634 ; N uni0045 ; G 28
+U 70 ; WX 635 ; N uni0046 ; G 27
+U 71 ; WX 869 ; N uni0047 ; G 7
+U 72 ; WX 817 ; N uni0048 ; G 10
+U 73 ; WX 280 ; N uni0049 ; G 50
+U 74 ; WX 600 ; N uni004a ; G 19
+U 75 ; WX 698 ; N uni004b ; G 22
+U 76 ; WX 635 ; N uni004c ; G 48
+U 77 ; WX 977 ; N uni004d ; G 90
+U 78 ; WX 810 ; N uni004e ; G 9
+U 79 ; WX 871 ; N uni004f ; G 5
+U 80 ; WX 625 ; N uni0050 ; G 18
+U 81 ; WX 914 ; N uni0051 ; G 6
+U 82 ; WX 636 ; N uni0052 ; G 16
+U 83 ; WX 524 ; N uni0053 ; G 36
+U 84 ; WX 711 ; N uni0054 ; G 24
+U 85 ; WX 741 ; N uni0055 ; G 4
+U 86 ; WX 780 ; N uni0056 ; G 91
+U 87 ; WX 1159 ; N uni0057 ; G 89
+U 88 ; WX 671 ; N uni0058 ; G 17
+U 89 ; WX 646 ; N uni0059 ; G 88
+U 90 ; WX 647 ; N uni005a ; G 21
+U 91 ; WX 340 ; N uni005b ; G 46
+U 92 ; WX 570 ; N uni005c ; G 40
+U 93 ; WX 340 ; N uni005d ; G 45
+U 95 ; WX 500 ; N uni005f ; G 47
+U 97 ; WX 754 ; N uni0061 ; G 62
+U 98 ; WX 736 ; N uni0062 ; G 63
+U 99 ; WX 773 ; N uni0063 ; G 64
+U 100 ; WX 815 ; N uni0064 ; G 65
+U 101 ; WX 634 ; N uni0065 ; G 66
+U 102 ; WX 635 ; N uni0066 ; G 67
+U 103 ; WX 869 ; N uni0067 ; G 68
+U 104 ; WX 817 ; N uni0068 ; G 69
+U 105 ; WX 280 ; N uni0069 ; G 70
+U 106 ; WX 600 ; N uni006a ; G 71
+U 107 ; WX 698 ; N uni006b ; G 72
+U 108 ; WX 635 ; N uni006c ; G 73
+U 109 ; WX 977 ; N uni006d ; G 74
+U 110 ; WX 810 ; N uni006e ; G 75
+U 111 ; WX 871 ; N uni006f ; G 76
+U 112 ; WX 625 ; N uni0070 ; G 77
+U 113 ; WX 914 ; N uni0071 ; G 78
+U 114 ; WX 636 ; N uni0072 ; G 79
+U 115 ; WX 524 ; N uni0073 ; G 80
+U 116 ; WX 711 ; N uni0074 ; G 81
+U 117 ; WX 741 ; N uni0075 ; G 82
+U 118 ; WX 780 ; N uni0076 ; G 83
+U 119 ; WX 1159 ; N uni0077 ; G 84
+U 120 ; WX 671 ; N uni0078 ; G 85
+U 121 ; WX 646 ; N uni0079 ; G 86
+U 122 ; WX 647 ; N uni007a ; G 87
+U 161 ; WX 300 ; N uni00a1 ; G 52
+U 191 ; WX 550 ; N uni00bf ; G 34
+U 8216 ; WX 100 ; N uni2018 ; G 59
+U 8217 ; WX 100 ; N uni2019 ; G 60
+U 8220 ; WX 190 ; N uni201c ; G 57
+U 8221 ; WX 190 ; N uni201d ; G 58
+U 8260 ; WX 570 ; N uni2044 ; G 61
+EndCharMetrics
+StartKernData 
+StartKernPairs 346
+EndKernPairs
+EndKernData
+EndFontMetrics

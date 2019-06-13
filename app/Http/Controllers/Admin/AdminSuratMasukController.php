@@ -28,6 +28,21 @@ class AdminSuratMasukController extends Controller
     }
 
     public function update(Request $request, $id){
+        $request->validate([
+            'no_surat' => 'required',
+            'tgl_diterima' => 'required',
+            'tgl_dicatat' => 'required',
+            'pengirim' => 'required',
+            'penerima' => 'required',
+            'prihal' => 'nullable',
+        ],[
+            'no_surat.required' => 'Nomor surat belum anda isi, silahkan isi terlebih dahulu!.',
+            'tgl_diterima.required' => 'Tanggal diterima belum anda isi, silahkan isi terlebih dahulu!.',
+            'tgl_dicatat.required' => 'Tanggal dicatat belum anda isi, silahkan isi terlebih dahulu!.',
+            'pengirim.required' => 'Pengirim belum anda isi, silahkan isi terlebih dahulu!.',
+            'penerima.required' => 'Penerima belum anda isi, silahkan isi terlebih dahulu!.',
+        ]);
+
         $suratM = SuratMasuk::find($id);
 
         $suratM->update([
@@ -52,7 +67,7 @@ class AdminSuratMasukController extends Controller
             ]);
         }
 
-        return redirect()->route('a-surk-home')->with('edit', 'Surat masuk ' . "<b>" . $suratM->no_surat . "</b>" . ' berhasil diubah.');
+        return redirect()->route('a-surm-home')->with('edit', 'Surat masuk ' . "<b>" . $suratM->no_surat . "</b>" . ' berhasil diubah.');
     }
 
     public function destroy($id){

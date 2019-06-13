@@ -35,7 +35,7 @@ class SuratKeluarController extends Controller
 //        return strftime("%A %B %Y", strtotime(now()->format('Y-F-j')));
         $jenis = JenisSurat::find($request->id);
 
-        $no_urut = str_pad(SuratKeluar::count() + 1, 3, 0, STR_PAD_LEFT);
+        $no_urut = str_pad(SuratKeluar::count() + 1, 3, 0, STR_PAD_LEFT); //latest()->first()->id
 
         return view('pegawai.surat-keluar.k-tambah', compact('jenis', 'no_urut'));
     }
@@ -219,9 +219,21 @@ class SuratKeluarController extends Controller
     }
 
     public  function send(Request $request){
-        Mail::send(new SuratKeluarEmailRaw($request));
+        $files = [];
+        foreach ($request->file('file_pdf') as $i=>$file){
+            $name = $file->getClientOriginalName();
+            $file->move('file-surat/', $name);
 
-        return back()->with('send', 'File Berhasil Terkirim');
+            $files[$i] = $name;
+        }
+
+        Mail::send(new SuratKeluarEmailRaw($request, $files));
+
+        foreach ($files as $file){
+            File::delete('file-surat/' . $file);
+        }
+
+        return back()->with('send', 'File berhasil dikirim.');
     }
 
     public function destroy($id){

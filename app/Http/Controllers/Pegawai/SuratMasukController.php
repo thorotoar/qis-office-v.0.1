@@ -30,27 +30,20 @@ class SuratMasukController extends Controller
         return view('pegawai.surat-masuk.m-tambah');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
-            'no_surat' => 'required|unique:surat_masuks,no_surat',
-            'tgl_diterima' => 'required|unique:surat_masuks,tgl_diterima',
-            'tgl_dicatat' => 'required|unique:surat_masuks,tgl_dicatat',
-            'pengirim' => 'required|unique:surat_masuks,pengirim',
-            'penerima' => 'required|unique:surat_masuks,penerima',
-            'prihal' => 'nullable|unique:surat_masuks,prihal',
+            'no_surat' => 'required',
+            'tgl_diterima' => 'required',
+            'tgl_dicatat' => 'required',
+            'pengirim' => 'required',
+            'penerima' => 'required',
+            'prihal' => 'nullable',
         ],[
             'no_surat.required' => 'Nomor surat belum anda isi, silahkan isi terlebih dahulu!.',
             'tgl_diterima.required' => 'Tanggal diterima belum anda isi, silahkan isi terlebih dahulu!.',
             'tgl_dicatat.required' => 'Tanggal dicatat belum anda isi, silahkan isi terlebih dahulu!.',
             'pengirim.required' => 'Pengirim belum anda isi, silahkan isi terlebih dahulu!.',
             'penerima.required' => 'Penerima belum anda isi, silahkan isi terlebih dahulu!.',
-            'no_surat.unique' => 'Nomor surat yang anda tambahkan sudah tersedia, masukan nomor surat lain!.',
-            'tgl_diterima.unique' => 'Tanggal diterima yang anda tambahkan sudah tersedia, masukan tanggal diterima lain!.',
-            'tgl_dicatat.unique' => 'Tanggal dicatat yang anda tambahkan sudah tersedia, masukan tanggal dicatat lain!.',
-            'pengirim.unique' => 'Pengirim yang anda tambahkan sudah tersedia, masukan pengirim lain!.',
-            'penerima.unique' => 'Penerima yang anda tambahkan sudah tersedia, masukan penerima lain!.',
-            'prihal.unique' => 'Prihal yang anda tambahkan sudah tersedia, masukan prihal lain!.',
         ]);
 
         $suratM = SuratMasuk::create([
@@ -85,8 +78,23 @@ class SuratMasukController extends Controller
     }
 
     public function update(Request $request, $id){
+        $request->validate([
+            'no_surat' => 'required',
+            'tgl_diterima' => 'required',
+            'tgl_dicatat' => 'required',
+            'pengirim' => 'required',
+            'penerima' => 'required',
+            'prihal' => 'nullable',
+        ],[
+            'no_surat.required' => 'Nomor surat belum anda isi, silahkan isi terlebih dahulu!.',
+            'tgl_diterima.required' => 'Tanggal diterima belum anda isi, silahkan isi terlebih dahulu!.',
+            'tgl_dicatat.required' => 'Tanggal dicatat belum anda isi, silahkan isi terlebih dahulu!.',
+            'pengirim.required' => 'Pengirim belum anda isi, silahkan isi terlebih dahulu!.',
+            'penerima.required' => 'Penerima belum anda isi, silahkan isi terlebih dahulu!.',
+        ]);
+
         $suratM = SuratMasuk::find($id);
-        //dd($pegawai);
+
         $suratM->update([
             'user_id' => Auth::user()->id,
             'no_surat' => $request->no_surat,
@@ -109,7 +117,7 @@ class SuratMasukController extends Controller
             ]);
         }
 
-        return redirect()->route('surm-home')->with('edit', 'Surat masuk ' . "<b>" . $suratM->no_surat . "</b>" . ' berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+        return redirect()->route('surm-home')->with('edit', 'Surat masuk ' . "<b>" . $suratM->no_surat . "</b>" . ' berhasil diubah.');
     }
 
     public function attach(Request $request){

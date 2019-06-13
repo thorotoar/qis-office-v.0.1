@@ -66,7 +66,7 @@ class JadwalPelajaranController extends Controller
     }
 
     public function modalJadwal($id){
-        return Jadwal::where('jadwal_id', $id)->get();
+        return Jadwal::where('jadwal_id', $id)->orderByRaw('FIELD(hari, "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu")')->get();
     }
 
     public function editMdc(Request $request){
@@ -92,6 +92,19 @@ class JadwalPelajaranController extends Controller
         return back()->with('edit', 'Jadwal kegiatan ' . "<b>" . $jadMdc->kegiatan. "</b>" . ' ' . $jadMdc->jadwalPeserta->nama . ' berhasil diubah.');
     }
 
+    public function destroy($id){
+        $jad = JadwalPelajaran::find($id);
+        $jad->delete();
+
+        if ($jad->lembaga_id == 2){
+            return redirect()->route('jadwal.qis')->with('hapus', 'Jadwal ' . "<b>" . $jad->nama_jadwal . "</b>" . ' berhasil dihapus.');
+        }elseif ($jad->lembaga_id == 3){
+            return redirect()->route('jadwal.mdc')->with('hapus', 'Jadwal ' . "<b>" . $jad->nama_jadwal . "</b>" . ' berhasil dihapus.');
+        }elseif ($jad->lembaga_id == 4){
+            return redirect()->route('jadwal.abk')->with('hapus', 'Jadwal ' . "<b>" . $jad->nama_jadwal . "</b>" . ' berhasil dihapus.');
+        }
+    }
+
     public function destroyMdc($id){
         $jad = PesertaDidik::find($id);
         $jad->delete();
@@ -107,11 +120,10 @@ class JadwalPelajaranController extends Controller
     }
 
     public function print(Request $request){
-        $pes = PesertaDidik::find($request->id);
-        $data = JadwalPelajaran::where('siswa_id', $request->id)->get();
+        $data = JadwalPelajaran::find($request->id);
 
-        $pdf = PDF::loadView("pegawai.jadwal.print", compact('pes', 'data'));
-        $pdf->setPaper('A4');
+        $pdf = PDF::setPaper('A4', 'Potrait');
+        $pdf->loadView("pegawai.jadwal.j-print", compact('data'));
         return $pdf->stream('jadwal_pelajaran.pdf');
     }
 
@@ -143,7 +155,7 @@ class JadwalPelajaranController extends Controller
             $nama = PesertaDidik::where('nama', $row['user_id']['nama'])->first();
             $jadwalN = 'Jadwal '.$nama['nama'];
 
-            $check = JadwalPelajaran::where('nama_jadwal', $jadwalN)->where('tgl_dicatat', strftime("%d %B %Y", strtotime(now())))->where('lembaga_id', 3)->count();
+            $check = JadwalPelajaran::where('nama_jadwal', $jadwalN)->where('tgl_dicatat', strftime("%d %B %Y", strtotime(now())))->where('lembaga_id', 3)->first();
 
             if (!$check && $row['jadwal'] != null){
                 $jadwal = JadwalPelajaran::create([
@@ -194,7 +206,7 @@ class JadwalPelajaranController extends Controller
 
         foreach ($response1 as $row){
             $check = JadwalPelajaran::where('nama_jadwal', $row['name'])->where('tgl_dicatat', strftime("%d %B %Y", strtotime(now())))
-                ->where('lembaga_id', 4)->count();
+                ->where('lembaga_id', 4)->first();
 
             if (!$check){
                 $jadwal = JadwalPelajaran::create([
@@ -250,7 +262,8 @@ class JadwalPelajaranController extends Controller
 
             foreach ($response2 as $row){
                 $check = JadwalPelajaran::where('nama_jadwal', $row['nama_jadwal'])->where('tgl_dicatat', strftime("%d %B %Y", strtotime($row['tgl_dicatat'])))
-                    ->where('lembaga_id', 2)->count();
+                    ->where('lembaga_id', 2)->first();
+//                dd($check);
 
                 if (!$check){
                     $jadwal = JadwalPelajaran::create([
@@ -299,13 +312,9 @@ class JadwalPelajaranController extends Controller
     }
 
     public function print_all(Request $request){
-        if ($request->lembaga == 3){
-            $datas = PesertaDidik::has('jadwalPeserta')->get();
-        }
+        $lemb = Lembaga::find($request->id);
 
-        $lemb = Lembaga::find($request->lembaga);
-
-        $pdf = PDF::loadView("pegawai.jadwal.print-all", compact('datas', 'lemb'));
+        $pdf = PDF::loadView("pegawai.jadwal.j-print-all", compact('lemb'));
         $pdf->setPaper('A4');
         return $pdf->stream('daftar_jadwal_pelajaran.pdf');
     }

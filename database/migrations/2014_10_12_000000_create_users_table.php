@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('password_a');
             $table->string('email_user')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('foto_user');
+            $table->string('foto_user')->nullable();
             $table->string('type');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

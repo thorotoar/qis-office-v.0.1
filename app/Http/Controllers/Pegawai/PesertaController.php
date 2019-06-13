@@ -407,18 +407,12 @@ class PesertaController extends Controller
         if ($sis->lembaga_id == 2){
             $nilai = NilaiQIS::where('peserta_id', $sis->id)->first();
 
+//            return view('pegawai.peserta.nilai.p-sertif', compact('sis', 'nilai'));
             $pdf = PDF::setPaper('Legal', 'landscape');
             $pdf->loadView("pegawai.peserta.nilai.p-sertif", compact('nilai'));
             return $pdf->stream(str_replace(' ', '_', str_random(2) . '' . 'sertif_' . $sis->nama . '.pdf'));
 
-        } elseif ($sis->lembaga_id == 3){
-            $nilai = NilaiDC::where('peserta_id', $sis->id)->first();
-
-            return view('pegawai.peserta.nilai.p-p-print', compact('sis', 'nilai'));
-
-        } elseif ($sis->lembaga_id == 4){
-            $nilai = NilaiABK::where('peserta_id', $sis->id)->first();
-
+        } else{
             return view('pegawai.peserta.nilai.p-p-print', compact('sis', 'nilai'));
         }
     }
@@ -480,7 +474,7 @@ class PesertaController extends Controller
                         'penghasilan_ibu_id' => $pIbu->id,
                         'tgl_masuk' => strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])),
                         'status' => $row['status'],
-                        'isFull' => false,
+//                        'isFull' => false,
                         'lembaga_id' => 3,
                         'created_by' => Auth::user()->nama_user,
                     ]);
@@ -618,7 +612,7 @@ class PesertaController extends Controller
                         'pekerjaan_wali' => $row['hub']['ind'] != 'Orang Tua' ? $row['prof']['ind'] : null,
                         'tgl_masuk' => strftime("%d %B %Y", strtotime($row['stud']['register'])),
                         'status' => $row['stud']['status'] == 'Active' ? 'aktif' : 'tidak aktif',
-                        'isFull' => false,
+//                        'isFull' => false,
                         'lembaga_id' => 4,
                         'created_by' => Auth::user()->nama_user,
                     ]);
@@ -757,7 +751,7 @@ class PesertaController extends Controller
                         'penghasilan_wali_id' => Penghasilan::where('jumlah_penghasilan', $row['pengW']['jumlah_penghasilan'])->first()->id,
                         'tgl_masuk' => strftime("%d %B %Y", strtotime($row['profile']['tgl_masuk'])),
                         'status' => $row['status'],
-                        'isFull' => false,
+//                        'isFull' => false,
                         'lembaga_id' => 2,
                         'created_by' => Auth::user()->nama_user,
                     ]);

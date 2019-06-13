@@ -24,7 +24,7 @@
                         <div class="col-lg-12">
                             <div class="alert alert-info alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                {{ $error }}
+                                {!! $error !!}
                             </div>
                         </div>
                     </div>
@@ -74,21 +74,21 @@
         var fForm = $('#form-add');
         var fConfirm = $('button#add');
 
-        fConfirm.on('click', function(e){
-            e.preventDefault();
-            swal({
-                    title: "Tambahkan jabatan?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Iya",
-                    cancelButtonText: "Tidak",
-                    closeOnConfirm: false,
-                    closeOnCancel: true
-                },
-                function(){
-                    fForm.submit();
-                });
-        })
+        // fConfirm.on('click', function(e){
+        //     e.preventDefault();
+        //     swal({
+        //             title: "Tambahkan jabatan?",
+        //             type: "warning",
+        //             showCancelButton: true,
+        //             confirmButtonColor: "#DD6B55",
+        //             confirmButtonText: "Iya",
+        //             cancelButtonText: "Tidak",
+        //             closeOnConfirm: false,
+        //             closeOnCancel: true
+        //         },
+        //         function(){
+        //             fForm.submit();
+        //         });
+        // })
     </script>
 @endsection

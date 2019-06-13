@@ -24,7 +24,7 @@
                         <div class="col-lg-12">
                             <div class="alert alert-info alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                {{ $error }}
+                                {!! $error !!}
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                                                 <option readonly="true" disabled>Pilih Pegawai</option>
                                                 @foreach(App\Pegawai::all() as $item)
                                                     <option value="{{$item->id}}"
-                                                            @if($item->id == $userM->id)
+                                                            @if($item->nama == $userM->nama_user)
                                                             selected
                                                             @endif
                                                     >{{$item->nama}}</option>

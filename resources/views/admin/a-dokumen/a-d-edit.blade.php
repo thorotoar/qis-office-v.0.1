@@ -44,7 +44,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal File <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tgl_file" placeholder="bulan/tanggal/tahun" value="{{$dokumen->tgl_file}}"  required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tgl_file" placeholder="bulan/tanggal/tahun" value="{{$dokumen->tgl_file}}"  required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -55,7 +55,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Dicatat <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" value="{{$dokumen->tgl_dicatat}}"  required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tgl_dicatat" placeholder="bulan/tanggal/tahun" value="{{$dokumen->tgl_dicatat}}"  required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -94,7 +94,7 @@
                                             <div class="form-group">
                                                 <label>Upload File <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <input name="upload_file[]" type="file" class="form-control input-sm" multiple required>
+                                                    <input name="upload_file[]" type="file" class="form-control input-sm" multiple>
                                                 </div>
                                             </div>
                                         </div>

@@ -28,7 +28,7 @@ class jenisSuratSeeder extends Seeder
 
         JenisSurat::find(1)->update([
             'nama_jenis_surat' => 'Surat Pemberitahuan',
-            'template_surat' => 'Template 1',
+            'template_surat' => 'Template 3',
             'lembaga_id' => '1',
             'template_konten' => '<p style="text-align: justify;">Yth. <br />Bapak / Ibu/ Wali Murid <br /><strong>Dzakira Salma Latifa</strong> <br />Dengan hormat,</p>
 <p style="text-align: justify;">&nbsp;</p>
@@ -71,36 +71,35 @@ class jenisSuratSeeder extends Seeder
             'nama_jenis_surat' => 'Surat Penagihan',
             'template_surat' => 'Template 1',
             'lembaga_id' => '1',
-            'template_konten' => '<p style="text-align: justify;">Yth. <br />Bapak / Ibu/ Wali Murid <br /><strong>Dzakira Salma Latifa</strong> <br />Dengan hormat,</p>
-<p style="text-align: justify;">&nbsp;</p>
-<p style="text-align: justify;">Sehubungan dengan beredarnya surat ini, kami dari Quali International Surabaya memberitahukan bahwa Ananda <strong>Dzakira Salma Latifa</strong> telah melalui program pendidikan Bahasa Inggris di tempat kami Kampung Inggris Surabaya dengan mengambil 1 kali program.</p>
-<p style="text-align: justify;">Program kami yakni <strong>Flash Fun For Kids</strong> yang berlangsung selama 2 bulan 24 kali pertemuan. Di dalam pembelajaran telah diselenggarakan evalusi berupa <strong>Maju Di Setiap Pembelajaran</strong>. Berdasarkan hasil evaluasi Ananda cukup mampu dalam penggunaan grammar, conversation, comprehension.</p>
-<p style="text-align: justify;">Demikian surat ini kami sampaikan. Atas perhatian bapak / Ibu/ Saudara wali murid peserta didik Kampung Inggris Surabaya. Kami ucapkan terimakasih banyak.</p>
-<p style="text-align: justify;">&nbsp;</p>
-<p style="text-align: justify;">&nbsp;</p>
-<table style="margin-left: auto; margin-right: auto;">
+            'template_konten' => '<p style="text-align: justify;"><strong>Dengan Hormat</strong></p>
+<p style="text-align: justify;">Bersama surat ini, kami memberitahukan bahwa berdasarkan surat Perjanjian Kerjasama No 03/QI - SBY/IX/2014 antara Quali International Surabaya dan Stikes Muhammadiyah Lamongan, kami mengingatkan kepada STIKES Muhammadiyah Lamongan untuk menyelesaikan kekurangan biaya program pembelajaran Bahasa Inggris Komunitas.</p>
+<p style="text-align: justify;">Adapun biaya yang harus diselesaikan adalah biaya program sebesar @ Rp 500.000,00 dengan peserta sebanyak 82 peserta, maka :</p>
+<table style="border-collapse: collapse; margin-left: auto; margin-right: auto;" border="1" cellpadding="3,3">
 <tbody>
 <tr>
-<td style="text-align: center; vertical-align: middle;">&nbsp;</td>
-<td style="text-align: center; vertical-align: middle;">Mengetahui,</td>
-<td style="text-align: center; vertical-align: middle;">&nbsp;</td>
+<td style="vertical-align: middle; width: 160px; text-align: left;"><strong>Biyaya Program</strong></td>
+<td style="vertical-align: middle; width: 160px; text-align: left;"><strong>Peserta</strong></td>
+<td style="vertical-align: middle; width: 160px; text-align: left;"><strong>Julmah</strong></td>
 </tr>
 <tr>
-<td style="text-align: center; vertical-align: middle;">
-<p>Bagian Pengajaran</p>
-</td>
-<td style="text-align: center; vertical-align: middle;">&nbsp;</td>
-<td style="text-align: center; vertical-align: middle;">Instruktur Kelas</td>
+<td style="text-align: lef width: 160px;">Rp 500.000,-</td>
+<td style="width: 160px; vertical-align: middle; text-align: left;">22 orang Dosen<br />60 orang mahasiswa</td>
+<td style="text-align: left; vertical-align: middle; width: 160px;">Rp. 41.000.000,.-</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: justify;"><strong>Terbilang : Empat puluh satu Juta rupiah.</strong></p>
+<p style="text-align: justify;">Pembayaran mohon dilakukan selambat-lambatnya pada hari Senin tanggal 29 September 2014 melalui transfer antar bank ke nomor rekening BRI : 0096-01-06579150-4 an. <br />Lili Musyafa&rsquo;ah Demikian surat ini kami buat, bila ada pertanyaan ataupun hal lain yang ingin didiskusikan lebih lanjut untuk kejelasan maksud dalam surat penagihan ini mohon dapat menghubungi ibu Lili di 081228175957 atau di 081575236609 atas perhatiannya kami ucapkan banyak terima kasih.</p>
+<p style="text-align: justify;">&nbsp;</p>
+<table style="height: 180px; float: left;" width="310">
+<tbody>
+<tr style="text-align: left;">
+<td style="vertical-align: middle; text-align: left; width: 303.819px;"><strong>Hormat Kami</strong></td>
 </tr>
 <tr>
-<td style="text-align: center; vertical-align: middle;">
-<p>&nbsp;</p>
-<p><span style="text-decoration: underline;"><strong> Farah Nur Jihan</strong></span></p>
-</td>
-<td style="text-align: center; vertical-align: middle;">&nbsp;</td>
-<td style="text-align: center; vertical-align: middle;">
-<p>&nbsp;</p>
-<p><span style="text-decoration: underline;"><strong>Khoerun Nikmah</strong> </span></p>
+<td style="text-align: center; vertical-align: middle; width: 303.819px;">
+<p style="text-align: left;">&nbsp;</p>
+<p style="text-align: left;"><span style="text-decoration: underline;"><strong>Lili Musyafa&rsquo;ah, S.Pd<br /></strong></span>Manajer Cabang Quali International-Surabaya<span style="text-decoration: underline;"><strong><br /></strong></span></p>
 </td>
 </tr>
 </tbody>
@@ -110,7 +109,7 @@ class jenisSuratSeeder extends Seeder
 
         JenisSurat::find(3)->update([
             'nama_jenis_surat' => 'Surat Peringatan',
-            'template_surat' => 'Template 1',
+            'template_surat' => 'Template 3',
             'lembaga_id' => '1',
             'template_konten' => '<p style="text-align: justify;">Kepada Yth, <br />Bapak/ibu orang tua murid dari : <strong>Muhammad Marsad Mubarok</strong> <br />Di tempat,</p>
 <p style="text-align: justify;"><em>Bissmillahirrahmanirrahim.</em> <br /><em>Asssalamu&rsquo;alaikum warrahmatullahi wabrakatuh.</em></p>
@@ -164,7 +163,7 @@ class jenisSuratSeeder extends Seeder
         JenisSurat::find(4)->update([
             'kode_surat' => 'PNG',
             'nama_jenis_surat' => 'Surat Pengajuan Dana',
-            'template_surat' => 'Template 1',
+            'template_surat' => 'Template 3',
             'lembaga_id' => '1',
             'template_konten' => '<p style="text-align: justify;">BISSMILLAHIRRAHMANIRRAHIM..<br />&nbsp; &nbsp; &nbsp;Puji Syukur kehadrat Allah yang Maha Pengasih dan Maha Penyayang, Dengan datangnya surat ini maka kami dari bagian <strong>Administrasi</strong> ingin mengajukan Dana sebesar <strong>Rp. 200.000,.-</strong> dengan rincian sebagai berikut :</p>
 <table style="border-collapse: collapse; margin-left: auto; margin-right: auto;" border="1" cellpadding="3,3">

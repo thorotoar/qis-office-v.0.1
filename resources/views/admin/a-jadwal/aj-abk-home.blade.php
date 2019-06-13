@@ -90,9 +90,9 @@
                                                             onclick="lihatJadwal('{{$value->id}}', '{{$tittle}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
-                                                    <a href="{{route('mdc-edit', ['id' => $value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                        <i class="fa fa-edit"></i> Edit
-                                                    </a>
+                                                    {{--<a href="{{route('mdc-edit', ['id' => $value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">--}}
+                                                        {{--<i class="fa fa-edit"></i> Edit--}}
+                                                    {{--</a>--}}
                                                     <button onclick="deleteDataPegawai('{{$value->id}}')" type="submit" class="btn btn-sm btn-rounded btn-danger btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
                                                         <i class="fa fa-trash"></i> Hapus
                                                     </button>

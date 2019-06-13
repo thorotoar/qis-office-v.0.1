@@ -31,11 +31,20 @@ class DokumenEmail extends Mailable
     public function build()
     {
         $data = $this->request;
-        return $this
-            ->to($data->penerima)
+        $file = $this->file;
+
+//        dd($file);
+
+        $message = $this->to($data->penerima)
             ->from(env('MAIL_USERNAME'), 'QIS - Quali International Surabaya')
             ->subject($data->subjek)
-            ->attach(public_path('file-dokumen/'. $this->file))
             ->view('mail.m-personal' ,compact('data'));
+
+        foreach ($file as $files){
+//            dd($files['upload_file']);
+            $message->attach(public_path($files['upload_file']));
+        }
+
+        return $message;
     }
 }

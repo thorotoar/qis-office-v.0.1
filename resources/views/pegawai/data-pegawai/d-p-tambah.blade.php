@@ -53,7 +53,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>NIP </label>
-                                                <input type="text" class="form-control" name="nip" value="" onkeypress="return numberOnly(event, false)" required>
+                                                <input type="text" class="form-control" name="nip" value="" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label>Nama <span class="text-danger">*</span></label>
@@ -66,7 +66,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Lahir <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_lahir" placeholder="tanggal/bulan/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tanggal_lahir" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -292,28 +292,20 @@
                                             <div class="form-group">
                                                 <label>Tanggal Masuk Bekerja <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_masuk" placeholder="tanggal/bulan/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tanggal_masuk" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="lembaga">Lembaga <span class="text-danger">*</span></label>
+                                                <label for="lembaga">Yayasan/Lembaga <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control custom-select" id="lembaga" name="lembaga"  required>
                                                         <option readonly="true" selected disabled>Pilih Jenis</option>
                                                         @foreach ($lembaga as $key => $lembagas)
                                                             <option value="{{$lembagas->id}}">{{$lembagas->nama_lembaga}}</option>
                                                         @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="jenis-p">Jenis Kepegawaian Lembaga </label>
-                                                <div>
-                                                    <select class="form-control custom-select" id="jabatan" name="jabatan" >
-                                                        <option value="0" readonly disabled selected>Pilih Jenis</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -326,20 +318,17 @@
                                             <div class="form-group">
                                                 <label>Tanggal Selesai Bekerja</label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_selesai" placeholder="tanggal/bulan/tahun">
+                                                    <input autocomplete="off" type="text" class="form-control" name="tanggal_selesai" placeholder="tanggal/bulan/tahun">
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="jabatanY">Jenis Kepegawaian Yayasan </label>
+                                                <label for="jenis-p">Jenis Kepegawaian </label>
                                                 <div>
-                                                    <select class="form-control custom-select" id="jabatanY" name="jabatanY">
-                                                        <option value="0" readonly disabled selected>Pilih Jenis</option>
-                                                        @foreach ($jabaya as $jabayas)
-                                                            <option value="{{$jabayas->id}}">{{$jabayas->nama_jabatan}}</option>
-                                                        @endforeach
+                                                    <select class="form-control custom-select" id="jabatan" name="jabatan" >
+                                                        {{--<option value="0" readonly disabled selected>Pilih Jenis</option>--}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -378,7 +367,7 @@
             $.get('/pegawai/data-pegawai/jabatan?lembaga_id=' + lembaga_id,function(data) {
                 console.log(data);
                 $('#jabatan').empty();
-                $('#jabatan').append('<option readonly="true" selected>Pilih Jenis</option>');
+                $('#jabatan').append('<option readonly="true" disabled selected>Pilih Jenis</option>');
 
                 $.each(data, function(index, lembagaObj){
                     $('#jabatan').append('<option value="'+ lembagaObj.id +'">'+ lembagaObj.nama_jabatan +'</option>');

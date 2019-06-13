@@ -21,17 +21,17 @@
             @if(session()->has('sukses'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('sukses')}}
+                    {!! session('sukses') !!}
                 </div>
             @elseif(session()->has('edit'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('edit')}}
+                    {!! session('edit') !!}
                 </div>
             @elseif(session()->has('hapus'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('hapus')}}
+                    {!! session('hapus') !!}
                 </div>
             @endif
             <!-- Start Page Content -->
@@ -42,8 +42,18 @@
                             <h4 class="card-title">Daftar Jabatan</h4><hr>
                             <a class="btn btn-primary btn-flat" href="{{route('jm-tambah')}}">
                                 <i class="fa fa-plus"></i>&nbsp;Tambah Jabatan</a>
-                            <a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getJabatan()"><i
-                                        class="fa fa-refresh"></i></a>
+                            {{--<a href="javascript:void(0)" class="btn btn-primary btn-flat" onclick="getJabatan()"><i--}}
+                                        {{--class="fa fa-refresh"></i></a>--}}
+                            {{--<div class="btn-group">--}}
+                                {{--<button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">--}}
+                                    {{--<i class="fa fa-refresh"></i></span>--}}
+                                {{--</button>--}}
+                                {{--<ul class="dropdown-menu" role="menu">--}}
+                                    {{--<li><a href="{{route('get.jabatan.qis')}}">Quali International Surabaya</a></li>--}}
+                                    {{--<li><a href="{{route('get.jabatan.mdc')}}">Muslim Day Care</a></li>--}}
+                                    {{--<li><a href="{{route('get.jabatan.abk')}}">Sanggar ABK</a></li>--}}
+                                {{--</ul>--}}
+                            {{--</div>--}}
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
                                     <thead>
@@ -107,21 +117,7 @@
         var id;
         $('body').on('click','.sweet-jabatan-edit',function () {
             id=$(this).data('id');
-            swal({
-                title: "Edit data terpilih?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Iya",
-                cancelButtonText: "Tidak",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            },function (isConfirm){
-
-                if (isConfirm){
-                    window.location='{{route('jm-edit')}}'+'?id='+id;
-                }
-            })
+            window.location='{{route('jm-edit')}}'+'?id='+id;
         });
 
         function getJabatan() {
@@ -135,7 +131,7 @@
                     closeOnConfirm: false
                 },function (isConfirm){
                 if (isConfirm){
-                    window.location='{{route('get.jabatan')}}';
+                    window.location='{{route('get.jabatan.qis')}}';
                 }
             });
         }

@@ -10,7 +10,7 @@
                 <h3 class="text-primary">Data Pegawai</h3> </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Tambah Data Pegawai</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Edit Data Pegawai</a></li>
                     <li class="breadcrumb-item active">Data Pegawai</li>
                 </ol>
             </div>
@@ -66,7 +66,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Lahir <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_lahir" value="{{ $pegawai->tgl_lahir  }}" placeholder="tanggal/bulan/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tanggal_lahir" value="{{ $pegawai->tgl_lahir  }}" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<buttjenjon class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></buttjenjon>
                                                     </div>
@@ -331,14 +331,14 @@
                                             <div class="form-group">
                                                 <label>Tanggal Masuk <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_masuk" value="{{ $pegawai->tgl_masuk  }}" placeholder="tanggal/bulan/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control" name="tanggal_masuk" value="{{ $pegawai->tgl_masuk  }}" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="lembaga">Lembaga <span class="text-danger">*</span></label>
+                                                <label for="lembaga">Yayasan/Lembaga <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control custom-select" id="lembaga" name="lembaga"  required>
                                                         <option readonly="true" disabled>Pilih Jenis</option>
@@ -352,18 +352,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="jabatan">Jenis Kepegawaian Lembaga</label>
-                                                <div>
-                                                    <select class="form-control custom-select" id="jabatan" name="jabatan"  required>
-                                                        <option value=""  disabled readonly>Pilih Jenis</option>
-                                                        @foreach ($jabatan as $value)
-                                                            <option value="{{$value->id}}" @if($value->id == $pegawai->jabatan_id)
-                                                            selected @endif >{{$value->nama_jabatan}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -373,7 +361,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Selesai Bekerja</label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control" name="tanggal_selesai" value="{{ $pegawai->tgl_selesai  }}" placeholder="tanggal/bulan/tahun">
+                                                    <input autocomplete="off" type="text" class="form-control" name="tanggal_selesai" value="{{ $pegawai->tgl_selesai  }}" placeholder="tanggal/bulan/tahun">
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -381,22 +369,17 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="jabatanY">Jenis Kepegawaian Yayasan </label>
-                                                <div>
-                                                    <select class="form-control custom-select" id="jabatanY" name="jabatanY">
-                                                        <option value="0" disabled readonly>Pilih Jenis</option>
-                                                        @if($pegawai->jabatan_yayasan_id != null)
+                                                <div class="form-group">
+                                                    <label for="jabatan">Jenis Kepegawaian</label>
+                                                    <div>
+                                                        <select class="form-control custom-select" id="jabatan" name="jabatan"  required>
                                                             <option value=""  disabled readonly>Pilih Jenis</option>
-                                                            @foreach ($jabaya as $value)
-                                                                <option value="{{$value->id}}" @if($value->id == $pegawai->jabatan_yayasan_id)
+                                                            @foreach ($jabatan as $value)
+                                                                <option value="{{$value->id}}" @if($value->id == $pegawai->jabatan_id)
                                                                 selected @endif >{{$value->nama_jabatan}}</option>
                                                             @endforeach
-                                                        @else
-                                                            <option value=""  disabled readonly selected>Pilih Jenis</option>
-                                                            @foreach ($jabaya as $value)
-                                                                <option value="{{$value->id}}">{{$value->nama_jabatan}}</option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

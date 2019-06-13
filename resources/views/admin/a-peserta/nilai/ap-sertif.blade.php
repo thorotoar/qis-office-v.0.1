@@ -5,20 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Surat Keputusan Instruktur Madya</title>
+    <title>Sertifikat {{$nilai->pesertaDidikQIS->nama}}</title>
     <style type="text/css">
-        /*@font-face {*/
-            /*font-family: 'Calibri';*/
-            /*font-weight: normal;*/
-            /*font-style: normal;*/
-            /*font-variant: normal;*/
-            /*src: url("font url");*/
-        /*}*/
-
         body, html {
+            width: 100%;
             height: 100%;
-            margin: 0;
-            border: 0;
+            margin: 0 auto;
+            font-family: 'Dejavu Sans';
+            font-style: normal;
         }
 
         .bg {
@@ -47,79 +41,78 @@
             background-size: cover;
         }
 
-        .margin-top{
-            margin-top: 113px
+        .content {
+            padding-top: 120px;
+            text-align: center;
         }
 
-        .margin-left{
-            margin-left: 30px;
+        .tgl {
+            position: absolute;
+            bottom: 77px;
+            right: 53px;
+            font-size: 17px;
         }
 
-        .margin-right{
-            margin-right: 90px;
+        .score-content {
+            padding: 250px 150px;
         }
 
-        table#konten, tr#konten, td#konten{
-            border: 1px solid black;
+        #score-table {
+            width: 100%;
             border-collapse: collapse;
         }
 
-        .text{
-            font-family: Arial;
-            font-size: 26px;
+        #score-table td, #score-table th {
+            width: 33.33%;
+            padding: 8px;
         }
     </style>
 </head>
 
 <body class="bg">
-<div>
-    <table width="100%" style="margin-left: 64px"  class="margin-top margin-left margin-right">
-        <tr>
-            <td align="center" style="width: 100%;">
-                <p style="font-size: 23px">Learning English Through</p><br>
-                <strong style="font-size: 30px">ACTIVATED HOLISTIC MIND</strong>
-            </td>
-        </tr>
-    </table>
-    <table width="100%" style="margin-left: 64px"  class="margin-top margin-left margin-right">
-        <tr>
-            <td align="center" style="width: 100%;">{{$nilai->nomor_nilai}}</td>
-        </tr>
-        <tr>
-            <td align="center" style="width: 100%;">{{$nilai->tgl_dicatat}}</td>
-        </tr>
-        <tr>
-            <td align="center" style="width: 100%;">{{$nilai->program}}</td>
-        </tr>
-        <tr>
-            <td align="center" style="width: 100%;">{{$nilai->nilai_grammar}}</td>
-        </tr>
-        <tr>
-            <td align="center" style="width: 100%;">{{$nilai->nilai_comprehension}}</td>
-        </tr>
-        <tr>
-            <td align="center" style="width: 100%;">{{$nilai->nilai_conversation}}</td>
-        </tr>
-        <tr>
-            <td align="center" style="width: 100%;">{{$nilai->keterangan}}</td>
-        </tr>
-    </table>
-    {{--isi dan penutup--}}
-    {{--<table width="84%" style="margin-top: 20px" class="text margin-left margin-right">--}}
-        {{--<tr>--}}
-            {{--<td class="clean" align="justify">Berdasarkan rapat yang dilaksanakan bersama Direktur Quali International pada hari Senin, tanggal 6 Oktober 2014,--}}
-            {{--</td>--}}
-        {{--</tr>--}}
-        {{--<tr><td></td></tr>--}}
-        {{--<tr><td></td></tr>--}}
-        {{--<tr>--}}
-            {{--<td align="justify">saya yang bertanda tangan di bawah ini</td>--}}
-        {{--</tr>--}}
-        {{--<tr><td></td></tr>--}}
-        {{--<tr><td></td></tr>--}}
-    {{--</table>--}}
+<div class="content">
+    <p style="line-height: 1">
+        <span style="font-size: 23px;">Learning English Through</span><br>
+        <strong style="font-size: 30px">ACTIVATED HOLISTIC MIND</strong><br>
+        <span style="font-size: 23px;">(AHM Method&trade;)</span><br><br>
+        <strong style="font-size: 20px;">&ldquo;AKREDITASI B&rdquo;</strong><br>
+        <span style="font-size: 18px;">Oleh BAN Pendidikan Non Formal Nomor. KP 3578 00001 12 2015 Tanggal 8 Desember 2015<br>Izin Dinas Pendidikan Nomor 421.9/2599/436.6.4/2013 Tanggal 21 Maret 2013<br>Perum Pesona Alam Gunung Anyar I Blok B12 No. 25 Surabaya, Phone 085104571548<br>Website : www.qisenglish.co.id E-mail : Info@qisenglish.co.id</span>
+    </p>
+    <p style="line-height: .7">
+        <strong style="font-size: 32px">Number : {{$nilai->nomor_nilai}}</strong><br><br>
+        <span style="font-size: 25px;">This is to certify that</span><br><br>
+        <strong style="font-size: 35px">{{ucwords($nilai->pesertaDidikQIS->nama)}}</strong><br><br>
+        <span style="font-size: 28px;">As</span><br><br>
+        <strong style="font-size: 35px">Participant</strong>
+    </p>
+    <p style="line-height: 1;margin-top: -10px">
+        <span style="font-size: 25px;">Achieved the following result in</span><br>
+        <strong style="font-size: 25px;">{{$nilai->program}}</strong>
+    </p>
+    <span class="tgl">Surabaya, {{$nilai->tgl_dicatat}}</span>
 </div>
 </body>
-<body class="bck">
+
+<body class="score-content">
+<table id="score-table">
+    <thead>
+    <tr>
+        <td colspan="2" style="font-size: 23px">Name : {{ucwords($nilai->pesertaDidikQIS->nama)}}</td>
+        <td align="right" style="font-size: 23px">Program : {{$nilai->program}}</td>
+    </tr>
+    <tr>
+        <th align="center" style="border: 1px solid #ddd;">GRAMMAR</th>
+        <th align="center" style="border: 1px solid #ddd;">COMPREHENSION</th>
+        <th align="center" style="border: 1px solid #ddd;">CONVERSATION</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="font-size: 72px">
+        <td align="center" style="border: 1px solid #ddd;">{{$nilai->nilai_grammar}}</td>
+        <td align="center" style="border: 1px solid #ddd;">{{$nilai->nilai_comprehension}}</td>
+        <td align="center" style="border: 1px solid #ddd;">{{$nilai->nilai_conversation}}</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

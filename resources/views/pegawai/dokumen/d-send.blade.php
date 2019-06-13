@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>File </label>
-                                        <input class="form-control" type="file" name="file_pdf">
+                                        <input class="form-control" type="file" name="file_pdf[]" multiple>
                                     </div>
                                 </div>
                             </div>

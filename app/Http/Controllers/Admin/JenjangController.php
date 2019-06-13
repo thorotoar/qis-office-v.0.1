@@ -27,7 +27,8 @@ class JenjangController extends Controller
         $request->validate([
             'jenjang' => "required|unique:jenjangs,nama_jenjang",
         ],[
-            'jenjang.unique' => 'Jenjang yang anda tambahkan sudah tersedia, masukan jenjang lain!.',
+            'jenjang.required' => 'Kolom ' . "<b>" . 'nama jenjang' . "</b>" .  ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'jenjang.unique' => 'Jenjang yang anda tambahkan ' . "<b>" . 'sudah tersedia,' . "</b>" .  ' masukan jenjang lain!.',
         ]);
 
         $j = Jenjang::create([
@@ -35,7 +36,7 @@ class JenjangController extends Controller
             'created_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('jen-home')->with('sukses','Jenjang ' . $j->nama_jenjang . ' berhasil ditambahkan.');
+        return redirect()->route('jen-home')->with('sukses','Jenjang ' . "<b>" . $j->nama_jenjang . "</b>" . ' berhasil ditambahkan.');
     }
 
     public function edit(Request $request){
@@ -48,7 +49,8 @@ class JenjangController extends Controller
         $request->validate([
             'jenjang' => "required|unique:jenjangs,nama_jenjang,$id",
         ],[
-            'jenjang.unique' => 'Jenjang yang anda tambahkan sudah tersedia, masukan jenjang lain!.',
+            'jenjang.required' => 'Kolom ' . "<b>" . 'nama jenjang' . "</b>" .  ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'jenjang.unique' => 'Jenjang yang anda tambahkan ' . "<b>" . 'sudah tersedia,' . "</b>" .  ' masukan jenjang lain!.',
         ]);
 
         $jSurat = Jenjang::find($id);
@@ -56,14 +58,15 @@ class JenjangController extends Controller
             'nama_jenjang' => $request->jenjang,
             'updated_by' => Auth::user()->nama_user,
         ]);
-        return redirect()->route('jen-home')->with('edit','Jenjang ' . $jSurat->nama_jenjang . ' berhasil diubah.');
+        return redirect()->route('jen-home')->with('edit','Jenjang ' . "<b>" . $jSurat->nama_jenjang . "</b>" . ' berhasil diubah.');
 
     }
 
     public function destroy($id){
-        $j = Jenjang::destroy($id);
+        $j = Jenjang::find($id);
+        $j->delete();
 
-        return redirect()->route('jen-home')->with('hapus','Jenjang ' . $j->nama_jenjang . ' berhasil dihapus.');
+        return redirect()->route('jen-home')->with('hapus','Jenjang ' . "<b>" . $j->nama_jenjang . "</b>" . ' berhasil dihapus.');
 
     }
 }

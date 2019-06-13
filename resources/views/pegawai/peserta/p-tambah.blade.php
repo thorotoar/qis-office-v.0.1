@@ -76,7 +76,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Lahir <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control input-sm" name="tgl_lahir" placeholder="tanggal/bulan/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_lahir" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>
@@ -167,7 +167,7 @@
                                             <div class="form-group">
                                                 <label>Tanggal Masuk <span class="text-danger">*</span></label>
                                                 <div class="input-group date datepicker">
-                                                    <input type="text" class="form-control input-sm" name="tgl_masuk" placeholder="tanggal/bulan/tahun" required>
+                                                    <input autocomplete="off" type="text" class="form-control input-sm" name="tgl_masuk" placeholder="tanggal/bulan/tahun" required>
                                                     <div class="input-group-addon">
                                                         &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
                                                     </div>

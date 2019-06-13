@@ -24,7 +24,7 @@
                         <div class="col-lg-12">
                             <div class="alert alert-info alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                {{ $error }}
+                                {!! $error !!}
                             </div>
                         </div>
                     </div>
@@ -44,13 +44,13 @@
                                             <input type="text" class="form-control" id="jurusan" name="jurusan" placeholder="Masukkan Jurusan Pendidikan.." value="{{$jurusan->nama_jurusan_pendidikan}}">
                                         </div>
                                     </div>
-                                </form>
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
                                         <button type="submit" class="btn btn-primary" id="confirm">Submit</button>
                                         <a href="{{route('jur-home')}}" class="btn btn-dark">Cancel</a>
                                     </div>
                                 </div>
+                                </form>
                             </div>
 
                         </div>
@@ -68,21 +68,21 @@
         var fForm = $('#form-confirm');
         var fConfirm = $('button#confirm');
 
-        fConfirm.on('click', function(e){
-            e.preventDefault();
-            swal({
-                    title: "Simpan perubahan?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Iya",
-                    cancelButtonText: "Tidak",
-                    closeOnConfirm: false,
-                    closeOnCancel: true
-                },
-                function(){
-                    fForm.submit();
-                });
-        })
+        // fConfirm.on('click', function(e){
+        //     e.preventDefault();
+        //     swal({
+        //             title: "Simpan perubahan?",
+        //             type: "warning",
+        //             showCancelButton: true,
+        //             confirmButtonColor: "#DD6B55",
+        //             confirmButtonText: "Iya",
+        //             cancelButtonText: "Tidak",
+        //             closeOnConfirm: false,
+        //             closeOnCancel: true
+        //         },
+        //         function(){
+        //             fForm.submit();
+        //         });
+        // })
     </script>
 @endsection
