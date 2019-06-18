@@ -49,7 +49,7 @@
                                         <strong id="penerima"></strong>
                                     </h6>
                                     <h6 class="h6-responsive">
-                                        <small class="green-text">Prihal :</small><br>
+                                        <small class="green-text">Perihal :</small><br>
                                         <strong id="prihal"></strong>
                                     </h6>
                                     <h6 class="h6-responsive">

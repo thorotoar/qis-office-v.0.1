@@ -28,7 +28,7 @@ class jenisSuratSeeder extends Seeder
 
         JenisSurat::find(1)->update([
             'nama_jenis_surat' => 'Surat Pemberitahuan',
-            'template_surat' => 'Template 3',
+            'template_surat' => 'Template 1',
             'lembaga_id' => '1',
             'template_konten' => '<p style="text-align: justify;">Yth. <br />Bapak / Ibu/ Wali Murid <br /><strong>Dzakira Salma Latifa</strong> <br />Dengan hormat,</p>
 <p style="text-align: justify;">&nbsp;</p>
@@ -71,20 +71,35 @@ class jenisSuratSeeder extends Seeder
             'nama_jenis_surat' => 'Surat Penagihan',
             'template_surat' => 'Template 1',
             'lembaga_id' => '1',
-            'template_konten' => '<p style="text-align: justify;"><strong>Dengan Hormat</strong></p>
+            'template_konten' => '<table style="border-collapse: collapse; float: left; height: 59px;" border="0" width="1139" cellpadding="3,3">
+<tbody>
+<tr>
+<td style="vertical-align: middle; width: 70px;"><strong>Kepada</strong></td>
+<td style="vertical-align: middle; width: 6px; text-align: left;"><strong>:</strong></td>
+<td style="vertical-align: middle; width: 8185px; text-align: left;"><strong>Yth. Bagian Keuangan</strong></td>
+</tr>
+<tr>
+<td style="vertical-align: middle; width: 70px;">&nbsp;</td>
+<td style="vertical-align: middle; width: 6px; text-align: left;">&nbsp;</td>
+<td style="vertical-align: middle; width: 8185; text-align: left;">Jl. Raya Palalngan Plosowayu Km 3<br />Di. Lamongan</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: justify;">&nbsp;</p>
+<p style="text-align: justify;">&nbsp;<br /> <strong>Dengan Hormat</strong></p>
 <p style="text-align: justify;">Bersama surat ini, kami memberitahukan bahwa berdasarkan surat Perjanjian Kerjasama No 03/QI - SBY/IX/2014 antara Quali International Surabaya dan Stikes Muhammadiyah Lamongan, kami mengingatkan kepada STIKES Muhammadiyah Lamongan untuk menyelesaikan kekurangan biaya program pembelajaran Bahasa Inggris Komunitas.</p>
 <p style="text-align: justify;">Adapun biaya yang harus diselesaikan adalah biaya program sebesar @ Rp 500.000,00 dengan peserta sebanyak 82 peserta, maka :</p>
 <table style="border-collapse: collapse; margin-left: auto; margin-right: auto;" border="1" cellpadding="3,3">
 <tbody>
 <tr>
-<td style="vertical-align: middle; width: 160px; text-align: left;"><strong>Biyaya Program</strong></td>
-<td style="vertical-align: middle; width: 160px; text-align: left;"><strong>Peserta</strong></td>
-<td style="vertical-align: middle; width: 160px; text-align: left;"><strong>Julmah</strong></td>
+<td style="vertical-align: middle; width: 160.694px; text-align: left;"><strong>Biyaya Program</strong></td>
+<td style="vertical-align: middle; width: 160.694px; text-align: left;"><strong>Peserta</strong></td>
+<td style="vertical-align: middle; width: 160.694px; text-align: left;"><strong>Julmah</strong></td>
 </tr>
 <tr>
-<td style="text-align: lef width: 160px;">Rp 500.000,-</td>
-<td style="width: 160px; vertical-align: middle; text-align: left;">22 orang Dosen<br />60 orang mahasiswa</td>
-<td style="text-align: left; vertical-align: middle; width: 160px;">Rp. 41.000.000,.-</td>
+<td style="width: 160.694px;">Rp 500.000,-</td>
+<td style="width: 160.694px; vertical-align: middle; text-align: left;">22 orang Dosen<br />60 orang mahasiswa</td>
+<td style="text-align: left; vertical-align: middle; width: 160.694px;">Rp. 41.000.000,.-</td>
 </tr>
 </tbody>
 </table>
@@ -109,7 +124,7 @@ class jenisSuratSeeder extends Seeder
 
         JenisSurat::find(3)->update([
             'nama_jenis_surat' => 'Surat Peringatan',
-            'template_surat' => 'Template 3',
+            'template_surat' => 'Template 1',
             'lembaga_id' => '1',
             'template_konten' => '<p style="text-align: justify;">Kepada Yth, <br />Bapak/ibu orang tua murid dari : <strong>Muhammad Marsad Mubarok</strong> <br />Di tempat,</p>
 <p style="text-align: justify;"><em>Bissmillahirrahmanirrahim.</em> <br /><em>Asssalamu&rsquo;alaikum warrahmatullahi wabrakatuh.</em></p>
@@ -163,7 +178,7 @@ class jenisSuratSeeder extends Seeder
         JenisSurat::find(4)->update([
             'kode_surat' => 'PNG',
             'nama_jenis_surat' => 'Surat Pengajuan Dana',
-            'template_surat' => 'Template 3',
+            'template_surat' => 'Template 1',
             'lembaga_id' => '1',
             'template_konten' => '<p style="text-align: justify;">BISSMILLAHIRRAHMANIRRAHIM..<br />&nbsp; &nbsp; &nbsp;Puji Syukur kehadrat Allah yang Maha Pengasih dan Maha Penyayang, Dengan datangnya surat ini maka kami dari bagian <strong>Administrasi</strong> ingin mengajukan Dana sebesar <strong>Rp. 200.000,.-</strong> dengan rincian sebagai berikut :</p>
 <table style="border-collapse: collapse; margin-left: auto; margin-right: auto;" border="1" cellpadding="3,3">

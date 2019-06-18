@@ -24,7 +24,7 @@
                         <div class="col-lg-12">
                             <div class="alert alert-info alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                {{ $error }}
+                                {!! $error !!}
                             </div>
                         </div>
                     </div>
@@ -58,17 +58,11 @@
                                                     <select class="form-control custom-select form-control-sm" id="template_surat" name="template" required>
                                                         <option value="" disabled readonly="" selected>Pilih Template Surat</option>
                                                         @if($jSurat->template_surat == 'Template 1')
-                                                            <option value="Template 1" selected>Template 1 -- Header Lengkap</option>
-                                                            <option value="Template 2">Template 2 -- Header Judul dan Nomor Surat</option>
-                                                            <option value="Template 3">Template 3 -- Header Tanpa Alamat Tujuan</option>
+                                                            <option value="Template 1" selected>Template 1 -- Header Internal</option>
+                                                            <option value="Template 2">Template 2 -- Header Eksternal</option>
                                                         @elseif($jSurat->template_surat == 'Template 2')
-                                                            <option value="Template 1">Template 1 -- Header Lengkap</option>
-                                                            <option value="Template 2" selected>Template 2 -- Header Judul dan Nomor Surat</option>
-                                                            <option value="Template 3">Template 3 -- Header Tanpa Alamat Tujuan</option>
-                                                        @elseif($jSurat->template_surat == 'Template 3')
-                                                            <option value="Template 1">Template 1 -- Header Lengkap</option>
-                                                            <option value="Template 2">Template 2 -- Header Judul dan Nomor Surat</option>
-                                                            <option value="Template 3" selected>Template 3 -- Header Tanpa Alamat Tujuan</option>
+                                                            <option value="Template 1">Template 1 -- Header Internal</option>
+                                                            <option value="Template 2" selected>Template 2 -- Header Eksternal</option>
                                                         @endif
                                                     </select>
                                                 </div>

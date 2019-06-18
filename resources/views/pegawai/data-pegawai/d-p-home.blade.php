@@ -152,7 +152,7 @@
                                             $status = $value->status_pernikahan;
                                             $alamat = $value->alamat;
                                             $noRek = $value->no_rek == null ? '-' : $value->no_rek;
-                                            $bank = $value->bank_id == null ? '-' : $value->bank_id;
+                                            $bank = $value->bank_id == null ? '-' : $value->bank->nama_bank;
                                             $kcpBank = $value->kcp_bank == null ? '-' : $value->kcp_bank;
 
                                             $nikA = $value->nik_ayah;
@@ -165,7 +165,6 @@
                                             $nuptk = $value->nuptk == null ? '-' : $value->nuptk;
                                             $sk = $value->no_sk == null ? '-' : $value->no_sk;
                                             $tglM = $value->tgl_masuk;
-                                            $jabatanY = $value->jabatan_yayasan_id == null ? '-' : $value->jabatanYayasan->nama_jabatan;
                                             $jabatan = $value->jabatan_id == null ? '-' : $value->jabatan->nama_jabatan;
                                             $lembaga = $value->lembaga->nama_lembaga;
                                             $jenjangT = $value->jenjang_id == null ? '-' : $value->jenjang->nama_jenjang;
@@ -199,7 +198,7 @@
                                                         {{csrf_field()}} {{method_field('DELETE')}}
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-placement="top" title="Lihat" onclick="lihatPegawai('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$nik}}', '{{$nip}}', '{{$ttl}}', '{{$kelamin}}', '{{$agama}}', '{{$telp}}', '{{$email}}', '{{$negara}}', '{{$status}}', '{{$alamat}}', '{{$noRek}}', '{{$bank}}', '{{$kcpBank}}', '{{$nikA}}', '{{$namaA}}', '{{$nikI}}', '{{$namaI}}', '{{$namaP}}', '{{$pekerjaanP}}', '{{$nuptk}}', '{{$sk}}', '{{$tglM}}', '{{$jabatanY}}', '{{$jabatan}}', '{{$lembaga}}', '{{$jenjangT}}', '{{$thnLulus}}', '{{$instansi}}', '{{$jurusan}}', '{{$created}}', '{{$updated}}')">
+                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-placement="top" title="Lihat" onclick="lihatPegawai('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$nik}}', '{{$nip}}', '{{$ttl}}', '{{$kelamin}}', '{{$agama}}', '{{$telp}}', '{{$email}}', '{{$negara}}', '{{$status}}', '{{$alamat}}', '{{$noRek}}', '{{$bank}}', '{{$kcpBank}}', '{{$nikA}}', '{{$namaA}}', '{{$nikI}}', '{{$namaI}}', '{{$namaP}}', '{{$pekerjaanP}}', '{{$nuptk}}', '{{$sk}}', '{{$tglM}}', '{{$jabatan}}', '{{$lembaga}}', '{{$jenjangT}}', '{{$thnLulus}}', '{{$instansi}}', '{{$jurusan}}', '{{$created}}', '{{$updated}}')">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
                                                     <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-pegawai-edit" data-toggle="tooltip"
@@ -242,7 +241,7 @@
         });
 
         function lihatPegawai(id, img, nama, nik, nip, ttl, kelamin, agama, telp, email, negara, status, alamat, noRek, bank, kcpBank, nikA,
-                              namaA, nikI, namaI, namaP, pekerjaanP, nuptk, sk, tglM, jabatanY, jabatan, lembaga, jenjangT, thnLulus, instansi, jurusan, created, updated) {
+                              namaA, nikI, namaI, namaP, pekerjaanP, nuptk, sk, tglM, jabatan, lembaga, jenjangT, thnLulus, instansi, jurusan, created, updated) {
             $("#carousel-thumb img").attr('src', img);
             $("#nama").text(nama);
             $("#nik").text(nik);
@@ -267,7 +266,6 @@
             $("#nuptk").text(nuptk);
             $("#sk").text(sk);
             $("#tglM").text(tglM);
-            $("#jabatanY").text(jabatanY);
             $("#jabatan").text(jabatan);
             $("#lembagaP").text(lembaga);
             $("#jenjangT").text(jenjangT);

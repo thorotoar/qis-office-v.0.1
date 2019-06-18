@@ -57,9 +57,18 @@
                             <div class="card col-md-12 ">
                                 <div class="button-list">
                                     <div class="row form-group">
-                                        <div class="col-md-10">
-                                            <label for="from_surat">Filter Tanggal Keluar/Dicatat</label>
-                                            <input type="text" name="from_surat" id="from_surat" class="form-control input-sm input-date" placeholder="filter tanggal keluar/dicatat.." readonly/>
+                                        <div class="col-md-5">
+                                            <label for="from_surat">Filter Tanggal File/Dicatat</label>
+                                            <input type="text" name="from_surat" id="from_surat" class="form-control input-sm input-date" placeholder="filter tanggal file/dicatat.." readonly/>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="kategori">Filter Kategori</label>
+                                            <select class="form-control custom-select form-control-sm" id="kategori" name="kategori" readonly>
+                                                <option readonly selected>filter kategori dokumen..</option>
+                                                @foreach(\App\KategoriDokumen::all() as $kat)
+                                                    <option value="{{$kat->nama_kategori}}" readonly>{{$kat->nama_kategori}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-md-2">
                                             <label for="refresh" style="height: 70%"></label>
@@ -74,6 +83,7 @@
                                     <tr>
                                         <th width="80px">No</th>
                                         <th>Nama File</th>
+                                        <th>Kategori</th>
                                         <th>Tanggal File</th>
                                         <th>Tanggal Dicatat</th>
                                         <th>Keterangan</th>
@@ -85,6 +95,7 @@
                                         <tr>
                                             <th>{{$index +1}}</th>
                                             <th>{{$value->nama_dokumen}}</th>
+                                            <th>{{$value->kategori->nama_kategori}}</th>
                                             <th>{{ strftime("%d %B %Y", strtotime($value->tgl_file)) }}</th>
                                             <th>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</th>
                                             <th>{{$value->keterangan}}</th>
@@ -157,6 +168,10 @@
                 $("#form-deleteDokumen-" + id).attr("action", "{{route('d-hapus', ["id" => ""])}}/" + id).submit()
             })
         }
+
+        $("#kategori").on("change", function () {
+            $("#myTable_filter input[type=search]").val($(this).val()).trigger('keyup');
+        });
 
         $('.input-date').datepicker({
             todayBtn: 'linked',

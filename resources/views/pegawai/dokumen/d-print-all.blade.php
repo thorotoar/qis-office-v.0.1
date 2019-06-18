@@ -33,6 +33,7 @@
     <tr>
         <th>No</th>
         <th>Nama File</th>
+        <th>Kategori</th>
         <th>Tanggal File</th>
         <th>Tanggal Dicatat</th>
         <th>Keterangan</th>
@@ -41,6 +42,7 @@
         <tr>
             <td width="5%">{{$index +1}}</td>
             <td width="30%"><strong>{{$datas->nama_dokumen}}</strong></td>
+            <td width="30%"><strong>{{$datas->kategori->nama_kategori}}</strong></td>
             <td width="15%">{{strftime("%d %B %Y", strtotime($datas->tgl_file))}}</td>
             <td width="15%">{{strftime("%d %B %Y", strtotime($datas->tgl_dicatat))}}</td>
             <td width="35%">{{$datas->keterangan}}</td>

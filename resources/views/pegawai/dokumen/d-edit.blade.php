@@ -22,8 +22,20 @@
             @if(session()->has('edit'))
                 <div class="alert alert-info alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session()->get('edit')}}
+                    {!! session('edit') !!}
                 </div>
+            @elseif(count($errors)>0)
+                @foreach($errors->all() as $error)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-info alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                {!! $error !!}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             @endif
             <!-- Start Page Content -->
             <div class="row">
@@ -34,10 +46,25 @@
                                 <form id="form-editDokumen" action="{{route('d-update', $dokumen->id)}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-3">
                                             <div class="form-group">
                                                 <label>Nama File <span class="text-danger">*</span></label>
                                                 <input class="form-control input-sm" name="nama_dokumen" type="Text" value="{{$dokumen->nama_dokumen}}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="kategori">Kategori Dokumen <span class="text-danger">*</span></label>
+                                                <select class="form-control custom-select" id="kategori" name="kategori" required>
+                                                    <option value="" disabled>Pilih Kategori Dokumen</option>
+                                                    @foreach (\App\KategoriDokumen::all() as $value)
+                                                        <option value="{{$value->id}}"
+                                                                @if($value->id == $dokumen->kategori_id)
+                                                                selected
+                                                                @endif
+                                                        >{{$value->nama_kategori}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">

@@ -25,7 +25,7 @@
                             <div class="alert alert-info alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                             aria-hidden="true">&times;</span></button>
-                                {{ $error }}
+                                {!! $error !!}
                             </div>
                         </div>
                     </div>
@@ -40,10 +40,21 @@
                                 <form id="form-addDokumen" action="{{route('d-tambah-selesai')}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Nama File <span class="text-danger">*</span></label>
                                                 <input class="form-control input-sm" name="nama_dokumen" type="Text" value="" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="kategori">Kategori Dokumen <span class="text-danger">*</span></label>
+                                                <select class="form-control custom-select" id="kategori" name="kategori" required>
+                                                    <option value="" disabled selected>Pilih Kategori Dokumen</option>
+                                                    @foreach(\App\KategoriDokumen::all() as $kat)
+                                                        <option value="{{$kat->id}}">{{$kat->nama_kategori}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">

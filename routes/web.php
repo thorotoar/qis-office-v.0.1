@@ -578,6 +578,44 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
         ]);
     });
 
+    Route::group(['prefix' => 'manajemen-kategori-dokumen'], function (){
+
+        Route::get('/', [
+            'uses' => 'KategoriDokumenController@index',
+            'as' => 'dok-home'
+        ]);
+
+        Route::get('/manajemen-kategori-dokumen-tambah', [
+            'uses' => 'KategoriDokumenController@create',
+            'as' => 'dok-tambah'
+        ]);
+
+        Route::get('/lihat-kategori-dokumen/{id}', [
+            'uses' => 'KategoriDokumenController@show',
+            'as' => 'dok-lihat'
+        ]);
+
+        Route::post('/tambah-kategori-dokumen', [
+            'uses' => 'KategoriDokumenController@store',
+            'as' => 'dok-tambah-selesai'
+        ]);
+
+        Route::get('/kategori-dokumen-edit', [
+            'uses' => 'KategoriDokumenController@edit',
+            'as' => 'dok-edit'
+        ]);
+
+        Route::post('/update-kategori-dokumen/{id}', [
+            'uses' => 'KategoriDokumenController@update',
+            'as' => 'dok-update'
+        ]);
+
+        Route::delete('/hapus-kategori-dokumen/{id}', [
+            'uses' => 'KategoriDokumenController@destroy',
+            'as' => 'dok-hapus'
+        ]);
+    });
+
 });
 
 Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => 'pegawai'], function (){

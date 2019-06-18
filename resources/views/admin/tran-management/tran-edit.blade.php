@@ -39,7 +39,7 @@
                                 <form class="form-valide" action="{{route('tran-update',['id'=>$tran->id])}}" method="post">
                                     {{csrf_field()}}
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="transportasi">Nama Transportasi </label>
+                                        <label class="col-lg-4 col-form-label" for="transportasi">Nama Transportasi <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="transportasi" name="transportasi" value="{{ $tran->nama_transportasi }}" placeholder="Masukkan nama jenis transportasi.." required>
                                         </div>

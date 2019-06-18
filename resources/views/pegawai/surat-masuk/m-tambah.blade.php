@@ -82,7 +82,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label>Prihal</label>
+                                                <label>Perihal</label>
                                                 <textarea name="prihal" class="form-control" cols="30" rows="10"></textarea>
                                             </div>
                                         </div>

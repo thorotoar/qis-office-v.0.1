@@ -77,7 +77,7 @@
                                         <th>Diterima</th>
                                         <th>Dicatat</th>
                                         <th>Pengirim</th>
-                                        <th>Prihal</th>
+                                        <th>Perihal</th>
                                         <th></th>
                                     </tr>
                                     </thead>

@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(bankSeeder::class);
         $this->call(kewarganegaraanSeeder::class);
         $this->call(penghasilanSeeeder::class);
+        $this->call(KategoriDokumenSeeder::class);
         $this->call(pegawaiSeeder::class);
     }
 }

@@ -34,10 +34,25 @@
                                 <form id="form-editDokumen" action="{{route('ad-update', $dokumen->id)}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-3">
                                             <div class="form-group">
                                                 <label>Nama File <span class="text-danger">*</span></label>
                                                 <input class="form-control input-sm" name="nama_dokumen" type="Text" value="{{$dokumen->nama_dokumen}}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="kategori">Kategori Dokumen <span class="text-danger">*</span></label>
+                                                <select class="form-control custom-select" id="kategori" name="kategori" required>
+                                                    <option value="" disabled>Pilih Kategori Dokumen</option>
+                                                    @foreach (\App\KategoriDokumen::all() as $value)
+                                                        <option value="{{$value->id}}"
+                                                                @if($value->id == $dokumen->kategori_id)
+                                                                selected
+                                                                @endif
+                                                        >{{$value->nama_kategori}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">

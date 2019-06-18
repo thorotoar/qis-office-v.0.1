@@ -186,7 +186,6 @@ class JadwalPelajaranController extends Controller
                         'kegiatan' => $value['kegiatan'],
                         'ruangan' => $value['ruang'],
                         'keterangan' => $value['keterangan'],
-                        'created_by' => Auth::user()->nama_user,
                     ]);
                 }
             }
@@ -242,7 +241,6 @@ class JadwalPelajaranController extends Controller
                         'waktu_akhir' => $item[1]['time_end'],
                         'kegiatan' => $item[2]['name'],
                         'keterangan' => $item[2]['summary'],
-                        'created_by' => Auth::user()->nama_user,
                     ]);
                 }
             }
@@ -298,7 +296,6 @@ class JadwalPelajaranController extends Controller
                             'waktu_akhir' => $item[0]['waktu_akhir'],
                             'kegiatan' => $item[0]['kegiatan'],
                             'keterangan' => $item[0]['keterangan'],
-                            'created_by' => Auth::user()->nama_user,
                         ]);
                     }
                 }

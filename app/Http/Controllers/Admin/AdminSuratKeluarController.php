@@ -49,15 +49,6 @@ class AdminSuratKeluarController extends Controller
             'updated_by' => Auth::user()->nama_user,
         ]);
 
-        if (input::has('tujuan') || input::has('alamat_tujuan')){
-            $sk->update([
-                'tujuan' => $request->tujuan,
-                'tempat_tujuan' => $request->tempat_tujuan,
-                'alamat_tujuan' => $request->alamat_tujuan,
-                'kota_tujuan' => $request->kota_tujuan,
-            ]);
-        }
-
         if (input::has('isi')){
             File::delete('file-surat/'.$sk->attach);
             $filename = $jenisur->nama_jenis_surat.substr($sk->no_surat, 0, 3);

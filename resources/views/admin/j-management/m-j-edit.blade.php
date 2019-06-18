@@ -39,14 +39,14 @@
                                 <form class="form-valide" action="{{route('jm-update',['id'=>$jabatan->id])}}" method="post">
                                     {{csrf_field()}}
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="jabatan">Nama Jabatan </label>
+                                        <label class="col-lg-4 col-form-label" for="jabatan">Nama Jabatan <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ $jabatan->nama_jabatan }}" placeholder="masukkan jabatan.." required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="kode">Kode Jabatan </label>
+                                        <label class="col-lg-4 col-form-label" for="kode">Kode Jabatan <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="kode" name="kode" value="{{ $jabatan->kode_jabatan }}" placeholder="masukkan kode..">
                                         </div>

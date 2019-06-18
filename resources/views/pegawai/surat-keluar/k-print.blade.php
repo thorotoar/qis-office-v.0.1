@@ -1,6 +1,6 @@
 @extends('pegawai.surat-keluar.k-head')
 @section('rincian')
-    @if( $sk->jenisSurat->template_surat == 'Template 1' || $sk->jenisSurat->template_surat == 'Template 3' )
+    @if( $sk->jenisSurat->template_surat == 'Template 1')
         <div class="letter_head">
             <table>
                 <tr>
@@ -34,24 +34,6 @@
                 <tr>
                     <td><br></td>
                 </tr>
-                @if( $sk->tujuan != "" || $sk->tempat_tujuan != "" || $sk->alamat_tujuan != "" || $sk->kota_tujuan != "")
-                    <tr>
-                        <td align="left" width="75%">
-                            <table cellpadding="5">
-                                <tr>
-                                    <td width="10%" valign="top"><b>Kepada</b></td>
-                                    <td width="5%" valign="top">&nbsp;<b>:</b></td>
-                                    <td valign="top"><b>Yth. {{ $sk->tujuan }} <br> {{ $sk->tempat_tujuan }}</b></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td>{{ $sk->alamat_tujuan }} <br> Di. {{ $sk->kota_tujuan }}</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                @endif
             </table>
         </div>
     @elseif( $sk->jenisSurat->template_surat == 'Template 2' )

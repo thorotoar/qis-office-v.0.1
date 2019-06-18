@@ -47,21 +47,26 @@ class DokumenController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'nama_dokumen' => 'required|unique:dokumens,nama_dokumen',
-            'keterangan' => 'nullable|unique:dokumens,keterangan',
+            'nama_dokumen' => 'required',
+            'kategori' => 'required',
+            'tgl_file' => 'required',
+            'tgl_dicatat' => 'required',
+            'keterangan' => 'nullable',
             'upload_file' => 'required',
             'upload_file.*' => 'mimes:jpg,jpeg,gif,png,pdf,doc,docx,txt,zip,rar,xls,xlsx,odt,ppt,pptx,video/avi,video/mpeg,video/quicktime|max:10000',
         ],[
-            'nama_dokumen.required' => 'Nama dokumen belum anda isi, silahkan isi terlebih dahulu!.',
-            'upload_file.required' => 'File dokumen belum anda isi, silahkan isi terlebih dahulu!.',
-            'nama_dokumen.unique' => 'Nama dokumen yang anda tambahkan sudah tersedia, masukan nama dokumen lain!.',
-            'keterangan.unique' => 'Keterangan yang anda tambahkan sudah tersedia, masukan keterangan lain!.',
+            'nama_dokumen.required' => 'Nama ' . "<b>" . 'dokumen' . "</b>" . ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'kategori.required' => "<b>" . 'Kategori' . "</b>" . ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'tgl_file.required' => "<b>" . 'Tanggal file' . "</b>" . ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'tgl_dicatat.required' => "<b>" . 'Tanggal dicatat' . "</b>" . ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'upload_file.required' => "<b>" . 'File dokumen' . "</b>" . ' belum anda isi, silahkan isi terlebih dahulu!.',
         ]);
 
         $nama = $request->nama_dokumen;
 
         $dokumen = Dokumen::create([
             'user_id' => Auth::user()->id,
+            'kategori_id' => $request->kategori,
             'nama_dokumen' => $request->nama_dokumen,
             'tgl_file' => $request->tgl_file,
             'tgl_dicatat' => $request->tgl_dicatat,
@@ -97,12 +102,27 @@ class DokumenController extends Controller
 
 
     public function update(Request $request, $id){
+        $request->validate([
+            'nama_dokumen' => 'required',
+            'kategori' => 'required',
+            'tgl_file' => 'required',
+            'tgl_dicatat' => 'required',
+            'keterangan' => 'nullable',
+            'upload_file.*' => 'mimes:jpg,jpeg,gif,png,pdf,doc,docx,txt,zip,rar,xls,xlsx,odt,ppt,pptx,video/avi,video/mpeg,video/quicktime|max:10000',
+        ],[
+            'nama_dokumen.required' => 'Nama ' . "<b>" . 'dokumen' . "</b>" . ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'kategori.required' => "<b>" . 'Kategori' . "</b>" . ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'tgl_file.required' => "<b>" . 'Tanggal file' . "</b>" . ' belum anda isi, silahkan isi terlebih dahulu!.',
+            'tgl_dicatat.required' => "<b>" . 'Tanggal dicatat' . "</b>" . ' belum anda isi, silahkan isi terlebih dahulu!.',
+        ]);
+
         $dokumen = Dokumen::find($id);
         $fileDok = FileDokumen::where('dokumen_id', $dokumen->id)->get();
 
         //dd($pegawai);
         $dokumen->update([
             'user_id' => Auth::user()->id,
+            'kategori_id' => $request->kategori,
             'nama_dokumen' => $request->nama_dokumen,
             'tgl_file' => $request->tgl_file,
             'tgl_dicatat' => $request->tgl_dicatat,

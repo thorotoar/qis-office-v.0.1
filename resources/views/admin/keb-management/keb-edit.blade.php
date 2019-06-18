@@ -39,13 +39,13 @@
                                 <form class="form-valide" action="{{route('keb-update',['id'=>$kk->id])}}" method="post">
                                     {{csrf_field()}}
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="kebutuhan">Nama Kebutuhan Khusus </label>
+                                        <label class="col-lg-4 col-form-label" for="kebutuhan">Nama Kebutuhan Khusus <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="kebutuhan" name="kebutuhan" value="{{ $kk->nama_kebutuhan }}" placeholder="masukkan kebutuhan khusus.." required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="kode">Kode Kebutuhan Khusus </label>
+                                        <label class="col-lg-4 col-form-label" for="kode">Kode Kebutuhan Khusus <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
                                             <input type="text" class="form-control" id="kode" name="kode" value="{{ $kk->kode_kebutuhan }}" placeholder="masukkan kode..">
                                         </div>

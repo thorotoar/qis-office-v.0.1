@@ -69,15 +69,6 @@ class SuratKeluarController extends Controller
             'created_by' => Auth::user()->nama_user,
         ]);
 
-        if (input::has('tujuan') || input::has('alamat_tujuan')){
-            $sk->update([
-                'tujuan' => $request->tujuan,
-                'tempat_tujuan' => $request->tempat_tujuan,
-                'alamat_tujuan' => $request->alamat_tujuan,
-                'kota_tujuan' => $request->kota_tujuan,
-            ]);
-        }
-
         if (input::has('isi')){
             $filename = $jenisur->nama_jenis_surat.substr($sk->no_surat, 0, 3);
             $name = str_replace(' ', '_', str_random(2) . '' . $filename);
@@ -136,15 +127,6 @@ class SuratKeluarController extends Controller
             'isi_surat' => $request->isi,
             'updated_by' => Auth::user()->nama_user,
         ]);
-
-        if (input::has('tujuan') || input::has('alamat_tujuan')){
-            $sk->update([
-                'tujuan' => $request->tujuan,
-                'tempat_tujuan' => $request->tempat_tujuan,
-                'alamat_tujuan' => $request->alamat_tujuan,
-                'kota_tujuan' => $request->kota_tujuan,
-            ]);
-        }
 
         if (input::has('isi')){
             File::delete('file-surat/'.$sk->attach);

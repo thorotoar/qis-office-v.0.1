@@ -188,6 +188,7 @@
                             <li><a href="{{route('keb-home')}}"><i class="fa fa-wheelchair"></i> Kebutuhan Khusus</a></li>
                             <li><a href="{{route('tran-home')}}"><i class="fa fa-bicycle"></i> Transportasi</a></li>
                             <li><a href="{{route('ts-home')}}"><i class="fa fa-certificate"></i> Sertifikat</a></li>
+                            <li><a href="{{route('dok-home')}}"><i class="fa fa-file"></i> Kategori Dokumen</a></li>
                             {{--<li><a href="{{route('lem-home')}}">Lembaga</a></li>--}}
                         </ul>
                     </li>

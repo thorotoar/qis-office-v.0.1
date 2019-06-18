@@ -54,6 +54,10 @@
                                                 <strong>{{$dokumen->nama_dokumen == null ? '-' : $dokumen->nama_dokumen}}</strong>
                                             </h6>
                                             <h6 class="h6-responsive">
+                                                <small class="green-text">Kategori :</small><br>
+                                                <strong>{{$dokumen->kategori_id == null ? '-' : $dokumen->kategori->nama_kategori}}</strong>
+                                            </h6>
+                                            <h6 class="h6-responsive">
                                                 <small class="green-text">Tanggal File :</small><br>
                                                 <strong>{{$dokumen->tgl_file == null ? '-' : strftime("%d %B %Y", strtotime($dokumen->tgl_file))}}</strong>
                                             </h6>

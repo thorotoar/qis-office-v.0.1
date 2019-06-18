@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Daftar Masuk Keluar Quali International Surabaya</title>
+    <title>Daftar Surat Masuk Quali International Surabaya</title>
     <style>
         h1, h2, h3, h4, h5, h6 {
             text-align: center;
@@ -33,10 +33,11 @@
     <tr>
         <th>No</th>
         <th>Nomor Surat</th>
-        <th>Tanggal Keluar</th>
+        <th>Tanggal Diterima</th>
         <th>Tanggal Dicatat</th>
         <th>Pengirim</th>
-        <th>Prihal</th>
+        <th>Penerima</th>
+        <th>Perihal</th>
     </tr>
     @foreach($datas as $index => $value)
         <tr>
@@ -45,6 +46,7 @@
             <td>{{ strftime("%d %B %Y", strtotime($value->tgl_diterima)) }}</td>
             <td>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</td>
             <td>{{ $value->pengirim }}</td>
+            <td>{{ $value->penerima }}</td>
             <td>{{ $value->prihal }}</td>
         </tr>
     @endforeach

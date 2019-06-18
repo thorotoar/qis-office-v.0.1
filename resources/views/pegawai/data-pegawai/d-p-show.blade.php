@@ -179,15 +179,11 @@
                                             <strong id="tglM"></strong>
                                         </h6>
                                         <h6 class="h6-responsive">
-                                            <small class="green-text">Jabatan Yayasan :</small><br>
-                                            <strong id="jabatanY"></strong>
-                                        </h6>
-                                        <h6 class="h6-responsive">
                                             <small class="green-text">Jabatan :</small><br>
                                             <strong id="jabatan"></strong>
                                         </h6>
                                         <h6 class="h6-responsive">
-                                            <small class="green-text">Lembaga :</small><br>
+                                            <small class="green-text">Yayasan/Lembaga :</small><br>
                                             <strong id="lembagaP"></strong>
                                         </h6><hr>
                                     </div>
@@ -208,7 +204,7 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
-                                            <small class="green-text">Jenjang Terkhir :</small><br>
+                                            <small class="green-text">Jenjang Terakhir :</small><br>
                                             <strong id="jenjangT"></strong>
                                         </h6>
                                     </div>
