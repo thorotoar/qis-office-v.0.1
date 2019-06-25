@@ -38,7 +38,6 @@ class AdminSuratKeluarController extends Controller
         $jenisur = JenisSurat::where('id', $sk->jenis_id)->firstOrFail();
 
         $sk->update([
-            'user_id' => Auth::user()->id,
             'no_surat' => $request->no_surat,
             'lampiran' => $request->lampiran,
             'perihal' => $request->perihal,
@@ -46,7 +45,7 @@ class AdminSuratKeluarController extends Controller
             'tgl_keluar' => $request->tgl_keluar,
             'tgl_dicatat' => $request->tgl_dicatat,
             'isi_surat' => $request->isi,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         if (input::has('isi')){

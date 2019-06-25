@@ -126,7 +126,7 @@
                 <ul class="navbar-nav my-lg-0">
                     <!-- Profile -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset(Auth::user()->foto_user)}}" alt="user" class="profile-pic" /></a>
+                        <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{Auth::user()->pegawai->foto != null ? asset(Auth::user()->pegawai->foto) : asset('images/icon/no3x4.png')}}" alt="user" class="profile-pic" /></a>
                         <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                             <ul class="dropdown-user">
                                 <li><a href="{{ route('upass-admin')  }}"><i class="ti-key"></i> Change Password</a></li>
@@ -183,10 +183,7 @@
                             <li><a href="{{route('um-home')}}"><i class="fa fa-user-circle"></i> User</a></li>
                             <li><a href="{{route('jm-home')}}"><i class="fa fa-briefcase"></i> Jabatan</a></li>
                             <li><a href="{{route('jsm-home')}}"><i class="fa fa-envelope-square"></i> Jenis Surat</a></li>
-                            <li><a href="{{route('jen-home')}}"><i class="fa fa-graduation-cap"></i> Jenjang</a></li>
-                            <li><a href="{{route('jur-home')}}"><i class="fa fa-graduation-cap"></i> Jurusan Pendidikan</a></li>
                             <li><a href="{{route('keb-home')}}"><i class="fa fa-wheelchair"></i> Kebutuhan Khusus</a></li>
-                            <li><a href="{{route('tran-home')}}"><i class="fa fa-bicycle"></i> Transportasi</a></li>
                             <li><a href="{{route('ts-home')}}"><i class="fa fa-certificate"></i> Sertifikat</a></li>
                             <li><a href="{{route('dok-home')}}"><i class="fa fa-file"></i> Kategori Dokumen</a></li>
                             {{--<li><a href="{{route('lem-home')}}">Lembaga</a></li>--}}

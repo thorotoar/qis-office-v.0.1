@@ -66,7 +66,7 @@ class SuratKeluarController extends Controller
             'tgl_keluar' => $request->tgl_keluar,
             'tgl_dicatat' => $request->tgl_dicatat,
             'isi_surat' => $request->isi,
-            'created_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->pegawai->nama,
         ]);
 
         if (input::has('isi')){
@@ -125,7 +125,7 @@ class SuratKeluarController extends Controller
             'tgl_keluar' => $request->tgl_keluar,
             'tgl_dicatat' => $request->tgl_dicatat,
             'isi_surat' => $request->isi,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         if (input::has('isi')){

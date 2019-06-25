@@ -36,7 +36,7 @@ class KebutuhanKhususController extends Controller
         $kk = KebutuhanKhusus::create([
             'kode_kebutuhan' => $request->kode,
             'nama_kebutuhan' => $request->kebutuhan,
-            'created_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->pegawai->nama,
         ]);
         return redirect()->route('keb-home')->with('sukses','Kebutuhan khusus ' . "<b>" . $kk->nama_kebutuhan . "</b>" . ' baru berhasil ditambahkan.');
     }
@@ -66,7 +66,7 @@ class KebutuhanKhususController extends Controller
         $kk->update([
             'kode_kebutuhan' => $request->kode,
             'nama_kebutuhan' => $request->kebutuhan,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         return redirect()->route('keb-home')->with('edit','Kebutuhan khusus ' . "<b>" . $kk->nama_kebutuhan . "</b>" . ' berhasil diubah.');

@@ -86,7 +86,7 @@ class JadwalPelajaranController extends Controller
             'kegiatan' => $request->kegiatan,
             'ruangan' => $request->ruangan,
             'keterangan' => $request->keterangan,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         return back()->with('edit', 'Jadwal kegiatan ' . "<b>" . $jadMdc->kegiatan. "</b>" . ' ' . $jadMdc->jadwalPeserta->nama . ' berhasil diubah.');
@@ -162,7 +162,7 @@ class JadwalPelajaranController extends Controller
                     'nama_jadwal' => $jadwalN,
                     'tgl_dicatat' => strftime("%d %B %Y", strtotime(now())),
                     'lembaga_id' => 3,
-                    'created_by' => Auth::user()->nama_user,
+                    'created_by' => Auth::user()->pegawai->nama,
                 ]);
             }else{
                 $jadwal = $check->first();
@@ -212,7 +212,7 @@ class JadwalPelajaranController extends Controller
                     'nama_jadwal' => $row['name'],
                     'tgl_dicatat' => strftime("%d %B %Y", strtotime(now())),
                     'lembaga_id' => 4,
-                    'created_by' => Auth::user()->nama_user,
+                    'created_by' => Auth::user()->pegawai->nama,
                 ]);
             } else {
                 $jadwal = $check->first();
@@ -268,7 +268,7 @@ class JadwalPelajaranController extends Controller
                         'nama_jadwal' => $row['nama_jadwal'],
                         'tgl_dicatat' => strftime("%d %B %Y", strtotime($row['tgl_dicatat'])),
                         'lembaga_id' => 2,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 } else {
                     $jadwal = $check->first();

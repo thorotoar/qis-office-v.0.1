@@ -197,7 +197,7 @@ class PesertaController extends Controller
             'tgl_masuk' => $request->tgl_masuk,
             'status' => $request->status,
             'lembaga_id' => $request->lembaga,
-            'created_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->pegawai->nama,
 
         ]);
 
@@ -338,7 +338,7 @@ class PesertaController extends Controller
             'tgl_masuk' => $request->tgl_masuk,
             'status' => $request->status,
             'lembaga_id' => $request->lembaga,
-            'created_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
 
         ]);
 
@@ -446,11 +446,10 @@ class PesertaController extends Controller
                     ->where('email', $row['user_id']['email'])->where('nama_ayah', $row['nama_ayah'])->where('tahun_lahir_ayah', $row['tahun_kelahiran_ayah'])->where('jenjang_ayah_id', $jenjangA->id)
                     ->where('pekerjaan_ayah', $row['pekerjaan_ayah'])->where('penghasilan_ayah_id', $pAyah->id)->where('nama_ibu', $row['nama_ibu'])->where('tahun_lahir_ibu', $row['tahun_kelahiran_ibu'])
                     ->where('jenjang_ibu_id', $jenjangI->id)->where('pekerjaan_ibu', $row['pekerjaan_ibu'])->where('penghasilan_ibu_id', $pIbu->id)->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])))
-                    ->where('status', $row['status'])->where('lembaga_id', 3)->where('created_by', Auth::user()->nama_user);
+                    ->where('status', $row['status'])->where('lembaga_id', 3);
 
                 if (!$check->count()) {
                     $peserta = PesertaDidik::create([
-                        'user_id' => Auth::user()->id,
                         'nama' => $row['user_id']['nama'],
                         'kelamin' => $row['user_id']['jenis_kelamin'],
                         'nik' => $row['nomer_nik'],
@@ -476,7 +475,7 @@ class PesertaController extends Controller
                         'status' => $row['status'],
 //                        'isFull' => false,
                         'lembaga_id' => 3,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 } else{
                     $peserta = $check->first();
@@ -568,8 +567,7 @@ class PesertaController extends Controller
                     ->where('tempat_lahir', $row['stud']['born_place'])->where('tgl_lahir', strftime("%d %B %Y", strtotime($row['stud']['dob'])))
                     ->where('agama_id', 1)->where('kewarganegaraan_id', $negara->id)->where('kebutuhan_id', $kebutuhan->id)->where('alamat', $row['fam']['address'])
                     ->where('telpon_selular', $row['fam']['phone'])->where('email', $row['user_id']['email'])
-                    ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['stud']['register'])))->where('status', $status)->where('lembaga_id', 4)
-                    ->where('created_by', Auth::user()->nama_user);
+                    ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['stud']['register'])))->where('status', $status)->where('lembaga_id', 4);
 
                 $checkA = PesertaDidik::where('nama_ayah', $namaA == true ? $row['fam']['name'] : null)
                     ->where('tahun_lahir_ayah', $tahunA == true ? substr($row['fam']['dob'], 0, 4) : null)
@@ -586,7 +584,6 @@ class PesertaController extends Controller
 
                 if (!$check->count() && !$checkA->count() || !$checkI->count() || !$checkW->count()) {
                     $peserta = PesertaDidik::create([
-                        'user_id' => Auth::user()->id,
                         'nama' => $row['stud']['name'],
                         'kelamin' => $sex,
                         'nisn' => $row['stud']['ni'],
@@ -614,7 +611,7 @@ class PesertaController extends Controller
                         'status' => $row['stud']['status'] == 'Active' ? 'aktif' : 'tidak aktif',
 //                        'isFull' => false,
                         'lembaga_id' => 4,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 } else{
                     $peserta = $check->first();
@@ -688,8 +685,7 @@ class PesertaController extends Controller
                     ->where('desa', $row['profile']['desa'])->where('provinsi_id', $prov->id)->where('kabupaten_id', $kab->id)->where('kecamatan_id', $kec->id)
                     ->where('kode_pos', $row['profile']['kode_pos'])->where('anak_ke', $row['profile']['anak_ke'])->where('telpon_selular', $row['telpon'])
                     ->where('email', $row['email_user'])
-                    ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['profile']['tgl_masuk'])))->where('status', $row['status'])->where('lembaga_id', 2)
-                    ->where('created_by', Auth::user()->nama_user);
+                    ->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['profile']['tgl_masuk'])))->where('status', $row['status'])->where('lembaga_id', 2);
 
                 $checK = PesertaDidik::where('nama_ayah', $row['profile']['nama_ayah'])->where('nik_ayah', $row['profile']['nik_ayah'])
                     ->where('tahun_lahir_ayah', $row['profile']['tahun_lahir_ayah'])
@@ -709,7 +705,6 @@ class PesertaController extends Controller
 
                 if (!$check->count() && !$checK->count()) {
                     $peserta = PesertaDidik::create([
-                        'user_id' => Auth::user()->id,
                         'nama' => $row['nama_user'],
                         'kelamin' => $row['kelamin'],
                         'nisn' => $row['profile']['nisn'],
@@ -753,7 +748,7 @@ class PesertaController extends Controller
                         'status' => $row['status'],
 //                        'isFull' => false,
                         'lembaga_id' => 2,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 } else{
                     $peserta = $check->first();

@@ -53,7 +53,7 @@ class AdminJadwalController extends Controller
             'kegiatan' => $request->kegiatan,
             'ruangan' => $request->ruangan,
             'keterangan' => $request->keterangan,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         return back()->with('edit', 'Jadwal kegiatan ' . "<b>" . $j->kegiatan. "</b>" . ' ' . $j->nama . ' berhasil diubah.');

@@ -11,6 +11,7 @@ use App\JurusanPendidikan;
 use App\Kewarganegaraan;
 use App\Lembaga;
 use App\Pegawai;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -150,7 +151,7 @@ class DataPegawaiController extends Controller
           'jurusan_id' => $request->jurusan,
           'instansi' => $request->instansi,
           'thn_lulus' => $request->thn_lulus,
-          'created_by' => Auth::user()->nama_user,
+          'created_by' => Auth::user()->pegawai->nama,
 
         ]);
 
@@ -246,11 +247,10 @@ class DataPegawaiController extends Controller
             'jurusan_id' => $request->jurusan,
             'instansi' => $request->instansi,
             'thn_lulus' => $request->thn_lulus,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         if (Input::has('foto_new')) {
-
             File::delete($pegawai->foto);
             $file = str_replace(' ', '_', str_random(4) . '' . $request->file('foto_new')->getClientOriginalName());
             Input::file('foto_new')->move('images/foto-pegawai/', $file);
@@ -305,8 +305,7 @@ class DataPegawaiController extends Controller
                     ->where('tgl_lahir', strftime("%d %B %Y", strtotime($row['user_id']['tanggal_lahir'])))->where('kelamin', $row['user_id']['jenis_kelamin'])
                     ->where('agama_id', $agama->id)->where('kewarganegaraan_id', $negara->id)->where('telpon', $row['user_id']['no_telp'])
                     ->where('email', $row['user_id']['email'])->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['user_id']['tgl_mulai_masuk'])))
-                    ->where('status_pekerjaan', $row['status'])->where('jabatan_id', $jabatan->id)->where('lembaga_id', 3)
-                    ->where('created_by', Auth::user()->nama_user)->count();
+                    ->where('status_pekerjaan', $row['status'])->where('jabatan_id', $jabatan->id)->where('lembaga_id', 3)->count();
 
                 $checkJ = Jabatan::where('nama_jabatan', $row['role']['nama'] == 'Pendidik' ? 'Pengajar' : $row['role']['nama'])->where('lembaga_id', 3)->count();
 
@@ -314,11 +313,10 @@ class DataPegawaiController extends Controller
                     Jabatan::create([
                         'nama_jabatan' => $row['role']['nama'] == 'Pendidik' ? 'Pengajar' : $row['role']['nama'],
                         'lembaga_id' => 3,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
 
                     Pegawai::create([
-                        'user_id' => Auth::user()->id,
                         'nip' => $row['nip'],
                         'nama' => $row['user_id']['nama'],
                         'alamat' => $row['user_id']['alamat'],
@@ -333,12 +331,11 @@ class DataPegawaiController extends Controller
                         'status_pekerjaan' => $row['status'],
                         'jabatan_id' => $jabatan->id,
                         'lembaga_id' => 3,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
 
                 } elseif($checkJ && !$check) {
                     Pegawai::create([
-                        'user_id' => Auth::user()->id,
                         'nip' => $row['nip'],
                         'nama' => $row['user_id']['nama'],
                         'alamat' => $row['user_id']['alamat'],
@@ -353,7 +350,7 @@ class DataPegawaiController extends Controller
                         'status_pekerjaan' => $row['status'],
                         'jabatan_id' => $jabatan->id,
                         'lembaga_id' => 3,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 }
             }
@@ -390,8 +387,7 @@ class DataPegawaiController extends Controller
                     ->where('agama_id', 1)->where('kewarganegaraan_id', $negara->id)->where('telpon', $row['phone'])->where('email', $row['email'])
                     ->where('status_pernikahan', $hub)->where('tgl_masuk', strftime("%d %B %Y", strtotime($row['profile']['register'])))
                     ->where('status_pekerjaan', $stats)->where('jabatan_id', $jabatan->id)
-                    ->where('jenjang_id', $row['edu']['ind'] != null ? Jenjang::where('nama_jenjang', $row['edu']['ind'])->first()->id : null)->where('lembaga_id', 4)
-                    ->where('created_by', Auth::user()->nama_user)->count();
+                    ->where('jenjang_id', $row['edu']['ind'] != null ? Jenjang::where('nama_jenjang', $row['edu']['ind'])->first()->id : null)->where('lembaga_id', 4)->count();
 
                 $checkJ = Jabatan::where('nama_jabatan', $row['role']['ind'])->where('lembaga_id', 4)->count();
 
@@ -399,11 +395,10 @@ class DataPegawaiController extends Controller
                     Jabatan::create([
                         'nama_jabatan' => $row['role']['ind'],
                         'lembaga_id' => 4,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
 
                     Pegawai::create([
-                        'user_id' => Auth::user()->id,
                         'nip' => $row['ni'],
                         'nama' => $row['name'],
                         'alamat' => $row['address'],
@@ -420,12 +415,11 @@ class DataPegawaiController extends Controller
                         'jabatan_id' => $jabatan->id,
                         'jenjang_id' => $row['edu']['ind'] != null ? Jenjang::where('nama_jenjang', $row['edu']['ind'])->first()->id : null,
                         'lembaga_id' => 4,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
 
                 } elseif(!$check && $checkJ) {
                     Pegawai::create([
-                        'user_id' => Auth::user()->id,
                         'nip' => $row['ni'],
                         'nama' => $row['name'],
                         'alamat' => $row['address'],
@@ -442,7 +436,7 @@ class DataPegawaiController extends Controller
                         'jabatan_id' => $jabatan->id,
                         'jenjang_id' => $row['edu']['ind'] != null ? Jenjang::where('nama_jenjang', $row['edu']['ind'])->first()->id : null,
                         'lembaga_id' => 4,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 }
             }
@@ -474,8 +468,7 @@ class DataPegawaiController extends Controller
                     ->where('status_pekerjaan', $row['status'])->where('jabatan_id', $jabatan->id)
                     ->where('jenjang_id', $row['edu']['nama_jenjang'] != null ? Jenjang::where('nama_jenjang', $row['edu']['nama_jenjang'])->first()->id : null)
                     ->where('jurusan_id', $row['jurusan']['nama_jurusan_pendidikan'] != null ? JurusanPendidikan::where('nama_jurusan_pendidikan', $row['jurusan']['nama_jurusan_pendidikan'])->first()->id : null)
-                    ->where('instansi', $row['profile']['instansi'])->where('thn_lulus', $row['profile']['thn_lulus'])->where('lembaga_id', 2)
-                    ->where('created_by', Auth::user()->nama_user)->count();
+                    ->where('instansi', $row['profile']['instansi'])->where('thn_lulus', $row['profile']['thn_lulus'])->where('lembaga_id', 2)->count();
 
                 $checkJ = Jabatan::where('nama_jabatan', $row['role']['nama'])->where('lembaga_id', 2)->count();
 
@@ -483,11 +476,10 @@ class DataPegawaiController extends Controller
                     Jabatan::create([
                         'nama_jabatan' => $row['role']['nama'],
                         'lembaga_id' => 2,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
 
                     Pegawai::create([
-                        'user_id' => Auth::user()->id,
                         'nik' => $row['profile']['nik'],
                         'nip' => $row['profile']['nip'],
                         'nama' => $row['nama_user'],
@@ -514,12 +506,11 @@ class DataPegawaiController extends Controller
                         'instansi' => $row['profile']['instansi'],
                         'thn_lulus' => $row['profile']['thn_lulus'],
                         'lembaga_id' => 2,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
 
                 } elseif(!$check && $checkJ) {
                     Pegawai::create([
-                        'user_id' => Auth::user()->id,
                         'nik' => $row['profile']['nik'],
                         'nip' => $row['profile']['nip'],
                         'nama' => $row['nama_user'],
@@ -546,7 +537,7 @@ class DataPegawaiController extends Controller
                         'instansi' => $row['profile']['instansi'],
                         'thn_lulus' => $row['profile']['thn_lulus'],
                         'lembaga_id' => 2,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 }
             }

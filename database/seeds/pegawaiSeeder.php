@@ -29,7 +29,6 @@ class pegawaiSeeder extends Seeder
 
         for ($c = 0; $c < 13; $c++){
             Pegawai::create([
-                'user_id' => rand(User::min('id'), User::max('id')),
                 'nik' => $faker->numerify('###########'),
                 'nip' => $faker->numerify('###########'),
                 'foto' => $faker->imageUrl('84', '112'),
@@ -68,89 +67,76 @@ class pegawaiSeeder extends Seeder
 
         Pegawai::find(1)->update([
             'nama' => 'Ir. Akhmad Mujib',
-            'jabatan_yayasan_id' => 1,
-            'jabatan_id' => null,
+            'jabatan_id' => 1,
             'lembaga_id' => 1,
         ]);
 
         Pegawai::find(2)->update([
             'nama' => 'Lili Musyafa’ah, S.Pd, M. Pd',
-            'jabatan_yayasan_id' => 2,
-            'jabatan_id' => null,
+            'jabatan_id' => 2,
             'lembaga_id' => 1,
         ]);
 
         Pegawai::find(3)->update([
             'nama' => 'Ahmad Mustafid',
-            'jabatan_yayasan_id' => 3,
-            'jabatan_id' => null,
+            'jabatan_id' => 3,
             'lembaga_id' => 1,
         ]);
 
         Pegawai::find(4)->update([
             'nama' => 'Farah Nur Jihan',
-            'jabatan_yayasan_id' => 4,
-            'jabatan_id' => null,
+            'jabatan_id' => 4,
             'lembaga_id' => 1,
         ]);
 
         Pegawai::find(5)->update([
             'nama' => 'Abraham Samad',
-            'jabatan_yayasan_id' => 5,
-            'jabatan_id' => null,
+            'jabatan_id' => 5,
             'lembaga_id' => 1,
         ]);
 
         Pegawai::find(6)->update([
             'nama' => 'Firdia Qatrunnada',
-            'jabatan_yayasan_id' => 6,
-            'jabatan_id' => null,
+            'jabatan_id' => 6,
             'lembaga_id' => 1,
         ]);
 
         Pegawai::find(7)->update([
             'nama' => 'Nizal Firmansyah',
-            'jabatan_yayasan_id' => 7,
-            'jabatan_id' => null,
+            'jabatan_id' => 7,
             'lembaga_id' => 1,
         ]);
 
         Pegawai::find(8)->update([
             'nama' => 'Muhammad Marsad Mubarok',
-            'jabatan_yayasan_id' => null,
             'jabatan_id' => 8,
             'lembaga_id' => 2,
         ]);
 
         Pegawai::find(9)->update([
             'nama' => 'Lili Musyafa’ah, S.Pd, M. Pd',
-            'jabatan_yayasan_id' => null,
             'jabatan_id' => 9,
             'lembaga_id' => 2,
         ]);
 
         Pegawai::find(10)->update([
             'nama' => 'Khoerun Nikmah',
-            'jabatan_yayasan_id' => null,
             'jabatan_id' => 8,
             'lembaga_id' => 3,
         ]);
 
         Pegawai::find(11)->update([
-            'jabatan_yayasan_id' => null,
             'jabatan_id' => 9,
             'lembaga_id' => 3,
         ]);
 
         Pegawai::find(12)->update([
             'nama' => 'Firdia Qotrunnada',
-            'jabatan_yayasan_id' => null,
             'jabatan_id' => 8,
             'lembaga_id' => 4,
         ]);
 
         Pegawai::find(13)->update([
-            'jabatan_yayasan_id' => null,
             'jabatan_id' => 9,
             'lembaga_id' => 4,
         ]);

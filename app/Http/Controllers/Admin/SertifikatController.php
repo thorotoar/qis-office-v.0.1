@@ -45,10 +45,9 @@ class SertifikatController extends Controller
         }
 
         $ts = Sertifikat::create([
-            'user_id' => Auth::user()->id,
             'versi_sertifikat' => $request->versi,
             'tgl_dicatat' => $request->tgl_catat,
-            'created_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->pegawai->nama,
         ]);
 
 //        dd($ts);

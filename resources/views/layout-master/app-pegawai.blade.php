@@ -137,7 +137,7 @@
                 <!-- User profile and search -->
                 <ul class="navbar-nav my-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset(Auth::user()->foto_user)}}" alt="user" class="profile-pic" /></a>
+                        <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{Auth::user()->pegawai->foto != null ? asset(Auth::user()->pegawai->foto) : asset('images/icon/no3x4.png')}}" alt="user" class="profile-pic" /></a>
                         {{--<img src="{{asset(Auth::user()->foto)}}" alt="user" class="profile-pic" />--}}
                         {{--<button class="btn btn-info btn-flat btn-sm btn-rounded">{{Auth::user()->nama_user}}</button>--}}
                         <div class="dropdown-menu dropdown-menu-right animated zoomIn">

@@ -15,12 +15,10 @@ class CreateSertifikatsTable extends Migration
     {
         Schema::create('sertifikats', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->string('versi_sertifikat');
             $table->string('tgl_dicatat');
-            $table->text('template_sertifikat')->nullable();
-            $table->string('created_by');
+            $table->string('template_sertifikat')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
         });
     }

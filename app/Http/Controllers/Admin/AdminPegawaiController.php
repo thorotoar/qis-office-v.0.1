@@ -65,7 +65,6 @@ class AdminPegawaiController extends Controller
         $pegawai = Pegawai::find($id);
 
         $pegawai->update([
-            'user_id' => Auth::user()->id,
             'nik' => $request->nik,
             'nip' => $request->nip,
             'nama' => $request->nama,
@@ -100,7 +99,7 @@ class AdminPegawaiController extends Controller
             'jurusan_id' => $request->jurusan,
             'instansi' => $request->instansi,
             'thn_lulus' => $request->thn_lulus,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         if (Input::has('foto_new')) {

@@ -106,7 +106,6 @@ class AdminPesertaController extends Controller
         $peserta = PesertaDidik::find($id);
 
         $peserta->update([
-            'user_id' => Auth::user()->id,
             'nama' => $request->nama,
             'kelamin' => $request->kelamin,
             'nisn' => $request->nisn,
@@ -160,7 +159,7 @@ class AdminPesertaController extends Controller
             'tgl_masuk' => $request->tgl_masuk,
             'status' => $request->status,
             'lembaga_id' => $request->lembaga,
-            'created_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
 
         ]);
 

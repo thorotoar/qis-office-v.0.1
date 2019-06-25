@@ -47,12 +47,11 @@ class AdminDokumenController extends Controller
         $dokumen = Dokumen::find($id);
 
         $dokumen->update([
-            'user_id' => Auth::user()->id,
             'nama_dokumen' => $request->nama_dokumen,
             'tgl_file' => $request->tgl_file,
             'tgl_dicatat' => $request->tgl_dicatat,
             'keterangan' => $request->keterangan,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         if (Input::has('delete_file')) {

@@ -43,13 +43,9 @@ class UserManajemenController extends Controller
 
         $user =  User::create([
             'username' => $request->username,
-            'nama_user' => $employee->nama,
             'password' => bcrypt($request->password),
-            'password_a' => $request->password,
-            'email_user' => $employee->email,
-            'foto_user' => $employee->foto,
             'type' => $request->hak_akses,
-            'created_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->pegawai->nama,
         ]);
 
         $employee->update([
@@ -57,7 +53,7 @@ class UserManajemenController extends Controller
             'status_user' => $user->type,
         ]);
 
-        return redirect()->route('um-home')->with('sukses', "<b>" . $user->nama_user . "</b>" . ' berhasil ditambahkan sebagai ' . "<b>" . $user->type . "</b>" . ' dengan username ' . "<b>" . $user->username . "</b>" . '.');
+        return redirect()->route('um-home')->with('sukses', "<b>" . $user->pegawai->nama . "</b>" . ' berhasil ditambahkan sebagai ' . "<b>" . $user->type . "</b>" . ' dengan username ' . "<b>" . $user->username . "</b>" . '.');
     }
 
     public function edit(Request $request){
@@ -86,17 +82,14 @@ class UserManajemenController extends Controller
 
         $user->update([
             'username' => $request->username,
-            'nama_user' => $employee->nama,
             'password' => bcrypt($request->password),
-            'password_a' => $request->password,
-            'email_user' => $employee->email,
-            'foto_user' => $employee->foto,
             'type' => $request->hak_akses,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         $employee->update([
             'user_id' => $user->id,
+            'status_user' => $user->type,
         ]);
 
         //dd($user->email);

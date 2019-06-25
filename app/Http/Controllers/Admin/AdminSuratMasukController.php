@@ -46,14 +46,13 @@ class AdminSuratMasukController extends Controller
         $suratM = SuratMasuk::find($id);
 
         $suratM->update([
-            'user_id' => Auth::user()->id,
             'no_surat' => $request->no_surat,
             'tgl_diterima' => $request->tgl_diterima,
             'tgl_dicatat' => $request->tgl_dicatat,
             'pengirim' => $request->pengirim,
             'penerima' => $request->penerima,
             'prihal' => $request->prihal,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         if (Input::has('upload_file_new')) {

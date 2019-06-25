@@ -109,13 +109,13 @@
                                             ->where('no_rek', '!=', null)->where('bank_id', '!=', null)->where('kcp_bank', '!=', null)->where('nik_ayah', '!=', null)
                                             ->where('ayah', '!=', null)->where('nik_ibu', '!=', null)->where('ibu', '!=', null)->where('nuptk', '!=', null)
                                             ->where('no_sk', '!=', null)->where('tgl_masuk', '!=', null)->where('jabatan_id', '!=', null)
-                                            ->where('jabatan_yayasan_id', '!=', null)->where('lembaga_id', '!=', null)->where('jenjang_id', '!=', null)
+                                            ->where('lembaga_id', '!=', null)->where('jenjang_id', '!=', null)
                                             ->where('thn_lulus', '!=', null)->where('instansi', '!=', null)->where('jurusan_id', '!=', null)->first();
 
                                             //$pegawai = App\Pegawai::find($value->pegawai_id); //$pegawai->foto
                                             $img = $value->foto == null ? asset('images/icon/no.png') : asset($value->foto);
                                             $nama = $value->nama;
-                                            $type = ucwords($value->user->type);
+                                            $type = $value->user_id == null ? '-' : ucwords($value->user->type);
                                             $nik = $value->nik == null ? '-' : $value->nik;
                                             $nip = $value->nip == null ? '-' : $value->nip;
                                             $ttl = $value->tempat_lahir . ', ' . $value->tgl_lahir;
@@ -174,7 +174,7 @@
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-placement="top" title="Lihat"
-                                                            onclick="lihatPegawai('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$nik}}', '{{$nip}}', '{{$ttl}}', '{{$kelamin}}',
+                                                            onclick="lihatPegawai('{{$value->id}}','{{$img}}', '{{$nama}}', '{{$type}}', '{{$nik}}', '{{$nip}}', '{{$ttl}}', '{{$kelamin}}',
                                                                     '{{$agama}}', '{{$telp}}', '{{$email}}', '{{$negara}}', '{{$status}}', '{{$alamat}}', '{{$noRek}}',
                                                                     '{{$bank}}', '{{$kcpBank}}', '{{$nikA}}', '{{$namaA}}', '{{$nikI}}', '{{$namaI}}', '{{$namaP}}',
                                                                     '{{$pekerjaanP}}', '{{$nuptk}}', '{{$sk}}', '{{$tglM}}', '{{$jabatan}}', '{{$lembaga}}',
@@ -216,10 +216,11 @@
             window.location='{{route('ad-p-edit')}}'+'?id='+id;
         });
 
-        function lihatPegawai(id, img, nama, nik, nip, ttl, kelamin, agama, telp, email, negara, status, alamat, noRek, bank, kcpBank, nikA,
+        function lihatPegawai(id, img, nama, type, nik, nip, ttl, kelamin, agama, telp, email, negara, status, alamat, noRek, bank, kcpBank, nikA,
                               namaA, nikI, namaI, namaP, pekerjaanP, nuptk, sk, tglM, jabatan, lembaga, jenjangT, thnLulus, instansi, jurusan, created, updated) {
             $("#carousel-thumb img").attr('src', img);
             $("#nama").text(nama);
+            $("#type").text(type);
             $("#nik").text(nik);
             $("#nip").text(nip);
             $("#ttl").text(ttl);

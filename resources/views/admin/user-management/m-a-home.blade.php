@@ -56,17 +56,17 @@
                                     <tbody>
                                     @foreach($userM as $index => $value)
                                         @php
-                                        $nama = $value->nama_user;
+                                        $nama = $value->pegawai->nama;
                                         $jab = ucwords($value->type);
                                         $uname = $value->username;
-                                        $email = $value->email_user == null ? '-' : $value->email_user;
+                                        $email = $value->pegawai->email == null ? '-' : $value->pegawai->email;
                                         $created = $value->created_by == null ? '-' : $value->created_by;
                                         $updated = $value->updated_by == null ? '-' : $value->updated_by;
                                         @endphp
                                         <tr>
                                             <th>{{ $index +1 }}</th>
                                             <th>{{ $value->username }}</th>
-                                            <th>{{ $value->nama_user }}</th>
+                                            <th>{{ $value->pegawai->nama == null ? '-' : $value->pegawai->nama}}</th>
                                             <th>{{ ucwords($value->type) }}</th>
                                             <th>
                                                 <div class="table-data-feature">

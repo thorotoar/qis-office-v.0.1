@@ -46,7 +46,7 @@ class JenisSuratController extends Controller
             'template_surat' => $request->template,
             'lembaga_id' => $request->lembaga,
             'template_konten' => $request->isi,
-            'created_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->pegawai->nama,
         ]);
 
         return redirect()->route('jsm-home')->with('sukses', "<b>" . $js->nama_jenis_surat . "</b>" .' berhasil ditambahkan.');
@@ -76,7 +76,7 @@ class JenisSuratController extends Controller
             'template_surat' => $request->template,
             'lembaga_id' => $request->lembaga,
             'template_konten' => $request->isi,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
         return redirect()->route('jsm-home')->with('edit', "<b>" . $jSurat->nama_jenis_surat . "</b>" .' berhasil diubah.');
 

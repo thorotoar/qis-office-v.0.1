@@ -17,7 +17,6 @@ class suratMasukSeeder extends Seeder
 
         for ($c = 0; $c < 7; $c++){
             SuratMasuk::create([
-                'user_id' => rand(\App\User::min('id'), \App\User::max('id')),
                 'no_surat' => $faker->numerify('###'),
                 'tgl_diterima' => $faker->date(),
                 'tgl_dicatat' => $faker->date(),

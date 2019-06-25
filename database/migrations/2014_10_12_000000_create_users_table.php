@@ -16,11 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username');
-            $table->string('nama_user')->onDelete('cascade')->onUpdate('cascade');
             $table->string('password');
-            $table->string('password_a');
-            $table->string('email_user')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('foto_user')->nullable();
             $table->string('type');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

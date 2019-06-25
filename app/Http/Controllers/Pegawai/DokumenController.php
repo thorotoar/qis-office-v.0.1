@@ -71,7 +71,7 @@ class DokumenController extends Controller
             'tgl_file' => $request->tgl_file,
             'tgl_dicatat' => $request->tgl_dicatat,
             'keterangan' => $request->keterangan,
-            'created_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->pegawai->nama,
 
         ]);
 
@@ -127,7 +127,7 @@ class DokumenController extends Controller
             'tgl_file' => $request->tgl_file,
             'tgl_dicatat' => $request->tgl_dicatat,
             'keterangan' => $request->keterangan,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         if (Input::has('delete_file')) {

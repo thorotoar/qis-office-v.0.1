@@ -54,7 +54,7 @@ class SuratMasukController extends Controller
             'pengirim' => $request->pengirim,
             'penerima' => $request->penerima,
             'prihal' => $request->prihal,
-            'created_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->pegawai->nama,
 
         ]);
 
@@ -103,7 +103,7 @@ class SuratMasukController extends Controller
             'pengirim' => $request->pengirim,
             'penerima' => $request->penerima,
             'prihal' => $request->prihal,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         if (Input::has('upload_file_new')) {

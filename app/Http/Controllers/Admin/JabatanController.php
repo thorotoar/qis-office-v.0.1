@@ -66,7 +66,7 @@ class JabatanController extends Controller
         $jb = Jabatan::create([
             'kode_jabatan' => $request->kode,
             'nama_jabatan' => $request->jabatan,
-            'created_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->pegawai->nama,
         ]);
         return redirect()->route('jm-home')->with('sukses', 'Jabatan ' . "<b>" . $jb->nama_jabatan . "</b>" . ' berhasil ditambahkan.');
     }
@@ -100,7 +100,7 @@ class JabatanController extends Controller
         $jabatan->update([
             'kode_jabatan' => $request->kode,
             'nama_jabatan' => $request->jabatan,
-            'updated_by' => Auth::user()->nama_user,
+            'updated_by' => Auth::user()->pegawai->nama,
         ]);
 
         return redirect()->route('jm-home')->with('edit','Jabatan ' . "<b>" . $jabatan->nama_jabatan . "</b>" . ' berhasil diubah.');
@@ -125,7 +125,7 @@ class JabatanController extends Controller
                     Jabatan::create([
                         'nama_jabatan' => $row['nama'],
                         'lembaga_id' => 2,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 }
             }
@@ -148,7 +148,7 @@ class JabatanController extends Controller
                     Jabatan::create([
                         'nama_jabatan' => $row['nama'],
                         'lembaga_id' => 3,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 }
             }
@@ -171,7 +171,7 @@ class JabatanController extends Controller
                     Jabatan::create([
                         'nama_jabatan' => $row['ind'],
                         'lembaga_id' => 4,
-                        'created_by' => Auth::user()->nama_user,
+                        'created_by' => Auth::user()->pegawai->nama,
                     ]);
                 }
             }
