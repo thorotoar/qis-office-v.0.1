@@ -151,22 +151,7 @@ class SuratKeluarController extends Controller
 
     public function attach(Request $request){
         $sk = SuratKeluar::find($request->id);
-
-        if (Input::has('file_pdf')){
-            File::delete('file-surat/'.$sk->attach);
-
-            $file = $request->file('file_pdf')->getClientOriginalName();
-            Input::file('file_pdf')->move('file-surat/', $file);
-
-            $sk->update([
-                'attach' => $file,
-            ]);
-
-            Mail::send(new SuratKeluarEmail($request, $sk->attach));
-        }else{
-            Mail::send(new SuratKeluarEmail($request, $sk->attach));
-        }
-
+        Mail::send(new SuratKeluarEmail($request, $sk->attach));
 
         return back()->with('send', 'Surat Keluar Berhasil Terkirim');
     }
