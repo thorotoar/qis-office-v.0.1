@@ -51,7 +51,7 @@
                                                 <option readonly="true" disabled>Pilih Pegawai</option>
                                                 @foreach(App\Pegawai::all() as $item)
                                                     <option value="{{$item->id}}"
-                                                            @if($item->nama == $userM->nama_user)
+                                                            @if($item->nama == $userM->pegawai->nama)
                                                             selected
                                                             @endif
                                                     >{{$item->nama}}</option>

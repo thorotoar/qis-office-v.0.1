@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Password;
 
 class UserManajemenController extends Controller
@@ -86,6 +87,13 @@ class UserManajemenController extends Controller
             'type' => $request->hak_akses,
             'updated_by' => Auth::user()->pegawai->nama,
         ]);
+
+        if (Input::has('id_pegawai')) {
+           $pegawai = Pegawai::where('user_id', $user->id)->first();
+           $pegawai->update([
+               'user_id' => null
+           ]);
+        }
 
         $employee->update([
             'user_id' => $user->id,

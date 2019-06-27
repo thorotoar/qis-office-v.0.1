@@ -133,25 +133,6 @@ class JadwalPelajaranController extends Controller
         $response = json_decode($response, true);
 
         foreach ($response as $row){
-//                $nama = PesertaDidik::where('nama', $row['user']['nama'])->first();
-//
-//                $check = JadwalPelajaran::where('siswa_id', $nama['id'])->where('kegiatan', $row['kegiatan'])->where('ruangan', $row['ruang'])->where('tgl_dicatat', strftime("%d %B %Y", strtotime(now())))->where('lembaga_id', 3)->count();
-//
-//                if (!$check){
-//                    JadwalPelajaran::create([
-//                        'siswa_id' => $nama['id'],
-//                        'waktu_mulai' => $row['waktu_mulai'],
-//                        'waktu_akhir' => $row['waktu_akhir'],
-//                        'kegiatan' => $row['kegiatan'],
-//                        'ruangan' => $row['ruang'],
-//                        'keterangan' => $row['keterangan'],
-//                        'tgl_dicatat' => strftime("%d %B %Y", strtotime(now())),
-//                        'lembaga_id' => 3,
-//                        'created_by' => Auth::user()->nama_user,
-//                    ]);
-//                }
-
-//                dd($row['jadwal']);/
             $nama = PesertaDidik::where('nama', $row['user_id']['nama'])->first();
             $jadwalN = 'Jadwal '.$nama['nama'];
 

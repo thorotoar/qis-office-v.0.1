@@ -53,7 +53,7 @@ class SuratMasukController extends Controller
             'tgl_dicatat' => $request->tgl_dicatat,
             'pengirim' => $request->pengirim,
             'penerima' => $request->penerima,
-            'prihal' => $request->prihal,
+            'perihal' => $request->prihal,
             'created_by' => Auth::user()->pegawai->nama,
 
         ]);
@@ -102,7 +102,7 @@ class SuratMasukController extends Controller
             'tgl_dicatat' => $request->tgl_dicatat,
             'pengirim' => $request->pengirim,
             'penerima' => $request->penerima,
-            'prihal' => $request->prihal,
+            'perihal' => $request->prihal,
             'updated_by' => Auth::user()->pegawai->nama,
         ]);
 

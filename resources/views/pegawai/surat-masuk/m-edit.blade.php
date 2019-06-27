@@ -83,7 +83,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label>Perihal</label>
-                                                <textarea name="prihal" class="form-control" cols="30" rows="10">{{$suratM->prihal}}</textarea>
+                                                <textarea name="prihal" class="form-control" cols="30" rows="10">{{$suratM->perihal}}</textarea>
                                             </div>
                                         </div>
                                     </div>

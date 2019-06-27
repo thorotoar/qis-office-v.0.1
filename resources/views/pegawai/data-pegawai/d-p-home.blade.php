@@ -133,9 +133,9 @@
                                             ->where('kewarganegaraan_id', '!=', null)->where('status_pernikahan', '!=', null)->where('alamat', '!=', null)
                                             ->where('no_rek', '!=', null)->where('bank_id', '!=', null)->where('kcp_bank', '!=', null)->where('nik_ayah', '!=', null)
                                             ->where('ayah', '!=', null)->where('nik_ibu', '!=', null)->where('ibu', '!=', null)->where('nuptk', '!=', null)
-                                            ->where('no_sk', '!=', null)->where('tgl_masuk', '!=', null)->where('jabatan_id', '!=', null)
-                                            ->where('lembaga_id', '!=', null)->where('jenjang_id', '!=', null)
-                                            ->where('thn_lulus', '!=', null)->where('instansi', '!=', null)->where('jurusan_id', '!=', null)->first();
+                                            ->where('no_sk', '!=', null)->where('tgl_masuk', '!=', null)->where('jabatan_id', '!=', null)->where('lembaga_id', '!=', null)
+                                            ->where('jenjang_id', '!=', null)->where('thn_lulus', '!=', null)->where('instansi', '!=', null)
+                                            ->where('jurusan_id', '!=', null)->first();
 
                                             //$pegawai = App\Pegawai::find($value->pegawai_id); //$pegawai->foto
                                             $img = $value->foto == null ? asset('images/icon/no.png') : asset($value->foto);

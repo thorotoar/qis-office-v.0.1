@@ -47,7 +47,7 @@
             <td>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</td>
             <td>{{ $value->pengirim }}</td>
             <td>{{ $value->penerima }}</td>
-            <td>{{ $value->prihal }}</td>
+            <td>{{ $value->perihal }}</td>
         </tr>
     @endforeach
 </table>

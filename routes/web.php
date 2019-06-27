@@ -645,11 +645,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surk-home'
         ]);
 
-        Route::get('/data-surat-keluar-tambah', [
-            'uses' => 'SuratKeluarController@create',
-            'as' => 'surk-tambah'
-        ]);
-
         Route::post('/tambah-surat-keluar', [
             'uses' => 'SuratKeluarController@store',
             'as' => 'surk-tambah-selesai'

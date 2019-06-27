@@ -90,7 +90,7 @@
                                         $tglC = $value->tgl_dicatat;
                                         $pengirim = $value->pengirim;
                                         $penerima = $value->penerima;
-                                        $prihal = $value->prihal;
+                                        $prihal = $value->perihal;
                                         $created = $value->created_by == null ? '-' : $value->created_by;
                                         $updated = $value->updated_by == null ? '-' : $value->updated_by;
                                         @endphp
@@ -100,7 +100,7 @@
                                             <td>{{ strftime("%d %B %Y", strtotime($value->tgl_diterima)) }}</td>
                                             <td>{{ strftime("%d %B %Y", strtotime($value->tgl_dicatat)) }}</td>
                                             <td>{{ $value->pengirim }}</td>
-                                            <td>{{ $value->prihal }}</td>
+                                            <td>{{ $value->perihal }}</td>
                                             <td>
                                                 <div class="table-data-feature">
                                                     <form id="form-deleteSuratMasuk-{{$value->id}}" class="form-group pull-left" action="" method="post" hidden>
